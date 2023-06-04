@@ -80,7 +80,20 @@ function isEmailExists(email) {
   return storedUsers.some(user => user.email === email);
 }
 
-
 function getDashboardPage(type) {
   return (type === 'admin') ? '../../templates/dashboard/admin_dashboard.html' : '../../templates/dashboard/member_dashboard.html';
+}
+
+function isLoggedIn() { 
+  return checkCookieExists('userInfo');
+}
+
+function isAdmin() { 
+  if (isLoggedIn()) {
+    const loggedInUserInfo = getCookieValue('userInfo');
+    if (loggedInUserInfo) {
+      return loggedInUserInfo.type === 'admin';
+    }
+  }
+  return false;
 }
