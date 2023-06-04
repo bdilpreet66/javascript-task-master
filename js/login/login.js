@@ -27,15 +27,18 @@ else {
         }
 
         // Reset form validation
-        event.target.reset();
         event.target.classList.remove('was-validated');
   
         // Get form values
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
+        const loginEmail = document.getElementById('email').value;
+        const loginPassword = document.getElementById('password').value;
 
-        const userDetails = getUser(email);
-        if (userDetails.password === password) {
+        const userDetails = getUser(loginEmail);
+        if (userDetails.password === loginPassword) {
+            createCookie('userInfo', JSON.stringify({
+                email: loginEmail,
+                type: userDetails.type
+            }), 24);
             window.location = getDashboardPage(userDetails.type);
         }
         else {
