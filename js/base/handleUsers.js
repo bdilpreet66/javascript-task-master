@@ -44,18 +44,6 @@ function verifyUser(email, password, hashKey) {
   return false;
 }
 
-// Function to generate a hash key
-function generateHashKey() {
-  // Simulated hash key generation
-  return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-}
-
-// Function to hash a password
-function hashPassword(password, hashKey) {
-  // Simulated password hashing
-  return CryptoJS.MD5(password + hashKey).toString();
-}
-
 // Function to get the total number of users
 function getTotalUsers() {
   const storedUsers = JSON.parse(localStorage.getItem('users')) || [];
@@ -96,4 +84,8 @@ function isAdmin() {
     }
   }
   return false;
+}
+
+function loginPage() {
+    window.location = '../../templates/index.html';
 }
