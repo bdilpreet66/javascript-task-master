@@ -54,7 +54,7 @@ function getTotalUsers() {
 function deleteUser(email) {
   let storedUsers = JSON.parse(localStorage.getItem('users')) || [];
   const userIndex = storedUsers.findIndex(user => user.email === email);
-  if (userIndex !== -1 && storedUsers[userIndex].type !== 'admin') {
+  if (userIndex !== -1) {
     storedUsers.splice(userIndex, 1);
     localStorage.setItem('users', JSON.stringify(storedUsers));
     return true;
@@ -83,7 +83,7 @@ function isAdmin() {
       return loggedInUserInfo.type === 'admin';
     }
   }
-  return false;
+  loginPage();
 }
 
 function loginPage() {

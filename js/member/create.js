@@ -20,15 +20,18 @@ function handleRegistrationFormSubmit(event) {
         alert('Email already exists!');
     }
     else {
-        createUser(email,password,type,hourlyRate);
-        alert('Added successfully.');
+        createUser(email, password, type, hourlyRate);
+        alert('Member created successfully!');
+        window.location = "../member/list_members.html";
+        event.target.reset();
     }
 
     // Reset form validation
     event.target.classList.remove('was-validated');
-    event.target.reset();
-  }
+}
 
-  // Add event listener to the registration form
-  const registrationForm = document.getElementById('registrationForm');
-  registrationForm.addEventListener('submit', handleRegistrationFormSubmit);
+// Add event listener to the registration form
+if (isAdmin()){
+    const registrationForm = document.getElementById('registrationForm');
+    registrationForm.addEventListener('submit', handleRegistrationFormSubmit);
+}

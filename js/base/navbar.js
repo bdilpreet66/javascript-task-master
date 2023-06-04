@@ -9,6 +9,16 @@ function handleNavbarToggle(event) {
     }
 }
 
-  // Add event listener to the navbar toggler
+function setDashbaordLink() {
+  if (isLoggedIn()) {
+    const loggedInUserInfo = getCookieValue('userInfo');
+    document.getElementById("dashboard-link").href = getDashboardPage(loggedInUserInfo.type)
+  } else {
+    loginPage();
+  }
+}
+
+// Add event listener to the navbar toggler
 const navbarToggler = document.querySelector('.navbar-toggler');
 navbarToggler.addEventListener('click', handleNavbarToggle);
+setDashbaordLink()

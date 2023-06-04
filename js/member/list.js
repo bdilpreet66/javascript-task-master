@@ -9,6 +9,32 @@ const resultsSelect = document.getElementById('resultsSelect');
 let selectedUsers = [];
 let selectedUserIds = [];
 
+
+
+function isCurrentUser(email) {
+    if (isLoggedIn()) {
+      const loggedInUserInfo = getCookieValue('userInfo');
+      if (loggedInUserInfo.email === email) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+    loginPage();
+}
+
+function confirmDeleteUser(email) {
+    if (confirm("Are you sure? \nYou won't be able to revert this.")) {
+        // User clicked "OK"
+        if (deleteUser(email)) {
+            setTimeout(()=> {
+                alert("User deleted successfully");
+                window.location.reload();
+            }, 500)
+        }
+    }
+}
+
 // Display users
 function displayUsers(users) {
     userTableBody.innerHTML = '';
@@ -21,7 +47,7 @@ function displayUsers(users) {
             <td>${(user.type == "admin") ? `<span class="badge badge-success">Admin</span>` : `<span class="badge badge-info">Regular</span>`}</td>
             <td>
             <a class="btn btn-primary btn-sm" href="edit_member.html?email=${user.email}">Edit</a>
-            <button class="btn btn-danger btn-sm" data-id="${user.email}" onclick="deleteUser(${user.email})">Delete</button>
+            ${!isCurrentUser(user.email) ? `<button class="btn btn-danger btn-sm" data-id="${user.email}" onclick="confirmDeleteUser('${user.email}')">Delete</button>`: ``}
             </td>
         `;
         userTableBody.appendChild(row);
@@ -51,7 +77,5 @@ resultsSelect.addEventListener('change', function () {
 
 // Display initial users
 if (isAdmin()){
-    filterUsers(users);
-} else {
-    loginPage();
+    filterUsers();
 }
