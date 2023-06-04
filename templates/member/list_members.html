@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    .navbar-toggler {
+      border: none;
+      background: transparent;
+    }
+
+    .navbar-toggler-icon {
+      background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='%23fff' d='M1 2.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1H1.5a.5.5 0 0 1-.5-.5zm0 5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1H1.5a.5.5 0 0 1-.5-.5zm0 5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1H1.5a.5.5 0 0 1-.5-.5z'/%3E%3C/svg%3E");
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-success    ">
+    <a class="navbar-brand" href=""><span class="text-teal">Task</span>Master</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="../member/list_members.html">Dashboard</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Tasks</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="windows.location.reload()">Member Management</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container mt-5">
+    
+    <h1>User Management</h1>
+
+    <div class="card">
+        <div class="card-body">
+
+            <!-- Search by email address and Number of results to display -->
+            <div class="form-group mt-4 d-flex justify-content-between">
+                <div>
+                    <input type="text" class="form-control" id="searchInput" placeholder="Search by email address">
+                </div>
+                <div>
+                    <select class="form-control" id="resultsSelect">
+                        <option value="1">1</option>
+                        <option value="10">10</option>
+                        <option value="15">15</option>
+                    </select>
+                </div>
+            </div>
+  
+
+            <!-- User table -->
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Email</th>
+                        <th scope="col">Type</th>
+                        <th scope="col">Hourly Rate</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="userTableBody"></tbody>
+            </table>
+        </div>
+    </div>
+  </div>
+  
+  <script src="../../js/base/navbar.js"></script>
+  <script src="../../js/base/cookies.js"></script>
+  <script src="../../js/base/handleUsers.js"></script>
+  <script src="../../js/member/list.js"></script>
+</body>
+
+</html>
