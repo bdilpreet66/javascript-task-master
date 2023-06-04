@@ -20,8 +20,8 @@ function displayUsers(users) {
             <td>$ ${user.hourlyRate}</td>
             <td>${(user.type == "admin") ? `<span class="badge badge-success">Admin</span>` : `<span class="badge badge-info">Regular</span>`}</td>
             <td>
-            <button class="btn btn-primary btn-sm" data-id="${user.id}" onclick="editUser(${user.id})">Edit</button>
-            <button class="btn btn-danger btn-sm" data-id="${user.id}" onclick="deleteUser(${user.id})">Delete</button>
+            <a class="btn btn-primary btn-sm" href="edit_member.html?email=${user.email}">Edit</a>
+            <button class="btn btn-danger btn-sm" data-id="${user.email}" onclick="deleteUser(${user.email})">Delete</button>
             </td>
         `;
         userTableBody.appendChild(row);
