@@ -50,7 +50,7 @@ resultsSelect.addEventListener('change', function () {
 });
 
 // Display initial users
-if (isAdmin){
+if (isAdmin()){
     filterUsers(users);
 } else {
     loginPage();

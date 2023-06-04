@@ -36,8 +36,7 @@
 
         // Save user
         const type = 'admin';
-        const haskKey = generateHashKey();
-        const newUser = createUser(email,password,type);
+        createUser(email,password,type);
 
         const loggedInUser = {
             email: email,
