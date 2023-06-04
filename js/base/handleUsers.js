@@ -22,6 +22,30 @@ function createUser(email, password, type, hourlyRate=0) {
   return user;
 }
 
+function updateUser(email, hourlyRate, type) {
+  let storedUsers = JSON.parse(localStorage.getItem('users')) || [];
+  const userIndex = storedUsers.findIndex(user => user.email === email);
+  if (userIndex !== -1) {
+    storedUsers[userIndex].hourlyRate = hourlyRate;
+    storedUsers[userIndex].type = type;
+    localStorage.setItem('users', JSON.stringify(storedUsers));
+    return true;
+  }
+  return false;
+}
+
+function setPassword(email, password) {
+  let storedUsers = JSON.parse(localStorage.getItem('users')) || [];
+  const userIndex = storedUsers.findIndex(user => user.email === email);
+  if (userIndex !== -1) {
+    storedUsers[userIndex].password = password;
+    localStorage.setItem('users', JSON.stringify(storedUsers));
+    return true;
+  }
+  return false;
+}
+
+
 // Function to get a user by email
 function getUser(email) {
   const storedUsers = JSON.parse(localStorage.getItem('users')) || [];
@@ -74,6 +98,14 @@ function getDashboardPage(type) {
 
 function isLoggedIn() { 
   return checkCookieExists('userInfo');
+}
+
+function getLoggedInUser() {
+  if (isLoggedIn()) {
+    const loggedInUserInfo = getCookieValue('userInfo');
+    return loggedInUserInfo.email;
+  }
+  loginPage();
 }
 
 function isAdmin() { 

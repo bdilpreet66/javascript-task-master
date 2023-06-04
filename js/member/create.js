@@ -30,8 +30,8 @@ function handleRegistrationFormSubmit(event) {
     event.target.classList.remove('was-validated');
 }
 
-// Add event listener to the registration form
 if (isAdmin()){
+    // Add event listener to the registration form
     const registrationForm = document.getElementById('registrationForm');
     registrationForm.addEventListener('submit', handleRegistrationFormSubmit);
 }
