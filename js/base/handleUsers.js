@@ -1,5 +1,10 @@
 "use strict";
 
+if (getTotalUsers() === 0) {
+  deleteCookie('userInfo');
+  window.location = '../../templates/setup/setup.html';
+}
+
 // Function to create and save a user
 function createUser(email, password, type, hourlyRate=0) {
   const user = {
