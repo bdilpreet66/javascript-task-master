@@ -72,7 +72,10 @@
                     <div class="col-12 col-md-6">
                         <div class="form-group">
                             <label for="hourlyRate">Hourly Rate:</label>
-                            <input type="number" class="form-control" id="hourlyRate" placeholder="Enter hourly rate">
+                            <input type="number" class="form-control" id="hourlyRate" placeholder="Enter hourly rate" min="0" required>
+                            <div class="invalid-feedback">
+                              Please enter a valid hourly rate.
+                            </div>
                         </div>
                     </div>
                     <div class="col-12 col-md-6">
@@ -95,13 +98,19 @@
                     <div class="col-12 col-md-6">
                         <div class="form-group">
                           <label for="newPassword">New Password:</label>
-                          <input type="password" class="form-control" id="newPassword" placeholder="Enter new password">
+                          <input type="password" class="form-control" id="newPassword" placeholder="Enter new password" required>
+                          <div class="invalid-feedback">
+                            Please provide a password.
+                          </div>
                         </div>
                     </div>
                     <div class="col-12 col-md-6">
                         <div class="form-group">
                           <label for="confirmPassword">Confirm Password:</label>
-                          <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm new password">
+                          <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm new password" required>
+                          <div class="invalid-feedback">
+                            Please confirm your password.
+                          </div>
                         </div>
                     </div>
                 </div>
