@@ -346,21 +346,6 @@ footer ul li {
     margin-bottom: 0;
 }
 
-.btnsecondary {
-    font-family: 'Recoleta';
-    background: #e6e6e6;
-}
-
-.btncustom{
-    border: none;
-    text-align: left;
-    font-family: 'Recoleta';
-    padding: 0;
-    font-weight: 600;
-    font-size: 18px;
-
-}
-
 /* Profile Page */
 
 .contentContainer {
@@ -1494,6 +1479,13 @@ footer ul li {
     font-weight: bold;
 }
 
+.btn-footer {
+    margin: 10px 10px;
+    float: right;
+    gap: 10px;
+    border-top: 0.5px;
+}
+
 .btn-default:hover {
     background-color: transparent;
     color: #000;
@@ -1501,7 +1493,8 @@ footer ul li {
 }
 
 .btn-default.btn-secondary {
-    background-color: #a29f9f;
+    background: #e6e6e6;
+    color: #000;
 }
 
 .btn-default.btn-secondary:hover {
