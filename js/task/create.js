@@ -1,6 +1,13 @@
 // Populate user emails for the Assign To field
 populateAssignToMembers();
 
+// Function to generate a new ID for a task
+function generateNewId() {
+    const maxId = tasks.reduce((max, task) => (task.id > max ? task.id : max), 0);
+    const newId = parseInt(maxId) + 1;
+    return newId;
+}
+
 // Handle form submission
 function handleTaskFormSubmit(event) {
     event.preventDefault();
@@ -11,10 +18,9 @@ function handleTaskFormSubmit(event) {
         event.target.classList.add('was-validated');
         return;
     }
-
-    if (isIdExists()) {
+    const taskID = document.getElementById('taskId').value;
+    if (!isIdExists(taskID)) {
         // Get form values
-        const taskID = document.getElementById('taskId').value;
         const newTask = {
             id: taskID,
             name: document.getElementById('taskName').value,
@@ -43,3 +49,6 @@ function handleTaskFormSubmit(event) {
 // Add event listener to the form
 const addTaskForm = document.getElementById('addTaskForm');
 addTaskForm.addEventListener('submit', handleTaskFormSubmit);
+
+// Auto-fill the Task ID
+document.getElementById('taskId').value = generateNewId();

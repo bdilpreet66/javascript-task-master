@@ -6,7 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <link rel="stylesheet" href="../../css/base.css">
+  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="stylesheet" href="../../css/responsive.css">
   <style>
     .navbar-toggler {
       border: none;
@@ -41,9 +42,231 @@
     </div>
   </nav>
 
-  <div class="container mt-5">
-    <!-- Your page content goes here -->
-  </div>
+  <div class="wrapper">
+    <!-- Header Start -->
+    <header>
+        <div class="container">
+            <div class="topHeader">
+                <div class="leftLink">
+                    {% if request.user.influencer_profile.images.all.0.image %}
+                      <img src="/media/{{ request.user.influencer_profile.images.all.0.image }}" alt="">
+                    {% else %}
+                      <img src="{% static 'frontend/assets/images/brand-logo.jpg' %}" alt="Fallback Image">
+                    {% endif %}
+                    <span>{{ request.user.influencer_profile.display_name }}</span>
+                  </div>
+                <a class="brand-name" href="/">
+                    <img class="d-md-flex d-none" src="{% static 'frontend/assets/images/logo.png' %}" alt="InChief.">
+                    <img class="d-md-none d-flex" src="{% static 'frontend/assets/images/logo2.png' %}" alt="InChief."></a>
+                <div class="navRight">
+                    <a href="#" class="toggleMenu d-none d-md-flex">
+                        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOC4zMDkiIGhlaWdodD0iMTMuMDAzIiB2aWV3Qm94PSIwIDAgMTguMzA5IDEzLjAwMyI+CiAgPGcgaWQ9Ikdyb3VwXzYwOSIgZGF0YS1uYW1lPSJHcm91cCA2MDkiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0xNzk1LjA1MyAtMzYuNTMzKSI+CiAgICA8bGluZSBpZD0iTGluZV85NCIgZGF0YS1uYW1lPSJMaW5lIDk0IiB4MT0iMTYuMzA5IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxNzk2LjA1MyAzNy41MzMpIiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgICA8bGluZSBpZD0iTGluZV85NSIgZGF0YS1uYW1lPSJMaW5lIDk1IiB4MT0iMTYuMzA5IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxNzk2LjA1MyA0My4wMzQpIiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgICA8bGluZSBpZD0iTGluZV85NiIgZGF0YS1uYW1lPSJMaW5lIDk2IiB4MT0iMTYuMzA5IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxNzk2LjA1MyA0OC41MzUpIiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgPC9nPgo8L3N2Zz4K"
+                            alt="">
+                    </a>
+                    <a href="#" class="toggleMenu d-flex d-md-none">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </a>
+
+                    <div class="mobile-menu">
+                        <div class="mobile-nav">
+                            <ul>
+                                <li>
+                                    <a href="{% url 'influencers_backend:home' %}">HOME</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'influencers_backend:profile' %}">PROFILE</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'influencers_backend:review' %}">REVIEWS</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'influencers_backend:achievements' %}">ACHIEVEMENTS</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'influencers_backend:campaign' %}">Invite</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="mobile-nav mobile-logout">
+                            <ul>
+                                <li onclick="window.location=`{% url 'influencers_backend:settings' %}`" style="cursor: pointer;">
+                                  <a>settings</a>
+                                </li>
+                                <li onclick="window.location=`{% url 'influencers_backend:logout' %}`" style="cursor: pointer;">
+                                  <a>logout</a>
+                                </li>
+                              </ul>                                  
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <ul class="navMenu">
+                <li {% block home_active %}{% endblock home_active %}><a href="{% url 'influencers_backend:home' %}">Home</a></li>
+                <li {% block profile_active %}{% endblock profile_active %}><a href="{% url 'influencers_backend:profile' %}">Profile</a></li>
+                <li {% block review_active %}{% endblock review_active %}><a href="{% url 'influencers_backend:review' %}">Reviews</a></li>
+                <li {% block achievements_active %}{% endblock achievements_active %}><a href="{% url 'influencers_backend:achievements' %}">Achievements</a></li>
+                <li {% block settings_active %}{% endblock settings_active %}><a href="{% url 'influencers_backend:settings' %}">SETTINGS</a></li>
+                <li {% block campaign_active %}{% endblock campaign_active %}><a href="{% url 'influencers_backend:campaign' %}">INVITE</a></li>
+            </ul>
+        </div>
+
+    </header>
+    <!-- Header End -->
+    <section class="main">
+      <div class="container pagefader">
+          <div class="reviewscore-main">
+              <div class="reviewscore">
+                  <h4>Your Trust Score</h4>
+                  <div class="reviewscore-media">
+                      <strong>{{ request.user.influencer_profile.rating }}</strong>
+                      <ul><li id="star-rating-final"></li></ul>
+                  </div>
+                  <p>Based on {{ request.user|verified_revies }} Reviews</p>
+              </div>
+              <ul class="reviewList justify-content-end">
+                  <li>
+                      <div class="reviewCard">
+                          <h3>Reviews this week</h3>
+                          <p>{{ request.user|reviews_this_week }}</p>
+                      </div>
+                  </li>
+                  <li>
+                      <div class="reviewCard">
+                          <h3><i>
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
+                                      <path fill="#5cd08f"
+                                          d="M11 20V7.825l-5.6 5.6L4 12l8-8l8 8l-1.4 1.425l-5.6-5.6V20h-2Z" />
+                                  </svg>
+                              </i> {{ request.user|positive }} </h3>
+                          <p>Positive</p>
+                      </div>
+                  </li>
+                  <li>
+                      <div class="reviewCard">
+                          <h3><i>
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
+                                      <path fill="#f1557a"
+                                          d="M11 5v11.17l-4.88-4.88c-.39-.39-1.03-.39-1.42 0a.996.996 0 0 0 0 1.41l6.59 6.59c.39.39 1.02.39 1.41 0l6.59-6.59a.996.996 0 1 0-1.41-1.41L13 16.17V5c0-.55-.45-1-1-1s-1 .45-1 1z" />
+                                  </svg>
+                              </i> {{ request.user|negative }} </h3>
+                          <p>Negative</p>
+                      </div>
+                  </li>
+                  <li>
+                      <div class="reviewCard">
+                          <h3><i><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
+                                      <path fill="#fed53d" d="M20 14H4v-4h16" />
+                                  </svg></i> {{ request.user|neutral }} </h3>
+                          <p>Neutral</p>
+                      </div>
+                  </li>
+                  <li>
+                      <div class="reviewCard">
+                          <h3> <i>
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
+                                      <path fill="#f1557a"
+                                          d="M11 5v11.17l-4.88-4.88c-.39-.39-1.03-.39-1.42 0a.996.996 0 0 0 0 1.41l6.59 6.59c.39.39 1.02.39 1.41 0l6.59-6.59a.996.996 0 1 0-1.41-1.41L13 16.17V5c0-.55-.45-1-1-1s-1 .45-1 1z" />
+                                  </svg>
+                              </i> {{ request.user|require_action }} </h3>
+                          <p>Requiring Action</p>
+                      </div>
+                  </li>
+              </ul>
+          </div>
+          <div class="achievements-generate">
+              <div class="achievements-side">
+                  <h4>Achievements</h4>
+                  <ul>
+                      {% for badge in request.user.influencer_profile.badge_connector.badges.all %}
+                          {% if badge|check_badges:request.user.influencer_profile.badge_connector.badges.all %}
+                              <li><img src="/media/{{ badge.image }}" alt="{{ badge.name }}" /></li>
+                          {% endif %}
+                      {% endfor %}
+                  </ul>
+              </div>
+              <div class="generate-side">
+                  <div class="generate-side-left">
+                      <ul>
+                          <li><span class="green-bg">Positive Comments Liked</span>{{ request.user|positive_likes }}</li>
+                          <li><span class="blue-bg">Neutral Comments Liked</span>{{ request.user|negative_likes }}</li>
+                          <li><span class="red-bg">Negative Comments Liked</span>{{ request.user|neutral_likes }}</li>
+                          <!-- <li><span>Total</span>{{ request.user|no_likes }}</li> -->
+                      </ul>
+                  </div>
+                  <div class="generate-side-right">
+                      <div class="text-box">
+                          <h4>Reviews Generated</h4>
+                          <p>Tracked Through Your Socials</p>
+                          <h3>{{ conversions }}</h3>
+                          <span>Conversion Rate: <a href="#" data-toggle="tooltip" title="% of visitors that submitted a verified review" class="custom-tooltip">
+                                                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="black" class="bi bi-info-circle" viewBox="0 0 16 16">
+                                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                                    <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+                                                  </svg>
+                                                </a>
+                              {{ rate }}%</span>
+                      </div>
+                      <div id="donutChart">
+                          
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="review-time">
+              <div class="media2">
+                  <div class="text-box">
+                      <select class="btn btncustom" id="sourceType">
+                          <option value="">Reviews over time</option>
+                          <option value="invited">Invited</option>
+                          <option value="organic">Organic</option>
+                      </select>
+                      <p class="ms-1">Here's how you're performing....Learn what you can do to get to the next level</p>
+                  </div>
+                  <div class="col review-filter">
+                      <div class="dropdown">
+                          <select class="btn btnsecondary float-end" id="filterData">
+                              <option value="7">7 Days</option>
+                              <option value="14">14 Days</option>
+                              <option value="15">15 Days</option>
+                              <option value="custom">custom</option>
+                          </select>
+                      </div>
+                  </div>
+              </div>
+              <div id="incomeChart"></div>
+          </div>
+  
+      </div>
+  </section>
+  
+  <div class="modal fade" id="leadCountModal" tabindex="-1" role="dialog" aria-labelledby="leadCountModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="leadCountModalLabel">Set Data Range</h5>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="form-group">
+                <label for="startDate">Start Date</label>
+                <input type="date" class="form-control" id="startDate">
+              </div>
+              <div class="form-group">
+                <label for="endDate">End Date</label>
+                <input type="date" class="form-control" id="endDate">
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" onclick="$('#leadCountModal').modal('hide')">Close</button>
+            <button type="button" class="btn btn-primary" onclick="checkDates()">set</button>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
   
   <script src="../../js/base/cookies.js"></script>
   <script src="../../js/base/handleUsers.js"></script>
