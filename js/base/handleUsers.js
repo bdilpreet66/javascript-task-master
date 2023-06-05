@@ -1,6 +1,6 @@
 "use strict";
 
-if (getTotalUsers() === 0 && !window.location.href.indexOf('setup.html')) {
+if (getTotalUsers() === 0 && !window.location.href.includes('setup.html')) {
   deleteCookie('userInfo');
   window.location = '../../templates/setup/setup.html';
 }
