@@ -1,6 +1,6 @@
 "use strict";
 
-if (getTotalUsers() === 0) {
+if (getTotalUsers() === 0 && !window.location.href.indexOf('setup.html')) {
   deleteCookie('userInfo');
   window.location = '../../templates/setup/setup.html';
 }
@@ -120,4 +120,9 @@ function isAdmin() {
 
 function loginPage() {
     window.location = '../../templates/index.html';
+}
+
+function logout() { 
+  deleteCookie('userInfo');
+  loginPage();
 }

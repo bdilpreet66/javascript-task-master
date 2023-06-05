@@ -1,62 +1,61 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-  <title>Create an Account</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/responsive.css">
+    <title>ANTask Login</title>
 </head>
 
 <body>
-  <div class="container">
-    <div class="row justify-content-center mt-5">
-      <div class="col-12 col-md-10 col-lg-6 col-xl-4">
-        <div class="card">
-          <div class="card-body">
-            <h3 class="card-title text-center">Create an Account</h3>
-            <form id="setupForm" class="needs-validation" novalidate>
+    <section class="login-sec">
+        <div class="login-box">
+            <div class="text-box">
+                <img src="../../images/logo.png" alt="" class="img-fluid" />
+                <p>Setup you account</p>
+            </div>
+            <form id="setupForm" class="needs-validation text-muted" novalidate>
               <div class="mb-3">
-                <label for="email" class="form-label">Email<span class="text-danger">*</span></label>
-                <input type="email" class="form-control" id="email" required>
+                <input type="email" class="form-control" id="email" placeholder="Enter you email" required>
                 <div class="invalid-feedback">
                   Please provide a valid email address.
                 </div>
               </div>
               <div class="mb-3">
-                <label for="password" class="form-label">Password<span class="text-danger">*</span></label>
-                <input type="password" class="form-control" id="password" required>
+                <input type="password" class="form-control" id="password" placeholder="Enter password" required>
                 <div class="invalid-feedback">
                   Please provide a password.
                 </div>
               </div>
               <div class="mb-3">
-                <label for="confirmPassword" class="form-label">Confirm Password<span class="text-danger">*</span></label>
-                <input type="password" class="form-control" id="confirmPassword" required>
+                <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm your password" required>
                 <div class="invalid-feedback">
                   Please confirm your password.
                 </div>
               </div>
-              <div class="mb-3 form-check">
-                <input type="checkbox" class="form-check-input" id="agreeTerms" required>
-                <label class="form-check-label" for="agreeTerms">I agree to the terms and conditions<span class="text-danger">*</span></label>
-                <div class="invalid-feedback">
-                  You must agree to the terms and conditions.
+              <div class="form-group">
+                <div class="form-check check-left fvid">
+                    <input class="form-check-input" type="checkbox" name="agree" id="agreeTerms">
+                    <label class="form-check-label" for="agreeTerms">
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;You must agree to the terms and conditions.
+                    </label>
                 </div>
               </div>
-              <div class="row justify-content-center">
-                <div class="col-auto">
-                  <button type="submit" class="btn btn-primary">Submit</button>
-                </div>
+              <div class="form-group">
+                  <button type="submit" class="btn btn-default">Submit</button>
               </div>
             </form>
-          </div>
         </div>
-      </div>
-    </div>
-  </div>
-  <script src="../../js/base/cookies.js"></script>
-  <script src="../../js/base/handleUsers.js"></script>
-  <script src="../../js/setup/setup.js"></script>
+    </section>
+    <script>
+      const currentPage = 'setup';
+    </script>
+    <script src="../../js/base/cookies.js"></script>
+    <script src="../../js/base/handleUsers.js"></script>
+    <script src="../../js/setup/setup.js"></script>
 </body>
 </html>
