@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Add Task</title>
+  <title>Edit Task</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 
@@ -31,9 +31,9 @@
     </nav>
 
   <div class="container mt-5">
-    <h1>Add Task</h1>
+    <h1>Edit Task</h1>
 
-    <form id="addTaskForm" class="needs-validation" novalidate>
+    <form id="editTaskForm" class="needs-validation" novalidate>
       <div class="form-group">
         <label for="taskId">ID:</label>
         <input type="number" class="form-control" id="taskId" required>
@@ -70,7 +70,7 @@
         </div>
       </div>
       <div class="form-group">
-        <label for="taskAssignedTo">Assign To:</label>
+        <label for="taskAssignedTo">Assigned To:</label>
         <select class="form-control" id="taskAssignedTo">
             <option value="">- Select -</option>
         </select>
@@ -85,7 +85,7 @@
   <script src="../../js/base/handleUsers.js"></script>
   <script src="../../js/base/navbar.js"></script>
   <script src="../../js/base/handleTasks.js"></script>
-  <script src="../../js/task/create.js"></script>
+  <script src="../../js/task/edit.js"></script>
 </body>
 
 </html>
