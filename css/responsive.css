@@ -528,7 +528,11 @@
     .btncustom {
         width:100%;
         margin-bottom:4px;
-        }    
+    }
+    .page-heading {
+        margin-bottom: 20px;
+        text-align: center;
+    }
 }
 
 @media(max-width:575px) {
