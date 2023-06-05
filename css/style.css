@@ -369,7 +369,7 @@ footer ul li {
 
 .form-content .form-group {
     position: relative;
-    margin: 0 0 55px 0;
+    margin: 0px;
 }
 
 .form-content .form-group label.label-text {
@@ -405,11 +405,11 @@ footer ul li {
 }
 
 .form-content .row {
-    margin: 0 -40px;
+    margin: 0;
 }
 
 .form-content [class*="col-"] {
-    padding: 0 40px;
+    padding: 10px 20px;
 }
 
 .form-content .form-group textarea.form-control {
@@ -1477,7 +1477,7 @@ footer ul li {
 }
 
 .btn-default {
-    margin-top: 29px;
+    margin-top: 0px;
     font-family: 'Roboto', sans-serif;
     height: 39px;
     border-radius: 20px;
@@ -1485,7 +1485,7 @@ footer ul li {
     font-size: 14px;
     background-color: #000;
     color: #fff;
-    width: 100%;
+    width: fit-content;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1495,6 +1495,16 @@ footer ul li {
 }
 
 .btn-default:hover {
+    background-color: transparent;
+    color: #000;
+    border: 2px solid #000;
+}
+
+.btn-default.btn-secondary {
+    background-color: #a29f9f;
+}
+
+.btn-default.btn-secondary:hover {
     background-color: transparent;
     color: #000;
     border: 2px solid #000;

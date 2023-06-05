@@ -4,20 +4,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard</title>
+  <title>Members</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="../../css/style.css">
   <link rel="stylesheet" href="../../css/responsive.css">
-  <style>
-    .navbar-toggler {
-      border: none;
-      background: transparent;
-    }
-
-    .navbar-toggler-icon {
-      background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='%23fff' d='M1 2.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1H1.5a.5.5 0 0 1-.5-.5zm0 5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1H1.5a.5.5 0 0 1-.5-.5zm0 5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1H1.5a.5.5 0 0 1-.5-.5z'/%3E%3C/svg%3E");
-    }
-  </style>
 </head>
 
 <body>
@@ -66,7 +56,7 @@
                 </div>
             </div>
             <ul class="navMenu">
-                <li ><a href="" id="">Home</a></li>
+                <li ><a href="" id="dashboard-link">Home</a></li>
                 <li ><a href="../task/list_tasks.html">Tasks</a></li>
                 <li ><a href="../member/list_members.html">Members</a></li>
                 <li ><a href="javascript:void(0);" onclick="logout(); return false; ">Logout</a></li>
@@ -80,7 +70,7 @@
       <div class="container">
           
           <div class="row justify-content-between" style="margin-bottom: 60px; margin-top: 30px;">
-              <div class="col-md-6">
+              <div class="col-md-6 page-heading">
                 <h4>Members Management</h4>
                 <p>Create and Modify you team mebers! </p>
               </div>

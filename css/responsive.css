@@ -2,6 +2,7 @@
     .container {
         max-width: 1126px;
     }
+
 }
 
 @media(max-width:1600px) {
@@ -182,6 +183,11 @@
 }
 
 @media(max-width:767px) {
+    .btn-default {
+        margin: 10px 0;
+        width: 100%;
+    }
+
     .container,
     .container-sm {
         max-width: 100%;
