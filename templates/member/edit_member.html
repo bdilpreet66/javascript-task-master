@@ -4,132 +4,156 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Member Registration</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <link rel="stylesheet" href="../../css/base.css">
-</head>
-
-<body>
-  
-</body>
-
-</html>
-
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Members</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <link rel="stylesheet" href="../../css/base.css">
+  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="stylesheet" href="../../css/responsive.css">
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-success    ">
-    <a class="navbar-brand" href=""><span class="text-teal">Task</span>Master</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" id="dashboard-link" href="#">Dashboard</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Tasks</a>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link" href="../member/list_members.html">Member Management</a>
-        </li>
-      </ul>
-    </div>
-  </nav>
+  <div class="wrapper">
+    <!-- Header Start -->
+    <header>
+        <div class="container">
+            <div class="topHeader">
+                <a class="brand-name" href="/">
+                    <img class="d-md-flex d-none" src="../../images/logo.png" alt="Antask">
+                    <img class="d-md-none d-flex" src="../../images/logo.png" alt="Antask">
+                </a>
+                <div style="margin: auto;"></div>
+                <div class="navRight">
+                    <a href="#" class="toggleMenu d-none d-md-flex">
+                        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOC4zMDkiIGhlaWdodD0iMTMuMDAzIiB2aWV3Qm94PSIwIDAgMTguMzA5IDEzLjAwMyI+CiAgPGcgaWQ9Ikdyb3VwXzYwOSIgZGF0YS1uYW1lPSJHcm91cCA2MDkiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0xNzk1LjA1MyAtMzYuNTMzKSI+CiAgICA8bGluZSBpZD0iTGluZV85NCIgZGF0YS1uYW1lPSJMaW5lIDk0IiB4MT0iMTYuMzA5IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxNzk2LjA1MyAzNy41MzMpIiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgICA8bGluZSBpZD0iTGluZV85NSIgZGF0YS1uYW1lPSJMaW5lIDk1IiB4MT0iMTYuMzA5IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxNzk2LjA1MyA0My4wMzQpIiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgICA8bGluZSBpZD0iTGluZV85NiIgZGF0YS1uYW1lPSJMaW5lIDk2IiB4MT0iMTYuMzA5IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxNzk2LjA1MyA0OC41MzUpIiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgPC9nPgo8L3N2Zz4K"
+                            alt="">
+                    </a>
+                    <a href="#" class="toggleMenu d-flex d-md-none">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </a>
 
-  
-  <div class="container mt-5">
-    <h3>Edit Member</h3>
-
-    <div class="card mx-auto">
-      <div class="card-header">
-        <ul class="nav nav-tabs card-header-tabs" id="editTabs">
-          <li class="nav-item">
-            <a class="nav-link active" id="rateTypeTabLink" href="#rateTypeContent" onclick="switchTab('rateTypeTabLink', 'rateTypeContent')">General Setting</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" id="passwordTabLink" href="#passwordContent" onclick="switchTab('passwordTabLink', 'passwordContent')">Change Password</a>
-          </li>
-        </ul>
-      </div>
-      <div class="card-body">
-        <div class="tab-content">
-          <div class="tab-pane fade show active" id="rateTypeContent">
-            <form id="rateTypeForm" class="needs-validation" novalidate>
-                <div class="row">
-                    <div class="col-12 col-md-6">
-                        <div class="form-group">
-                            <label for="hourlyRate">Hourly Rate:</label>
-                            <input type="number" class="form-control" id="hourlyRate" placeholder="Enter hourly rate" min="0" required>
-                            <div class="invalid-feedback">
-                              Please enter a valid hourly rate.
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6">
-                        <label for="memberType">Member Type:</label>
-                        <select class="form-control" id="memberType">
-                          <option value="regular">Regular</option>
-                          <option value="admin">Admin</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="card-footer">
-                    <button type="submit" class="btn btn-primary">Save</button>
-                    <a href="../member/list_members.html" class="btn btn-secondary">Cancel</a>
-                </div>
-            </form>
-          </div>
-          <div class="tab-pane fade" id="passwordContent">
-            <form id="passwordForm" class="needs-validation" novalidate>
-                <div class="row">
-                    <div class="col-12 col-md-6">
-                        <div class="form-group">
-                          <label for="newPassword">New Password:</label>
-                          <input type="password" class="form-control" id="newPassword" placeholder="Enter new password" required>
-                          <div class="invalid-feedback">
-                            Please provide a password.
-                          </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6">
-                        <div class="form-group">
-                          <label for="confirmPassword">Confirm Password:</label>
-                          <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm new password" required>
-                          <div class="invalid-feedback">
-                            Please confirm your password.
-                          </div>
+                    <div class="mobile-menu">
+                        <div class="mobile-nav">
+                            <ul>
+                                <li>
+                                    <a href="">HOME</a>
+                                </li>
+                                <li>
+                                    <a href="">PROFILE</a>
+                                </li>
+                                <li>
+                                    <a href="">REVIEWS</a>
+                                </li>
+                                <li>
+                                    <a href="">ACHIEVEMENTS</a>
+                                </li>
+                                <li>
+                                    <a href="">Invite</a>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
-              <div class="card-footer">
-                  <button type="submit" class="btn btn-primary">Set Password</button>
-                  <a href="../member/list_members.html" class="btn btn-secondary">Cancel</a>
-              </div>
-            </form>
-          </div>
+            </div>
+            <ul class="navMenu">
+                <li ><a href="" id="dashboard-link">Home</a></li>
+                <li ><a href="../task/list_tasks.html">Tasks</a></li>
+                <li ><a href="../member/list_members.html">Members</a></li>
+                <li ><a href="javascript:void(0);" onclick="logout(); return false; ">Logout</a></li>
+            </ul>
         </div>
+
+    </header>
+    <!-- Header End -->
+    
+    <section class="contentContainer p-0">
+      <div class="container">
+          
+          <div class="row justify-content-start" style="margin-bottom: 60px; margin-top: 30px;">
+              <div class="col-md-6 page-heading">
+                <h4>Edit Member</h4>
+                <p>Edit an existing admin or regular user</p>
+              </div>
+          </div>
+
+
+          <ul class="navMenu" id="editTabs">
+            <li class="">
+              <a class="active" id="rateTypeTabLink" href="#rateTypeContent" onclick="switchTab('rateTypeTabLink', 'rateTypeContent')">General Setting</a>
+            </li>
+            <li class="">
+              <a class="" id="passwordTabLink" href="#passwordContent" onclick="switchTab('passwordTabLink', 'passwordContent')">Change Password</a>
+            </li>
+          </ul>
+
+          <div class="tab-content">
+            <div class="tab-pane fade show active" id="rateTypeContent">
+              <form id="rateTypeForm" class="needs-validation" novalidate>
+                  <div class="row form-content">
+                      <div class="col-12 col-md-6">
+                          <div class="form-group">
+                              <label class="label-text" for="hourlyRate">Hourly Rate:</label>
+                              <input type="number" class="form-control" id="hourlyRate" placeholder="Enter hourly rate" min="0" required>
+                              <div class="invalid-feedback">
+                                Please enter a valid hourly rate.
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-12 col-md-6">
+                        <div class="form-group">
+                          <label class="label-text" for="memberType">Member Type:</label>
+                          <select class="form-control" id="memberType">
+                            <option value="regular">Regular</option>
+                            <option value="admin">Admin</option>
+                          </select>
+                        </div>
+                      </div>
+                  </div>
+                  <div class="row btn-footer">
+                      <a href="../member/list_members.html" class="btn btn-default btn-secondary">Cancel</a>
+                      <button type="submit" class="btn btn-default">Save</button>
+                  </div>
+              </form>
+            </div>
+            <div class="form-content tab-pane fade" id="passwordContent">
+              <form id="passwordForm" class="needs-validation" novalidate>
+                  <div class="row">
+                      <div class="col-12 col-md-6">
+                          <div class="form-group">
+                            <label class="label-text" for="newPassword">New Password:</label>
+                            <input type="password" class="form-control" id="newPassword" placeholder="Enter new password" required>
+                            <div class="invalid-feedback">
+                              Please provide a password.
+                            </div>
+                          </div>
+                      </div>
+                      <div class="col-12 col-md-6">
+                          <div class="form-group">
+                            <label class="label-text" for="confirmPassword">Confirm Password:</label>
+                            <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm new password" required>
+                            <div class="invalid-feedback">
+                              Please confirm your password.
+                            </div>
+                          </div>
+                      </div>
+                  </div>
+                <div class="row btn-footer">
+                    <a href="../member/list_members.html" class="btn btn-default btn-secondary">Cancel</a>
+                    <button type="submit" class="btn btn-default">Set Password</button>
+                </div>
+              </form>
+            </div>
+          </div>
       </div>
-    </div>
-  </div>
+  </section>
   
-  <script src="../../js/base/cookies.js"></script>
-  <script src="../../js/base/handleUsers.js"></script>
-  <script src="../../js/base/navbar.js"></script>
-  <script src="../../js/member/edit.js"></script>
+</div>
+  
+  
+<script src="../../js/base/cookies.js"></script>
+<script src="../../js/base/handleUsers.js"></script>
+<script src="../../js/base/navbar.js"></script>
+<script src="../../js/member/edit.js"></script>
 </body>
 
 </html>
-

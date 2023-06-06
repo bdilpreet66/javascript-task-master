@@ -18,7 +18,7 @@ function handleTaskFormSubmit(event) {
         event.target.classList.add('was-validated');
         return;
     }
-    const taskID = document.getElementById('taskId').value;
+    const taskID = generateNewId();
     if (!isIdExists(taskID)) {
         // Get form values
         const newTask = {
@@ -28,14 +28,17 @@ function handleTaskFormSubmit(event) {
             startDate: document.getElementById('taskStartDate').value,
             endDate: document.getElementById('taskEndDate').value,
             assignedTo: document.getElementById('taskAssignedTo').value,
-            comments: {},
+            comments: [],
+            status: "pending",
+            daily_cost: [],
+            total_cost: 0,
             hoursWorked: 0,
             owner: getLoggedInUser()
         }
         
         saveTask(newTask);
         alert('Task created successfully!');
-        window.location = "../task/list_tasks.html";
+        window.location = `../task/edit_task.html?id=${taskID}`;
         event.target.reset();
     }
     else { 
@@ -51,4 +54,4 @@ const addTaskForm = document.getElementById('addTaskForm');
 addTaskForm.addEventListener('submit', handleTaskFormSubmit);
 
 // Auto-fill the Task ID
-document.getElementById('taskId').value = generateNewId();
+document.getElementById('taskId').textContent = generateNewId();
