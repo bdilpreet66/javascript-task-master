@@ -22,7 +22,7 @@ function saveTask(task) {
 
 // Function to edit a task based on ID
 function editTask(id, updatedTask) {
-    const index = tasks.findIndex(task => parseInt(task.id) === parseInt(id));
+    const index = tasks.findIndex(task => task.id == id);
     if (index !== -1) {
         tasks[index] = { ...tasks[index], ...updatedTask };
         saveTasksToLocalStorage(tasks);
@@ -33,7 +33,7 @@ function editTask(id, updatedTask) {
 
 // Function to delete a task
 function deleteTask(id) {
-    const taskIndex = tasks.findIndex(task => parseInt(task.id) === parseInt(id));
+    const taskIndex = tasks.findIndex(task => task.id == id);
     if (taskIndex !== -1) {
         tasks.splice(taskIndex, 1);
         localStorage.setItem('tasks', JSON.stringify(tasks));
@@ -44,7 +44,7 @@ function deleteTask(id) {
 
 // Function to retrieve task details by ID
 function getTaskById(id) {
-    const task = tasks.find(task => parseInt(task.id) === parseInt(id));
+    const task = tasks.find(task => task.id == id);
     if (task) {
         return task;
     } else {
@@ -54,7 +54,7 @@ function getTaskById(id) {
 
 // Function to check if ID already exists
 function isIdExists(id) {
-    return tasks.some(task => parseInt(task.id) === parseInt(id));
+    return tasks.some(task => task.id == id);
 }
 
 function populateAssignToMembers() {
