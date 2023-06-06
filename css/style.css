@@ -228,7 +228,6 @@ header .brand-name {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    top: 25px;
 }
 
 .navMenu {
@@ -236,7 +235,7 @@ header .brand-name {
     align-items: center;
     justify-content: center;
     margin-bottom: 10px;
-    padding-top: 25px;
+    padding-top: 70px;
     list-style: none;
 }
 
@@ -1300,11 +1299,9 @@ footer ul li {
 /***** MOBILE NAV ****/
 
 .mobile-menu {
-    padding: 9px 32px 10px 44px;
-    border: 1px solid #707070;
+    padding: 0px 0px 10px 44px;
     width: 336px;
     z-index: 1111;
-    background: #fff;
     position: absolute;
     top: 55px;
     right: 0;
@@ -1320,6 +1317,8 @@ footer ul li {
 .mobile-nav {
     margin: 0 0 80px 0;
     display: none;
+    background-color: #FAFAFA;
+    padding: 20px;
 }
 
 .mobile-nav ul li a {

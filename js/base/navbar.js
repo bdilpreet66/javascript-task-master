@@ -18,7 +18,14 @@ function setDashbaordLink() {
   }
 }
 
-// Add event listener to the navbar toggler
-const navbarToggler = document.querySelector('.navbar-toggler');
-navbarToggler.addEventListener('click', handleNavbarToggle);
+const toggleMenu = document.querySelector('.toggleMenu');
+toggleMenu.addEventListener('click', function () {
+  var mobileMenu = document.querySelector('.mobile-menu');
+  if (mobileMenu.style.display === 'none') {
+    mobileMenu.style.display = 'block';
+  } else {
+    mobileMenu.style.display = 'none';
+  }
+});
+
 setDashbaordLink()

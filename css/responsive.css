@@ -209,13 +209,6 @@
         height: auto;
         max-height: 55px;
     }
-    .toggleMenu {
-        width: auto;
-        background-color: transparent;
-        border-radius: 0;
-        align-items: center;
-        flex-direction: column;
-    }
     .toggleMenu span {
         background-color: #000;
         border-radius: 40px;
@@ -228,7 +221,7 @@
     }
     .navMenu {
         margin-bottom: 0px;
-        padding-top: 15px;
+        padding-top: 60px;
     }
     .navMenu li {
         margin: 0 10px;
@@ -533,6 +526,9 @@
         margin-bottom: 20px;
         text-align: center;
     }
+    header .brand-name {
+        top: 25px;
+    }
 }
 
 @media(max-width:575px) {
@@ -654,11 +650,19 @@
         transform: translate(0, 0);
     }
     .mobile-menu {
-        width: 300px;
+        width: 100%;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        position: fixed;
+        background-color: rgba(0,0,0,0.6);
     }
     .form-check.check-left .form-check-label a {
         display: block;
         margin: 2px 0 0 0;
+    }
+    header .brand-name {
+        top: unset;
     }
 }
 
