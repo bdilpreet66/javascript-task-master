@@ -7,7 +7,7 @@ const taskID = urlParams.get('id');
 
 const taskDetails = getTaskById(taskID);
 if (taskDetails !== null) {
-    document.getElementById('taskId').value = taskDetails.id;
+    document.getElementById('taskId').textContent = taskDetails.id;
     document.getElementById('taskName').value = taskDetails.name;
     document.getElementById('taskDescription').value = taskDetails.description;
     document.getElementById('taskStartDate').value = taskDetails.startDate;
@@ -31,7 +31,7 @@ function handleTaskFormSubmit(event) {
 
     // Get form values
     const editTaskDetails = {
-        id: document.getElementById('taskId').value,
+        id: document.getElementById('taskId').textContent,
         name: document.getElementById('taskName').value,
         description: document.getElementById('taskDescription').value,
         startDate: document.getElementById('taskStartDate').value,

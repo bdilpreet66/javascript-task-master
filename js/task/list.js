@@ -14,7 +14,7 @@ function displayTasks(tasks) {
             <td>${task.name}</td>
             <td>${task.startDate}</td>
             <td>${task.endDate}</td>
-            <td>${task.owner}</td>
+            <td>${task.assignedTo}</td>
             <td>
             <a class="btn btn-outline-dark btn-sm" href="edit_task.html?id=${task.id}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">

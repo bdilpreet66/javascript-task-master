@@ -44,7 +44,7 @@ function deleteTask(id) {
 
 // Function to retrieve task details by ID
 function getTaskById(id) {
-    const task = tasks.find(task => task.id === id);
+    const task = tasks.find(task => parseInt(task.id) === parseInt(id));
     if (task) {
         return task;
     } else {
@@ -54,7 +54,7 @@ function getTaskById(id) {
 
 // Function to check if ID already exists
 function isIdExists(id) {
-    return tasks.some(task => task.id === id);
+    return tasks.some(task => parseInt(task.id) === parseInt(id));
 }
 
 function populateAssignToMembers() {
