@@ -42,6 +42,8 @@ function handleTaskFormSubmit(event) {
         owner: getLoggedInUser()
     }
     
+    console.log(editTaskDetails);
+
     editTask(document.getElementById('taskId').value, editTaskDetails);
     alert('Task updated successfully!');
     window.location = "../task/list_tasks.html";

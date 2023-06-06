@@ -22,7 +22,7 @@ function saveTask(task) {
 
 // Function to edit a task based on ID
 function editTask(id, updatedTask) {
-    const index = tasks.findIndex(task => task.id === id);
+    const index = tasks.findIndex(task => parseInt(task.id) === parseInt(id));
     if (index !== -1) {
         tasks[index] = { ...tasks[index], ...updatedTask };
         saveTasksToLocalStorage(tasks);
