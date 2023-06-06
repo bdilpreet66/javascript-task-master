@@ -260,7 +260,7 @@ header .brand-name {
 }
 
 .navMenu li:hover,
-.navMenu li.active {
+.navMenu li a.active {
     border-bottom: 3px solid #19232c;
     cursor: pointer;
 }

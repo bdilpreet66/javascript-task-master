@@ -30,7 +30,7 @@ function displayUsers(users) {
         row.innerHTML = `   
             <td>${user.email}</td>
             <td>$ ${user.hourlyRate}</td>
-            <td>${(user.type == "admin") ? `<span class="badge badge-dark">Admin</span>` : `<span class="badge badge-secondary">Regular</span>`}</td>
+            <td>${(user.type == "admin") ? `<span class="badge badge-success">Admin</span>` : `<span class="badge badge-dark">Regular</span>`}</td>
             <td>
             <a class="btn btn-outline-dark btn-sm" href="edit_member.html?email=${user.email}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">

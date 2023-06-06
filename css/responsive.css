@@ -20,8 +20,8 @@
     }
 }
 @media(max-width:1000px) {        
-.proftags{
-    display: none;
+    .proftags{
+        display: none;
     }
 }
 
@@ -186,6 +186,10 @@
     .btn-default {
         margin: 10px 0;
         width: 100%;
+    }
+
+    .btn-default:first-child {
+        order: 2;
     }
 
     .container,

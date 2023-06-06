@@ -4,7 +4,7 @@ const email = urlParams.get('email');
 
 // Switch between tabs
 function switchTab(activeLinkId, activeContentId) {
-    const tabLinks = document.querySelectorAll('.nav-link');
+    const tabLinks = document.querySelectorAll('a');
     const tabContents = document.querySelectorAll('.tab-pane');
   
     // Remove 'active' class from all tab links and contents
