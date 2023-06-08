@@ -753,3 +753,21 @@ footer ul li {
     max-width: 400px;
     text-align: center;
 }
+
+.page-heading-button  {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.Comment-box {
+    border-bottom: 1px solid #dddddd;
+    padding: 10px 0;
+}
+
+.Comment-box:last-child {
+    border-bottom: 0px;
+}

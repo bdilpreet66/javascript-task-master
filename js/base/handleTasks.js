@@ -31,6 +31,29 @@ function editTask(id, updatedTask) {
     }
 }
 
+function addComment(id, comment, time, commentor) {
+    const index = tasks.findIndex(task => task.id == id);
+    if (index !== -1) {
+        tasks[index]["comments"].push({
+            message: comment,
+            user: commentor,
+            time: time.toISOString()
+         });
+        saveTasksToLocalStorage(tasks);
+    } else {
+        alert("Task not found!");
+    }
+}
+
+function listComments(id) {
+    const index = tasks.findIndex(task => task.id == id);
+    if (index !== -1) {
+        return tasks[index]["comments"];
+    } else {
+        return [];
+    }
+}
+
 // Function to delete a task
 function deleteTask(id) {
     const taskIndex = tasks.findIndex(task => task.id == id);
