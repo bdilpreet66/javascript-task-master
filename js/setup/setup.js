@@ -4,6 +4,10 @@
         window.location = '../../templates/index.html';
     }
 
+    function redirect() { 
+        window.location = '../../templates/dashboard/admin_dashboard.html';
+    }
+
     // Handle form submission
     function handleSetupFormSubmit(event) {
         event.preventDefault();
@@ -46,11 +50,7 @@
         createCookie('userInfo', JSON.stringify(loggedInUser), 24);
 
         // Display success message or redirect to another page
-        alert('Setup successful!');
-        setTimeout(function(){
-            window.location = '../../templates/dashboard/admin_dashboard.html';
-        }
-        ,2000);
+        showMessage('success','Admin account was added successfully.', redirect)
     }
     
     // Add event listener to the setup form
