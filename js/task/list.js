@@ -1,7 +1,13 @@
+'use strict';
+
 // Variables
 const taskTableBody = document.getElementById('taskTableBody');
 const searchInput = document.getElementById('searchInput');
 const resultsSelect = document.getElementById('resultsSelect');
+
+function redirect() { 
+    window.location = '../task/list_task.html';
+}
 
 // Function to list all tasks
 function displayTasks(tasks) {
@@ -51,17 +57,10 @@ function filterTasks() {
 }
 
 function confirmDeleteTask(id) { 
-    if (confirm("Are you sure? \nYou won't be able to revert this.")) {
-        // User clicked "OK"
-        const isDelete = deleteTask(id);
-        console.log('Is Delete:' + isDelete);
-        if (isDelete) {
-            setTimeout(()=> {
-                alert("Task deleted successfully");
-                window.location.reload();
-            }, 500)
-        }
-    }
+    showMessage('confirm', "Are you sure you want to delete?\n You won't be able to revert it.", () => {
+        deleteTask(id);
+    });
+    showMessage('success', "The task was deleted successfully.", redirect);
 }
 
 // Search input event listener

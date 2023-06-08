@@ -1,3 +1,7 @@
+function redirect() { 
+    window.location = '../member/list_members.html';
+}
+
 // Handle form submission
 function handleRegistrationFormSubmit(event) {
     event.preventDefault();
@@ -21,8 +25,7 @@ function handleRegistrationFormSubmit(event) {
     }
     else {
         createUser(email, password, type, hourlyRate);
-        alert('Member created successfully!');
-        window.location = "../member/list_members.html";
+        showMessage('success', 'Member was created successfully.', redirect);
         event.target.reset();
     }
 
