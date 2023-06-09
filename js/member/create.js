@@ -21,12 +21,17 @@ function handleRegistrationFormSubmit(event) {
 
     // TODO: Perform registration and further actions
     if (isEmailExists(email)) {
-        alert('Email already exists!');
+        showMessage('danger', 'The email address already exists.');
     }
     else {
-        createUser(email, password, type, hourlyRate);
-        showMessage('success', 'Member was created successfully.', redirect);
-        event.target.reset();
+        try {
+            createUser(email, password, type, hourlyRate);
+            showMessage('success', 'Member was created successfully.', redirect);
+            event.target.reset();
+        }
+        catch (e) {
+            showMessage('danger', `An error occurred. \n ${e}`, '');
+        }
     }
 
     // Reset form validation

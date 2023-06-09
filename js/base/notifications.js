@@ -5,13 +5,13 @@ const showMessage = (type, message, callback) => {
     const modalBtnOk = document.getElementById("modal-btn-okay");
 
     modalMessage.innerHTML = message;
+    modalIcon.className = '';
     modalIcon.classList.add(`text-${type}`);
     if (type === 'success') {
         modalIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" height="60" fill="currentColor" class="bi bi-check2-s" viewBox="0 0 16 16">
         <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z"></path>
         <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l7-7z"></path>
       </svg>`;
-        
     }
     else if (type === 'danger') { 
         modalIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" height="60" fill="currentColor" class="bi bi-exclamation-circle" viewBox="0 0 16 16">
@@ -35,8 +35,13 @@ const showMessage = (type, message, callback) => {
     modal.classList.remove('d-none');
 
     modalBtnOk.addEventListener('click', function () {
-        modal.style.display = "none";
+      modal.style.display = "none";
+      if (callback instanceof Function) {
         callback();
+      }
+      else { 
+        modal.style.display = "none";
+      }
     });
 
     // When the user clicks anywhere outside of the modal, close it
