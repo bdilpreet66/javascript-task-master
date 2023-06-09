@@ -81,7 +81,7 @@ function loadComments(){
         for (let index = 0; index < comments.length; index++) {
             const comment = comments[index];
             let li = document.createElement("li");
-            li.classList.add("Comment-box");
+            li.classList.add("comment-box");
             li.innerHTML = `
             <p class="comment-message">${comment.message}</p>
             <div class="row justify-content-end mb-3">
@@ -91,7 +91,7 @@ function loadComments(){
         }
     } else {
         let li = document.createElement("li");
-        li.classList.add("Comment-box");
+        li.classList.add("comment-box");
         li.textContent = "No Comments Yet!";
         list.appendChild(li)
     }

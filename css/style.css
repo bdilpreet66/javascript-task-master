@@ -756,18 +756,39 @@ footer ul li {
 
 .page-heading-button  {
     display: flex;
-    align-items: center;
     gap: 10px;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: flex-end;
 }
 
-.Comment-box {
+.comment-box {
     border-bottom: 1px solid #dddddd;
     padding: 10px 0;
 }
 
-.Comment-box:last-child {
+.comment-box:last-child {
     border-bottom: 0px;
+}
+
+.comment-details {
+    color: #707070;
+    font-weight: 300;
+    font-size: 12px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.comment-details {
+    color: #707070;
+    font-weight: 300;
+    font-size: 12px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.comment-message {
+    color: #707070;
+    font-size: 14px;
+    font-weight: 500;
+    height: 45px;
+    width: 100%;
 }
