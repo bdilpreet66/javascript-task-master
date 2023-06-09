@@ -54,6 +54,20 @@ function listComments(id) {
     }
 }
 
+function addWorkedHours(id, hrs, date) {
+    const index = tasks.findIndex(task => task.id == id);
+    if (index !== -1) {
+        tasks[index]["comments"].push({
+            message: comment,
+            user: commentor,
+            time: time.toISOString()
+         });
+        saveTasksToLocalStorage(tasks);
+    } else {
+        alert("Task not found!");
+    }
+}
+
 // Function to delete a task
 function deleteTask(id) {
     const taskIndex = tasks.findIndex(task => task.id == id);

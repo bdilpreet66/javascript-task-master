@@ -8,6 +8,10 @@ function generateNewId() {
     return newId;
 }
 
+function redirect() { 
+    window.location = `../task/edit_task.html?id=${taskID}`;
+}
+
 // Handle form submission
 function handleTaskFormSubmit(event) {
     event.preventDefault();
@@ -30,19 +34,18 @@ function handleTaskFormSubmit(event) {
             assignedTo: document.getElementById('taskAssignedTo').value,
             comments: [],
             status: "pending",
-            daily_cost: [],
-            total_cost: 0,
+            dailyCost: [],
+            totalCost: 0,
             hoursWorked: 0,
             owner: getLoggedInUser()
         }
         
         saveTask(newTask);
-        alert('Task created successfully!');
-        window.location = `../task/edit_task.html?id=${taskID}`;
+        showMessage('success','Task was created successfully.', redirect);
         event.target.reset();
     }
-    else { 
-        alert(`Task ID ${taskID} already exists.`);
+    else {
+        showMessage('danger', `Task ID ${taskID} already exists.`, '');
     }
 
     // Reset form validation
