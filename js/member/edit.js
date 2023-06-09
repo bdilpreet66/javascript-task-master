@@ -44,8 +44,8 @@ function handleRateTypeFormSubmit(event) {
     // Update the user data with the new values
     const updatedUser = updateUser(email, hourlyRate, memberType);
     if (updatedUser) {
-        // Display a success message or perform any additional actions
-        alert('Hourly rate and member type updated');
+        // Display a success message or perform any additional actions        
+        showMessage('success','Hourly Rate and Member Type were updated successfully.');
     }
 }
 
@@ -66,16 +66,15 @@ function handlePasswordFormSubmit(event) {
 
     // Check if the passwords match
     if (newPassword !== confirmPassword) {
-        // Display an error message or perform any additional actions
-        alert('Passwords do not match');
+        // Display an error message or perform any additional actions        
+        showMessage('danger','Passwords do not match.');
         return;
     }
 
     // Update the user password with the new value
     const updatedUser = setPassword(email, newPassword);
-    if (updatedUser) {
-        // Display a success message or perform any additional actions
-        alert('Password updated');
+    if (updatedUser) {        
+        showMessage('success','Password updated successfully.');
     }
 }
 

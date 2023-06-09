@@ -14,57 +14,7 @@
 <body>
   <div class="wrapper">
     <!-- Header Start -->
-    <header>
-        <div class="container">
-            <div class="topHeader">
-                <a class="brand-name" href="/">
-                    <img class="d-md-flex d-none" src="../../images/logo.png" alt="Antask">
-                    <img class="d-md-none d-flex" src="../../images/logo.png" alt="Antask">
-                </a>
-                <div style="margin: auto;"></div>
-                <div class="navRight">
-                    <a href="#" class="toggleMenu d-none d-md-flex">
-                        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOC4zMDkiIGhlaWdodD0iMTMuMDAzIiB2aWV3Qm94PSIwIDAgMTguMzA5IDEzLjAwMyI+CiAgPGcgaWQ9Ikdyb3VwXzYwOSIgZGF0YS1uYW1lPSJHcm91cCA2MDkiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0xNzk1LjA1MyAtMzYuNTMzKSI+CiAgICA8bGluZSBpZD0iTGluZV85NCIgZGF0YS1uYW1lPSJMaW5lIDk0IiB4MT0iMTYuMzA5IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxNzk2LjA1MyAzNy41MzMpIiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgICA8bGluZSBpZD0iTGluZV85NSIgZGF0YS1uYW1lPSJMaW5lIDk1IiB4MT0iMTYuMzA5IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxNzk2LjA1MyA0My4wMzQpIiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgICA8bGluZSBpZD0iTGluZV85NiIgZGF0YS1uYW1lPSJMaW5lIDk2IiB4MT0iMTYuMzA5IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxNzk2LjA1MyA0OC41MzUpIiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgPC9nPgo8L3N2Zz4K"
-                            alt="">
-                    </a>
-                    <a href="#" class="toggleMenu d-flex d-md-none">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </a>
-
-                    <div class="mobile-menu">
-                        <div class="mobile-nav">
-                            <ul>
-                                <li>
-                                    <a href="">HOME</a>
-                                </li>
-                                <li>
-                                    <a href="">PROFILE</a>
-                                </li>
-                                <li>
-                                    <a href="">REVIEWS</a>
-                                </li>
-                                <li>
-                                    <a href="">ACHIEVEMENTS</a>
-                                </li>
-                                <li>
-                                    <a href="">Invite</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <ul class="navMenu">
-                <li ><a href="" id="dashboard-link">Home</a></li>
-                <li ><a href="../task/list_tasks.html">Tasks</a></li>
-                <li ><a href="../member/list_members.html">Members</a></li>
-                <li ><a href="javascript:void(0);" onclick="logout(); return false; ">Logout</a></li>
-            </ul>
-        </div>
-
-    </header>
+    <header id="header"></header>
     <!-- Header End -->
     
     <section class="contentContainer p-0">
@@ -73,15 +23,13 @@
           <div class="row justify-content-between" style="margin-bottom: 60px; margin-top: 30px;">
             <div class="col-md-6 page-heading">
               <h4>New Task</h4>
-              <p>Add an new Task For Your members</p>
+              <p>Add an new task for your members.</p>
             </div>
             <div class="col-md-6 page-heading text-md-right">
               <h5 id="taskId"></h5>
               <p>Task ID #</p>
             </div>
           </div>
-
-
 
           <form id="addTaskForm" class="needs-validation" novalidate>
             <div class="row form-content border-bottom p-3">

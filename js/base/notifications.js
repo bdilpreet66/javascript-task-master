@@ -1,8 +1,45 @@
+const addModalElementToDom = () =>  {
+  // Check if the element with id 'modal-window' already exists
+  let existingElement = document.getElementById('modal-window');
+
+  // If the element doesn't exist, add it
+  if (!existingElement) {
+    // Create a new div element
+    let newElement = document.createElement('div');
+
+    // Set the HTML content
+    newElement.innerHTML = `
+      <div id="modal-window" class="modal d-none">
+        <div class="modal-content">
+          <span id="modal-icon"></span>
+          <p id="modal-message" class="mt-2"></p>
+          <div style="display: flex; flex-direction: row; gap: 10px; align-items: center; justify-content: center;">
+            <button id="modal-btn-okay" type="submit" class="btn btn-default mt-4 px-4">OK</button>
+            <button id="modal-btn-cancel" type="submit" class="btn btn-default mt-4 px-4 d-none">Cancel</button>
+          </div>          
+        </div>
+      </div>
+    `;
+
+    // Find the body element in the DOM
+    let bodyElement = document.body;
+
+    // Append the new element to the body
+    bodyElement.appendChild(newElement);
+  } else {
+    console.log("Element with id 'modal-window' already exists in the DOM.");
+  }
+}
+
+// Call the function to add the element to the DOM
+addModalElementToDom();
+
 const showMessage = (type, message, callback) => {
     const modal = document.getElementById("modal-window");
     const modalIcon = document.getElementById("modal-icon");
     const modalMessage = document.getElementById("modal-message");
     const modalBtnOk = document.getElementById("modal-btn-okay");
+    const modalBtnCancel = document.getElementById("modal-btn-cancel");
 
     modalMessage.innerHTML = message;
     modalIcon.className = '';
@@ -30,6 +67,10 @@ const showMessage = (type, message, callback) => {
         <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
         <path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/>
       </svg>`;
+      modalBtnCancel.classList.remove('d-none');
+      modalBtnCancel.innerHTML = 'No';
+      modalBtnOk.classList.add('btn-secondary');
+      modalBtnOk.innerHTML = 'Yes';
     }
     modal.style.display = "block";
     modal.classList.remove('d-none');

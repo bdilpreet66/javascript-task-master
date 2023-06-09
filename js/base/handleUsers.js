@@ -6,12 +6,12 @@ if (getTotalUsers() === 0 && !window.location.href.includes('setup.html')) {
 }
 
 // Function to create and save a user
-function createUser(email, password, type, hourlyRate=0) {
+function createUser(email, password, type, hourlyRate=0) {  
   const user = {
-    email,
-    password,
-    type,
-    hourlyRate
+    email: email,
+    password: password,
+    type: type,
+    hourlyRate: parseFloat(hourlyRate).toFixed(2)
   };
 
   // Save the user to local storage
@@ -26,7 +26,7 @@ function updateUser(email, hourlyRate, type) {
   let storedUsers = JSON.parse(localStorage.getItem('users')) || [];
   const userIndex = storedUsers.findIndex(user => user.email === email);
   if (userIndex !== -1) {
-    storedUsers[userIndex].hourlyRate = hourlyRate;
+    storedUsers[userIndex].hourlyRate = parseFloat(hourlyRate).toFixed(2);
     storedUsers[userIndex].type = type;
     localStorage.setItem('users', JSON.stringify(storedUsers));
     return true;

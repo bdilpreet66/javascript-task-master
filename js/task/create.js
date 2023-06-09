@@ -8,10 +8,6 @@ function generateNewId() {
     return newId;
 }
 
-function redirect() { 
-    window.location = `../task/edit_task.html?id=${taskID}`;
-}
-
 // Handle form submission
 function handleTaskFormSubmit(event) {
     event.preventDefault();
@@ -41,7 +37,10 @@ function handleTaskFormSubmit(event) {
         }
         
         saveTask(newTask);
-        showMessage('success','Task was created successfully.', redirect);
+        showMessage('success','Task was created successfully.', 
+        function(){
+            window.location = `../task/edit_task.html?id=${taskID}`;
+        });
         event.target.reset();
     }
     else {
