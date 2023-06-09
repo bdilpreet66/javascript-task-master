@@ -45,7 +45,6 @@ function setPassword(email, password) {
   return false;
 }
 
-
 // Function to get a user by email
 function getUser(email) {
   const storedUsers = JSON.parse(localStorage.getItem('users')) || [];
