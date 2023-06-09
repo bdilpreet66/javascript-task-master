@@ -792,3 +792,31 @@ footer ul li {
     height: 45px;
     width: 100%;
 }
+
+.pagination {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 5px;
+    padding: 0 5px;
+}
+
+.pagination-btn {
+    margin-top: 0px;
+    font-family: 'Roboto', sans-serif;
+    border-radius: 50px;
+    border: 1px solid transparent;
+    background-color: #fff;
+    color: #000;
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: none;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+.pagination-btn.active {
+    background-color: #000;
+    color: #fff;
+}

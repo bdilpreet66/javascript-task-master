@@ -9,6 +9,11 @@ const resultsSelect = document.getElementById('resultsSelect');
 let selectedUsers = [];
 let selectedUserIds = [];
 
+let page = 0;
+let itemsPerPage = 10; // Or any other number of items per page you want
+let sortColumn = "email";
+let sortOrder = 'asc'; // can be 'asc' or 'desc'
+
 function confirmDeleteUser(email) {
     if (confirm("Are you sure? \nYou won't be able to revert this.")) {
         // User clicked "OK"
@@ -49,15 +54,62 @@ function displayUsers(users) {
     });
 }
 
+function displayPaginationButtons(numberOfItems) {
+    const pagination = document.getElementById('pagination');
+    const numberOfPages = Math.ceil(numberOfItems / itemsPerPage);
+
+    pagination.innerHTML = '';
+
+    for (let i = 0; i < numberOfPages; i++) {
+        const button = document.createElement('button');
+        button.innerText = i + 1;
+        button.classList.add("pagination-btn");
+        button.addEventListener('click', () => {
+            page = i;
+            filterUsers();
+        });
+
+        if (i === page) {
+            button.classList.add('active');
+        }
+
+        pagination.appendChild(button);
+    }
+}
+
+
 // Filter users by email address
 function filterUsers() {
-    const limit = parseInt(resultsSelect.value);
     const searchTerm = searchInput.value.trim();
-    const filteredUsers = users.filter(user => user.email.toLowerCase().includes(searchTerm.toLowerCase()))
-    const limitedUsers = filteredUsers.slice(0, limit);
+    itemsPerPage = parseInt(resultsSelect.value);
 
-    displayUsers(limitedUsers);
+    let filteredUsers = users;
+
+    // Apply sorting if a sort column is selected
+    if (sortColumn !== null) {
+        filteredUsers.sort((a, b) => {
+            if (a[sortColumn] > b[sortColumn]) {
+                return sortOrder === 'asc' ? 1 : -1;
+            } else if (a[sortColumn] < b[sortColumn]) {
+                return sortOrder === 'asc' ? -1 : 1;
+            } else {
+                return 0;
+            }
+        });
+    }
+
+    // Apply filtering
+    filteredUsers = filteredUsers.filter(user => user.email.toLowerCase().includes(searchTerm.toLowerCase()));
+
+    // Apply pagination
+    const start = page * itemsPerPage;
+    const end = start + itemsPerPage;
+    const paginatedUsers = filteredUsers.slice(start, end);
+
+    displayUsers(paginatedUsers);
+    displayPaginationButtons(filteredUsers.length);
 }
+
 
 // Search input event listener
 searchInput.addEventListener('input', function () {
@@ -69,6 +121,46 @@ searchInput.addEventListener('input', function () {
 resultsSelect.addEventListener('change', function () {
     filterUsers();
 });
+
+document.getElementById("email-header").addEventListener("click", ()=>{
+    if (sortColumn == "email") {
+        if (sortOrder == "asc") {
+            sortOrder = "desc"
+        } else {
+            sortOrder = "asc"
+        }
+    } else {
+        sortOrder = "asc"
+    }
+    sortColumn = "email";
+    filterUsers();
+})
+document.getElementById("hourlyRate-header").addEventListener("click", ()=>{
+    if (sortColumn == "hourlyRate") {
+        if (sortOrder == "asc") {
+            sortOrder = "desc"
+        } else {
+            sortOrder = "asc"
+        }
+    } else {
+        sortOrder = "asc"
+    }
+    sortColumn = "hourlyRate";
+    filterUsers();
+})
+document.getElementById("type-header").addEventListener("click", ()=>{
+    if (sortColumn == "type") {
+        if (sortOrder == "asc") {
+            sortOrder = "desc"
+        } else {
+            sortOrder = "asc"
+        }
+    } else {
+        sortOrder = "asc"
+    }
+    sortColumn = "type";
+    filterUsers();
+})
 
 if (isAdmin()){
     // Display initial users

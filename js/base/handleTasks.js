@@ -4,8 +4,26 @@ const tasks = getTasksFromLocalStorage();
 
 // Function to retrieve tasks from local storage
 function getTasksFromLocalStorage() {
-    const storedTasks = localStorage.getItem('tasks');
-    return storedTasks ? JSON.parse(storedTasks) : [];
+    let storedTasks = localStorage.getItem('tasks');
+    storedTasks = storedTasks ? JSON.parse(storedTasks) : []
+    for (let index = 0; index < storedTasks.length; index++) {
+        const element = storedTasks[index];
+        storedTasks[index] = checkTaskStatus(element);
+    }
+    return storedTasks;
+}
+
+function checkTaskStatus(task) {
+    if (task.status != "complete") {
+        const end = new Date(task.endDate);
+        const cur = new Date();
+
+        if (cur > end) {
+            task.status = "overdue";
+            saveTask(task)
+        }
+    }
+    return task
 }
   
 // Function to save tasks to local storage
@@ -17,7 +35,6 @@ function saveTasksToLocalStorage(tasks) {
 function saveTask(task) {
     tasks.push(task);
     saveTasksToLocalStorage(tasks);
-    console.log("Task saved successfully!");
 }
 
 // Function to edit a task based on ID
@@ -54,19 +71,6 @@ function listComments(id) {
     }
 }
 
-function addWorkedHours(id, hrs, date) {
-    const index = tasks.findIndex(task => task.id == id);
-    if (index !== -1) {
-        tasks[index]["comments"].push({
-            message: comment,
-            user: commentor,
-            time: time.toISOString()
-         });
-        saveTasksToLocalStorage(tasks);
-    } else {
-        alert("Task not found!");
-    }
-}
 
 // Function to delete a task
 function deleteTask(id) {
@@ -81,7 +85,8 @@ function deleteTask(id) {
 
 // Function to retrieve task details by ID
 function getTaskById(id) {
-    const task = tasks.find(task => task.id == id);
+    let task = tasks.find(task => task.id == id);
+    task = checkTaskStatus(task)
     if (task) {
         return task;
     } else {
@@ -103,5 +108,17 @@ function populateAssignToMembers() {
             option.textContent = user.email;
             assignedToSelect.appendChild(option);
         });
+    }
+}
+
+function getStatus(status) {
+    if (status == "pending") {
+        return `<span class="badge bg-warning text-light">Pending</span>`;
+    } else if (status == "overdue") {
+        return `<span class="badge bg-danger text-light">Over-Due</span>`;
+    } else if (status == "in-progess") {
+        return `<span class="badge bg-dark text-light">In-Progess</span>`;
+    } else {
+        return ` <span class="badge bg-success text-light">Completed</span>`;
     }
 }

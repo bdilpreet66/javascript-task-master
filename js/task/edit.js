@@ -5,17 +5,50 @@ populateAssignToMembers();
 const urlParams = new URLSearchParams(window.location.search);
 const taskID = urlParams.get('id');
 
-const taskDetails = getTaskById(taskID);
-if (taskDetails !== null) {
-    document.getElementById('taskId').textContent = taskDetails.id;
-    document.getElementById('taskName').value = taskDetails.name;
-    document.getElementById('taskDescription').value = taskDetails.description;
-    document.getElementById('taskStartDate').value = taskDetails.startDate;
-    document.getElementById('taskEndDate').value = taskDetails.endDate;
-    document.getElementById('taskAssignedTo').value = taskDetails.assignedTo;
-}
-else { 
-    alert(`Task ID ${taskID} not found.`);
+let taskDetails;
+
+function getTimeline(startDate, endDate, currentDate) {
+    // Convert dates to milliseconds
+    const startMs = startDate.getTime();
+    const endMs = endDate.getTime();
+    const currentMs = currentDate.getTime();
+  
+    // Calculate the total duration in milliseconds
+    const totalDuration = endMs - startMs;
+  
+    // Calculate the elapsed duration in milliseconds
+    const elapsedDuration = currentMs - startMs;
+  
+    // Calculate the progress percentage
+    let progressPercentage = Math.floor((elapsedDuration / totalDuration) * 100);
+  
+    progressPercentage = (progressPercentage > 100) ? 100 : progressPercentage;
+    
+    return `<div class="progress-bar bg-dark" style="width:${progressPercentage}%" role="progressbar"></div>`;
+  }
+  
+
+function getData() {
+    taskDetails = getTaskById(taskID);
+
+    if (taskDetails !== null) {
+        document.getElementById('taskId').textContent = taskDetails.id;
+        document.getElementById('taskName').value = taskDetails.name;
+        document.getElementById('taskDescription').value = taskDetails.description;
+        document.getElementById('taskStartDate').value = taskDetails.startDate;
+        document.getElementById('taskEndDate').value = taskDetails.endDate;
+        document.getElementById('taskAssignedTo').value = taskDetails.assignedTo;
+        document.getElementById("status").innerHTML = getStatus(taskDetails.status);
+        document.getElementById("cost").innerHTML = taskDetails.total_cost;
+        document.getElementById("timeline").innerHTML = getTimeline(
+                new Date(taskDetails.startDate), 
+                new Date(taskDetails.endDate), 
+                new Date()
+            );
+    }
+    else { 
+        alert(`Task ID ${taskID} not found.`);
+    }
 }
 
 // Handle form submission
@@ -77,7 +110,6 @@ function loadComments(){
     list.innerHTML = "";
     let comments = listComments(taskDetails.id);
     if (comments.length) {
-    console.log(comments)
         for (let index = 0; index < comments.length; index++) {
             const comment = comments[index];
             let li = document.createElement("li");
@@ -115,6 +147,7 @@ function formatDateTime(isoString) {
 }
 
 // Add event listener to the form
+getData();
 const editTaskForm = document.getElementById('editTaskForm');
 editTaskForm.addEventListener('submit', handleTaskFormSubmit);
 loadComments();

@@ -121,26 +121,35 @@
             <div class="col-12 col-lg-4">
               <div class="row">
                 <div class="col-12">
-                  <h5>Worked Hours</h5>
+                    <h5>Statistics</h5>
+                </div>   
+                <div class="col-12">
+                  <div class="reviewCard">
+                    <h6>Status</h6>
+                    <div class="reviewscore-media" id="status">
+                      <span class="badge bg-warning text-light">Pending</span>
+                    </div>
+                  </div>
+                </div>     
+                <div class="col-12">
+                  <div class="reviewCard">
+                    <h6>Cost</h6>
+                    <div class="reviewscore-media">
+                        <h2>$ <span id="cost">0</span></h2>
+                    </div>
+                  </div>
+                </div>   
+                <div class="col-12">
+                  <div class="reviewCard">
+                    <h6>Timeline</h6>
+                    <div class="reviewscore-media">
+                      <div class="progress" id="timeline">
+                        
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <form>
-                  <div class="col-12">
-                    <div class="form-group">
-                      <label class="label-text" for="hoursDate">Date:</label>
-                      <input type="date" class="form-control" id="hoursDate" required>
-                    </div>
-                  </div>
-                  <div class="col-12">
-                    <div class="form-group">
-                      <label class="label-text" for="commentField">Hours:</label>
-                      <input type="number" class="form-control" id="hoursWorked" max="24" required>
-                    </div>
-                  </div>
-                  <div class="col-12">
-                    <button type="button" id="addHoursBtn" class="btn btn-default">Add Hours</button>
-                  </div>
-                </form>
-              </div>   
+              </div> 
             </div>
           </div>
       </div>
