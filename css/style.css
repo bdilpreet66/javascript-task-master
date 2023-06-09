@@ -754,6 +754,41 @@ footer ul li {
     text-align: center;
 }
 
-form button {
-    margin: 0 auto;
+.page-heading-button  {
+    display: flex;
+    gap: 10px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.comment-box {
+    border-bottom: 1px solid #dddddd;
+    padding: 10px 0;
+}
+
+.comment-box:last-child {
+    border-bottom: 0px;
+}
+
+.comment-details {
+    color: #707070;
+    font-weight: 300;
+    font-size: 12px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.comment-details {
+    color: #707070;
+    font-weight: 300;
+    font-size: 12px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.comment-message {
+    color: #707070;
+    font-size: 14px;
+    font-weight: 500;
+    height: 45px;
+    width: 100%;
 }
