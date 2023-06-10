@@ -91,6 +91,7 @@ function handleTaskFormSubmit(event) {
 
     // Get form values
     const editTaskDetails = {
+        id: taskDetails.id,
         name: document.getElementById('taskName').value,
         description: document.getElementById('taskDescription').value,
         startDate: document.getElementById('taskStartDate').value,

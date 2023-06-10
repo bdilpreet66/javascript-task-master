@@ -4,6 +4,7 @@
 function createCookie(name, value, hours) {
     const expires = new Date();
     expires.setTime(expires.getTime() + hours * 60 * 60 * 1000);
+    alert("saving cookie")
     document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/`;
 }
   

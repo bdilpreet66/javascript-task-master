@@ -37,7 +37,7 @@ function handleLoginFormSubmit(event) {
                 email: loginEmail,
                 type: userDetails.type
             }), 24);
-            window.location = getDashboardPage(userDetails.type);
+            // window.location = getDashboardPage(userDetails.type);
         }
         else {
             showMessage('danger', 'Email Address and Password are invalid.')

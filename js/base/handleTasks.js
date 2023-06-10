@@ -56,6 +56,7 @@ class TaskManager {
         const index = this.tasks.findIndex(task => parseInt(task.id) === parseInt(id));
         if (index !== -1) {
             this.tasks[index] = { ...this.tasks[index], ...updatedTask };
+            console.log(this.tasks)
             this.saveTasksToLocalStorage();
         } else {
             alert("Task not found!");
