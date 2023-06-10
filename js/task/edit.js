@@ -13,6 +13,9 @@ const populateAssignToMembers = () => {
             const option = document.createElement('option');
             option.value = user.email;
             option.textContent = user.email;
+            if (taskDetails.assignedTo == user.email) {
+                option.selected = true;
+            }
             assignedToSelect.appendChild(option);
         });
     }
@@ -60,7 +63,6 @@ function getData() {
         document.getElementById('taskDescription').value = taskDetails.description;
         document.getElementById('taskStartDate').value = taskDetails.startDate;
         document.getElementById('taskEndDate').value = taskDetails.endDate;
-        document.getElementById('taskAssignedTo').value = taskDetails.assignedTo;
         document.getElementById("status").innerHTML = getStatus(taskDetails.status);
         document.getElementById("cost").innerHTML = taskDetails.totalCost;
         document.getElementById("timeline").innerHTML = getTimeline(
