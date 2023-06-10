@@ -1,11 +1,9 @@
 "use strict";
 
-const tasks = getTasksFromLocalStorage();
-
 // Function to retrieve tasks from local storage
 function getTasksFromLocalStorage() {
     let storedTasks = localStorage.getItem('tasks');
-    storedTasks = storedTasks ? JSON.parse(storedTasks) : []
+    storedTasks = storedTasks ? JSON.parse(storedTasks) : [];
     for (let index = 0; index < storedTasks.length; index++) {
         const element = storedTasks[index];
         storedTasks[index] = checkTaskStatus(element);
@@ -39,6 +37,7 @@ function saveTask(task) {
 
 // Function to edit a task based on ID
 function editTask(id, updatedTask) {
+    const tasks = getTasksFromLocalStorage();
     const index = tasks.findIndex(task => task.id == id);
     if (index !== -1) {
         tasks[index] = { ...tasks[index], ...updatedTask };
