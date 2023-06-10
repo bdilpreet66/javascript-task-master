@@ -1,5 +1,3 @@
-"use strict";
-
 const tasksHandler = new TaskManager();
 
 const taskTableBody = document.getElementById('taskTableBody');

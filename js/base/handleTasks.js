@@ -27,6 +27,17 @@ class TaskManager {
         localStorage.setItem('tasks', JSON.stringify(this.tasks));
     }
 
+    getNextId() {
+        this.tasks = this.getTasksFromLocalStorage();
+        if (this.tasks.length === 0) {
+            return 1;
+        } else {
+            const ids = this.tasks.map(task => parseInt(task.id));
+            const maxId = Math.max(...ids);
+            return maxId + 1;
+        }
+    }
+
     saveTask(task) {
         this.tasks = this.getTasksFromLocalStorage();
         this.tasks.push(task);

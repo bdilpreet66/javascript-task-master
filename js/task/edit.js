@@ -1,13 +1,22 @@
-// Populate user emails for the Assign To field
-populateAssignToMembers();
+const tasksHandler = new TaskManager();
 
 // Get the task id from the query parameter
 const urlParams = new URLSearchParams(window.location.search);
-const taskID = urlParams.get('id');
+const taskID = parseInt(urlParams.get('id'));
 
 let taskDetails;
 
-
+const populateAssignToMembers = () => {
+    const assignedToSelect = document.getElementById('taskAssignedTo');
+    if (assignedToSelect !== null) {
+        listUsers().forEach(user => {
+            const option = document.createElement('option');
+            option.value = user.email;
+            option.textContent = user.email;
+            assignedToSelect.appendChild(option);
+        });
+    }
+};
 
 function getStatus(status) {
     if (status === "pending") {
@@ -43,7 +52,7 @@ function getTimeline(startDate, endDate, currentDate) {
   
 
 function getData() {
-    taskDetails = getTaskById(taskID);
+    taskDetails = tasksHandler.getTaskById(taskID);
 
     if (taskDetails !== null) {
         document.getElementById('taskId').textContent = taskDetails.id;
@@ -53,12 +62,14 @@ function getData() {
         document.getElementById('taskEndDate').value = taskDetails.endDate;
         document.getElementById('taskAssignedTo').value = taskDetails.assignedTo;
         document.getElementById("status").innerHTML = getStatus(taskDetails.status);
-        document.getElementById("cost").innerHTML = taskDetails.total_cost;
+        document.getElementById("cost").innerHTML = taskDetails.totalCost;
         document.getElementById("timeline").innerHTML = getTimeline(
                 new Date(taskDetails.startDate), 
                 new Date(taskDetails.endDate), 
                 new Date()
             );
+
+        loadComments();
     }
     else { 
         alert(`Task ID ${taskID} not found.`);
@@ -78,7 +89,6 @@ function handleTaskFormSubmit(event) {
 
     // Get form values
     const editTaskDetails = {
-        id: parseInt(document.getElementById('taskId').textContent),
         name: document.getElementById('taskName').value,
         description: document.getElementById('taskDescription').value,
         startDate: document.getElementById('taskStartDate').value,
@@ -87,16 +97,22 @@ function handleTaskFormSubmit(event) {
         comments: taskDetails.comments,
         hoursWorked: taskDetails.hoursWorked,
         status: taskDetails.status,
-        daily_cost: taskDetails.daily_cost,
-        total_cost: taskDetails.total_cost,
+        dailyCost: taskDetails.dailyCost,
+        totalCost: taskDetails.totalCost,
         owner: getLoggedInUser()
     }
 
-    editTask(taskDetails.id, editTaskDetails);
-    getData();
-    
-    // Reset form validation
-    editTaskForm.classList.remove('was-validated');
+
+    try{
+        tasksHandler.editTask(taskDetails.id, editTaskDetails);
+        getData();
+
+        showMessage('success', 'Task was created successfully.');
+
+        editTaskForm.classList.remove('was-validated');
+    } catch {
+        showMessage('danger', 'Error Updating Tasks.');
+    }
 }
 
 document.getElementById("commentBtn").addEventListener("click", (e) => {
@@ -108,7 +124,7 @@ document.getElementById("commentBtn").addEventListener("click", (e) => {
     let commentor = getLoggedInUser();
 
     if (comment != "" && commentor) {
-        addComment(taskDetails.id, comment, date, commentor);
+        tasksHandler.addComment(taskDetails.id, comment, date, commentor);
         document.getElementById("commentField").value = "";
         loadComments()
     } else {
@@ -120,7 +136,7 @@ document.getElementById("commentBtn").addEventListener("click", (e) => {
 function loadComments(){
     let list = document.getElementById("comments-list");
     list.innerHTML = "";
-    let comments = listComments(taskDetails.id);
+    let comments = tasksHandler.listComments(taskDetails.id);
     if (comments.length) {
         for (let index = 0; index < comments.length; index++) {
             const comment = comments[index];
@@ -158,8 +174,10 @@ function formatDateTime(isoString) {
     return `${day} ${month}, ${year} ${hours}:${minutes}`;
 }
 
-// Add event listener to the form
-getData();
-const editTaskForm = document.getElementById('editTaskForm');
-document.getElementById("saveTaskBtn").addEventListener('click', handleTaskFormSubmit);
-loadComments();
+
+if (isAdmin()) {
+    getData();
+    const editTaskForm = document.getElementById('editTaskForm');
+    document.getElementById("saveTaskBtn").addEventListener('click', handleTaskFormSubmit);
+    populateAssignToMembers();
+}
