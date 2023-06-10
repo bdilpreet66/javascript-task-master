@@ -110,7 +110,7 @@ function handleTaskFormSubmit(event) {
         tasksHandler.editTask(taskDetails.id, editTaskDetails);
         getData();
 
-        showMessage('success', 'Task was created successfully.');
+        showMessage('success', 'Task was saved successfully.');
 
         editTaskForm.classList.remove('was-validated');
     } catch {
