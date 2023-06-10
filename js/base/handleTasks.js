@@ -4,9 +4,13 @@ class TaskManager {
     constructor() { }
 
     getTasksFromLocalStorage() {
-        const storedTasks = localStorage.getItem('tasks');
-        let tasks = storedTasks ? JSON.parse(storedTasks) : [];
-        return tasks.map(this.checkTaskStatus);
+        try {
+            const storedTasks = localStorage.getItem('tasks');
+            let tasks = storedTasks ? JSON.parse(storedTasks) : [];
+            return tasks.map(this.checkTaskStatus);
+        } catch(e) {
+            throw new Error("Error getting tasks from localStorage");
+        }
     }
 
     checkTaskStatus(task) {
@@ -23,8 +27,11 @@ class TaskManager {
     }
 
     saveTasksToLocalStorage() {
-        console.log(this.tasks)
-        localStorage.setItem('tasks', JSON.stringify(this.tasks));
+        try {
+            localStorage.setItem('tasks', JSON.stringify(this.tasks));
+        } catch(e) {
+            throw new Error("Error updating localStorage");
+        }
     }
 
     getNextId() {
