@@ -15,7 +15,11 @@ let sortColumn = "email";
 let sortOrder = 'asc'; // can be 'asc' or 'desc'
 
 function confirmDeleteUser(email) {
-    if (confirm("Are you sure? \nYou won't be able to revert this.")) {
+    showMessage('confirm',`Are you sure? \nYou won't be able to revert this.`, function(){
+        deleteUser(email);
+        window.location.reload();
+    });
+    /*if (confirm("Are you sure? \nYou won't be able to revert this.")) {
         // User clicked "OK"
         if (deleteUser(email)) {
             setTimeout(() => {
@@ -23,7 +27,7 @@ function confirmDeleteUser(email) {
                 window.location.reload();
             }, 500)
         }
-    }
+    }*/
 }
 
 // Display users

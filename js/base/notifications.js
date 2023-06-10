@@ -71,6 +71,7 @@ const showMessage = (type, message, callback) => {
       modalBtnCancel.innerHTML = 'No';
       modalBtnOk.classList.add('btn-secondary');
       modalBtnOk.innerHTML = 'Yes';
+
     }
     modal.style.display = "block";
     modal.classList.remove('d-none');
@@ -84,6 +85,12 @@ const showMessage = (type, message, callback) => {
         modal.style.display = "none";
       }
     });
+
+    if (type === 'confirm') {
+      modalBtnCancel.addEventListener('click', function () {
+        modal.style.display = "none";        
+      });
+    }
 
     // When the user clicks anywhere outside of the modal, close it
     window.onclick = function(event) {
