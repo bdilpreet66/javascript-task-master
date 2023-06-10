@@ -213,7 +213,7 @@ header {
 }
 
 .toggleMenu {
-    background: #54595f;
+    background: #000;
     border-radius: 100%;
     width: 35px;
     height: 35px;
@@ -545,7 +545,7 @@ footer ul li {
 }
 
 .mobile-nav ul li a {
-    font-size: 18px;
+    font-size: 14px;
     padding-top: 17px;
     padding-bottom: 17px;
     color: #3b3b3b !important;
@@ -555,6 +555,10 @@ footer ul li {
     display: flex;
     align-items: center;
     border-bottom: 1px solid #707070;
+}
+
+.mobile-nav ul li:last-child a {
+    border-bottom: 0px solid #707070;
 }
 
 .mobile-nav ul li::after {
@@ -836,4 +840,10 @@ footer ul li {
     right: 10px;
     top: 0px;
     display: none;
+}
+
+.form-control::placeholder { /* Most modern browsers support this */
+    font-weight: 300;
+    color: #888;
+    opacity: 1; /* Firefox requires this to change color */
 }

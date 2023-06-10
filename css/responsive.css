@@ -85,7 +85,6 @@
     }
   
     .btn-default {
-        margin: 10px 0;
         width: 100%;
     }
 
@@ -130,6 +129,7 @@
     }
     .tab.navMenu {
         display: flex;
+        margin-bottom: 20px;;
     }
     .navMenu li {
         margin: 0 10px;
@@ -197,6 +197,9 @@
     .table tr:focus-within td.td-hidden {
         display: block;
     }
+    .btn-footer {
+        float: unset;
+    }
 }
 
 @media(max-width:575px) {
@@ -243,6 +246,7 @@
     }
     header .brand-name {
         top: unset;
+        left: 30%;
     }
 }
 
