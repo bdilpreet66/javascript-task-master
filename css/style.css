@@ -122,6 +122,10 @@ img {
     height: auto;
 }
 
+th {
+    font-weight: normal;
+}
+
 .wrapper {
     overflow: hidden;
 }

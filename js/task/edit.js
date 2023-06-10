@@ -7,6 +7,20 @@ const taskID = urlParams.get('id');
 
 let taskDetails;
 
+
+
+function getStatus(status) {
+    if (status === "pending") {
+        return `<span class="badge bg-warning text-light">Pending</span>`;
+    } else if (status === "overdue") {
+        return `<span class="badge bg-danger text-light">Over-Due</span>`;
+    } else if (status === "in-progess") {
+        return `<span class="badge bg-dark text-light">In-Progess</span>`;
+    } else {
+        return ` <span class="badge bg-success text-light">Completed</span>`;
+    }
+}
+
 function getTimeline(startDate, endDate, currentDate) {
     // Convert dates to milliseconds
     const startMs = startDate.getTime();

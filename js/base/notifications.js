@@ -34,7 +34,7 @@ const addModalElementToDom = () =>  {
 // Call the function to add the element to the DOM
 addModalElementToDom();
 
-const showMessage = (type, message, callback) => {
+const showMessage = (type = "success", message = "", callback = null) => {
     const modal = document.getElementById("modal-window");
     const modalIcon = document.getElementById("modal-icon");
     const modalMessage = document.getElementById("modal-message");

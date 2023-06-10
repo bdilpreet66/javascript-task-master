@@ -6,8 +6,20 @@ function generateNewId() {
     const tasks = getTasksFromLocalStorage();
     const maxId = tasks.reduce((max, task) => (task.id > max ? task.id : max), 0);
     const newId = parseInt(maxId) + 1;
-    alert(newId);
     return newId;
+}
+
+
+function populateAssignToMembers() {
+    const assignedToSelect = document.getElementById('taskAssignedTo');
+    if (assignedToSelect !== null) {
+        listUsers().forEach(user => {
+            const option = document.createElement('option');
+            option.value = user.email;
+            option.textContent = user.email;
+            assignedToSelect.appendChild(option);
+        });
+    }
 }
 
 // Handle form submission
