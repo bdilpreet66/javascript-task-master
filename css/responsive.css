@@ -47,6 +47,47 @@
 }
 
 @media(max-width:767px) {
+
+    table {
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+      
+    table thead {
+        display: none;
+    }
+      
+    table tbody,
+    table tr,
+    table th,
+    table td {
+        display: block;
+        width: 100%;
+    }
+      
+    table tr {
+        margin-bottom: 1rem;
+    }
+      
+    table td {
+        border: none;
+        position: relative;
+        padding-left: 50%;
+        text-align: left;
+    }
+      
+    table td::before {
+        content: attr(data-label);
+        position: relative;
+        left: 0;
+        width: 45%;
+        padding-right: 1rem;
+        white-space: nowrap;
+        font-weight: bold;
+    }
+  
     .btn-default {
         margin: 10px 0;
         width: 100%;
