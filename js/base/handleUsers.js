@@ -92,7 +92,7 @@ function isEmailExists(email) {
 }
 
 function getDashboardPage(type) {
-  return (type === 'admin') ? './dashboard/admin_dashboard.html' : './dashboard/member_dashboard.html';
+  return (type === 'admin') ? '../dashboard/admin_dashboard.html' : '../dashboard/member_dashboard.html';
 }
 
 function isLoggedIn() { 
