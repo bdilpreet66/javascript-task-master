@@ -42,7 +42,7 @@
                   <label class="label-text" for="password">Password</label>
                   <input type="password" class="form-control" id="password" required minlength="8">
                   <div class="invalid-feedback">
-                    Please enter a password.
+                    Please enter a password minimum of 8 characters.
                   </div>
                 </div>
               </div>
@@ -62,7 +62,7 @@
               <div class="col-12 col-md-6">
                 <div class="form-group">
                   <label class="label-text" for="hourlyRate">Hourly Rate</label>
-                  <input type="number" class="form-control" id="hourlyRate" min="0" max="100000" required>
+                  <input type="number" class="form-control" id="hourlyRate" min="0" max="100000" step=".01" required>
                   <div class="invalid-feedback">
                     Please enter an hourly rate from 0 to 100000.
                   </div>

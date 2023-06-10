@@ -67,10 +67,6 @@
         width: 100%;
     }
       
-    table tr {
-        margin-bottom: 1rem;
-    }
-      
     table td {
         border: none;
         position: relative;
@@ -132,6 +128,9 @@
         margin-bottom: 0px;
         padding-top: 60px;
     }
+    .tab.navMenu {
+        display: flex;
+    }
     .navMenu li {
         margin: 0 10px;
     }
@@ -189,11 +188,23 @@
     header .brand-name {
         top: 25px;
     }
+    .chevron {
+        display: block;
+    }
+    .td-hidden {
+        display: none;
+    }
+    .table tr:focus-within td.td-hidden {
+        display: block;
+    }
 }
 
 @media(max-width:575px) {
     .navMenu {
         display: none;
+    }
+    .tab.navMenu {
+        display: flex;
     }
     .reviewList li {
         width: 50%;
