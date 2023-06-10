@@ -1,26 +1,39 @@
 "use strict";
 
 class TaskManager {
-    constructor() { }
+    constructor() { 
+        this.tasks = [];
+        this.change = false;
+    }
 
     getTasksFromLocalStorage() {
         try {
             const storedTasks = localStorage.getItem('tasks');
-            let tasks = storedTasks ? JSON.parse(storedTasks) : [];
-            return tasks.map(this.checkTaskStatus);
+            this.tasks = storedTasks ? JSON.parse(storedTasks) : [];
+            this.tasks = this.tasks.map(task => this.checkTaskStatus(task));
+            if (this.change) {
+                this.saveTasksToLocalStorage();
+                this.change = false;
+            }
+            return this.tasks;
         } catch(e) {
+            console.log(e);
             throw new Error("Error getting tasks from localStorage");
         }
     }
 
     checkTaskStatus(task) {
+        this.change = false;
         if (task.status !== "complete") {
             const end = new Date(task.endDate);
             const cur = new Date();
 
-            if (cur > end) {
+            if (cur <= end && task.assignedTo === "" && task.status !== "un-assigned") {
+                task.status = "un-assigned";
+                this.change = true;
+            } else if (cur > end && task.status !== "overdue") {
                 task.status = "overdue";
-                this.editTask(task.id, task);
+                this.change = true;
             }
         }
         return task;
@@ -56,7 +69,6 @@ class TaskManager {
         const index = this.tasks.findIndex(task => parseInt(task.id) === parseInt(id));
         if (index !== -1) {
             this.tasks[index] = { ...this.tasks[index], ...updatedTask };
-            console.log(this.tasks)
             this.saveTasksToLocalStorage();
         } else {
             alert("Task not found!");

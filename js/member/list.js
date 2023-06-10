@@ -68,21 +68,23 @@ function displayPaginationButtons(numberOfItems) {
     const numberOfPages = Math.ceil(numberOfItems / itemsPerPage);
 
     pagination.innerHTML = '';
+    
+    if (numberOfPages > 1) {
+        for (let i = 0; i < numberOfPages; i++) {
+            const button = document.createElement('button');
+            button.innerText = i + 1;
+            button.classList.add("pagination-btn");
+            button.addEventListener('click', () => {
+                page = i;
+                filterUsers();
+            });
 
-    for (let i = 0; i < numberOfPages; i++) {
-        const button = document.createElement('button');
-        button.innerText = i + 1;
-        button.classList.add("pagination-btn");
-        button.addEventListener('click', () => {
-            page = i;
-            filterUsers();
-        });
+            if (i === page) {
+                button.classList.add('active');
+            }
 
-        if (i === page) {
-            button.classList.add('active');
+            pagination.appendChild(button);
         }
-
-        pagination.appendChild(button);
     }
 }
 

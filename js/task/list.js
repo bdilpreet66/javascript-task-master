@@ -17,6 +17,8 @@ const getStatus = status => {
             return `<span class="badge bg-danger text-light">Over-Due</span>`;
         case "in-progess":
             return `<span class="badge bg-dark text-light">In-Progess</span>`;
+        case "un-assigned":
+            return `<span class="badge bg-secondary text-light">Un-Assigned</span>`;
         default:
             return ` <span class="badge bg-success text-light">Completed</span>`;
     }
@@ -64,20 +66,22 @@ const displayPaginationButtons = numberOfItems => {
 
     pagination.innerHTML = '';
 
-    for (let i = 0; i < numberOfPages; i++) {
-        const button = document.createElement('button');
-        button.innerText = i + 1;
-        button.classList.add("pagination-btn");
-        button.addEventListener('click', () => {
-            page = i;
-            filterTasks();
-        });
+    if (numberOfPages > 1) {
+        for (let i = 0; i < numberOfPages; i++) {
+            const button = document.createElement('button');
+            button.innerText = i + 1;
+            button.classList.add("pagination-btn");
+            button.addEventListener('click', () => {
+                page = i;
+                filterTasks();
+            });
 
-        if (i === page) {
-            button.classList.add('active');
+            if (i === page) {
+                button.classList.add('active');
+            }
+
+            pagination.appendChild(button);
         }
-
-        pagination.appendChild(button);
     }
 }
 
