@@ -1,3 +1,5 @@
+'use strict';
+
 // Fetch user data from local storage
 const users = listUsers();
 
@@ -10,9 +12,9 @@ let selectedUsers = [];
 let selectedUserIds = [];
 
 let page = 0;
-let itemsPerPage = 10; // Or any other number of items per page you want
+let itemsPerPage = 5;
 let sortColumn = "email";
-let sortOrder = 'asc'; // can be 'asc' or 'desc'
+let sortOrder = 'asc';
 
 function confirmDeleteUser(email) {
     showMessage('confirm',`Are you sure? \nYou won't be able to revert this.`, function(){
@@ -126,44 +128,20 @@ resultsSelect.addEventListener('change', function () {
     filterUsers();
 });
 
-document.getElementById("email-header").addEventListener("click", ()=>{
-    if (sortColumn == "email") {
-        if (sortOrder == "asc") {
-            sortOrder = "desc"
+["email","hourlyRate","type"].forEach(elm => {
+    document.getElementById(elm + "-header").addEventListener("click", ()=>{
+        if (sortColumn == elm) {
+            if (sortOrder == "asc") {
+                sortOrder = "desc"
+            } else {
+                sortOrder = "asc"
+            }
         } else {
             sortOrder = "asc"
         }
-    } else {
-        sortOrder = "asc"
-    }
-    sortColumn = "email";
-    filterUsers();
-})
-document.getElementById("hourlyRate-header").addEventListener("click", ()=>{
-    if (sortColumn == "hourlyRate") {
-        if (sortOrder == "asc") {
-            sortOrder = "desc"
-        } else {
-            sortOrder = "asc"
-        }
-    } else {
-        sortOrder = "asc"
-    }
-    sortColumn = "hourlyRate";
-    filterUsers();
-})
-document.getElementById("type-header").addEventListener("click", ()=>{
-    if (sortColumn == "type") {
-        if (sortOrder == "asc") {
-            sortOrder = "desc"
-        } else {
-            sortOrder = "asc"
-        }
-    } else {
-        sortOrder = "asc"
-    }
-    sortColumn = "type";
-    filterUsers();
+        sortColumn = elm;
+        filterUsers();
+    });
 })
 
 if (isAdmin()){

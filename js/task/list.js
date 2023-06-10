@@ -5,6 +5,11 @@ const taskTableBody = document.getElementById('taskTableBody');
 const searchInput = document.getElementById('searchInput');
 const resultsSelect = document.getElementById('resultsSelect');
 
+let page = 0;
+let itemsPerPage = 10;
+let sortColumn = "email";
+let sortOrder = 'asc';
+
 function redirect() { 
     window.location = '../task/list_task.html';
 }
@@ -21,6 +26,7 @@ function displayTasks(tasks) {
             <td>${task.startDate}</td>
             <td>${task.endDate}</td>
             <td>${task.assignedTo}</td>
+            <td>${getStatus(task.status)}</td>
             <td>
             <a class="btn btn-outline-dark btn-sm" href="edit_task.html?id=${task.id}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
@@ -39,21 +45,64 @@ function displayTasks(tasks) {
     });
 }
 
+function displayPaginationButtons(numberOfItems) {
+    const pagination = document.getElementById('pagination');
+    const numberOfPages = Math.ceil(numberOfItems / itemsPerPage);
+
+    pagination.innerHTML = '';
+
+    for (let i = 0; i < numberOfPages; i++) {
+        const button = document.createElement('button');
+        button.innerText = i + 1;
+        button.classList.add("pagination-btn");
+        button.addEventListener('click', () => {
+            page = i;
+            filterTasks();
+        });
+
+        if (i === page) {
+            button.classList.add('active');
+        }
+
+        pagination.appendChild(button);
+    }
+}
+
 // Function to filter tasks by ID, Name, or Assigned To
 function filterTasks() {
-    const limit = parseInt(resultsSelect.value);
-    const filterValue = searchInput.value;
-    let filteredTasks = getTasksFromLocalStorage();
-    if (filterValue !== undefined) {
-        filteredTasks = tasks.filter(task => {
-            const idMatch = task.id.toString() === filterValue;
-            const nameMatch = task.name.toLowerCase().includes(filterValue.toLowerCase());
-            const assignedToMatch = task.assignedTo.toLowerCase().includes(filterValue.toLowerCase());
-            return idMatch || nameMatch || assignedToMatch;
+    const searchTerm = searchInput.value.trim();
+    itemsPerPage = parseInt(resultsSelect.value);
+
+    let filteredTasks = tasks;
+
+    // Apply sorting if a sort column is selected
+    if (sortColumn !== null) {
+        filteredTasks.sort((a, b) => {
+            if (a[sortColumn] > b[sortColumn]) {
+                return sortOrder === 'asc' ? 1 : -1;
+            } else if (a[sortColumn] < b[sortColumn]) {
+                return sortOrder === 'asc' ? -1 : 1;
+            } else {
+                return 0;
+            }
         });
     }
-    const limitedTasks = filteredTasks.slice(0, limit);
-    displayTasks(limitedTasks);
+
+    // Apply filtering
+    filteredTasks = filteredTasks.filter(task => {
+        const idMatch = task.id.toString() === searchTerm;
+        const nameMatch = task.name.toLowerCase().includes(searchTerm.toLowerCase());
+        const assignedToMatch = task.assignedTo.toLowerCase().includes(searchTerm.toLowerCase());
+        return idMatch || nameMatch || assignedToMatch;
+    });
+
+    // Apply pagination
+    const start = page * itemsPerPage;
+    const end = start + itemsPerPage;
+    const paginatedTasks = filteredTasks.slice(start, end);
+
+    displayTasks(paginatedTasks);
+    displayPaginationButtons(filteredTasks.length);
 }
 
 function confirmDeleteTask(id) { 
@@ -73,6 +122,22 @@ searchInput.addEventListener('input', function () {
 resultsSelect.addEventListener('change', function () {
     filterTasks();
 });
+
+["id","name","startDate","endDate","assignedTo","status"].forEach(elm => {
+    document.getElementById(elm + "-header").addEventListener("click", ()=>{
+        if (sortColumn == elm) {
+            if (sortOrder == "asc") {
+                sortOrder = "desc"
+            } else {
+                sortOrder = "asc"
+            }
+        } else {
+            sortOrder = "asc"
+        }
+        sortColumn = elm;
+        filterTasks();
+    });
+})
 
 //Load all the tasks
 filterTasks();

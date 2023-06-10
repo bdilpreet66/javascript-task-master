@@ -54,18 +54,17 @@ function getData() {
 // Handle form submission
 function handleTaskFormSubmit(event) {
     event.preventDefault();
-    event.stopPropagation();
 
     // Validate the form
-    if (!event.target.checkValidity()) {
+    if (!editTaskForm.checkValidity()) {
         event.stopPropagation();
-        event.target.classList.add('was-validated');
+        editTaskForm.classList.add('was-validated');
         return;
     }
 
     // Get form values
     const editTaskDetails = {
-        id: document.getElementById('taskId').textContent,
+        id: parseInt(document.getElementById('taskId').textContent),
         name: document.getElementById('taskName').value,
         description: document.getElementById('taskDescription').value,
         startDate: document.getElementById('taskStartDate').value,
@@ -80,11 +79,10 @@ function handleTaskFormSubmit(event) {
     }
 
     editTask(taskDetails.id, editTaskDetails);
-    window.location = "../task/list_tasks.html";
-    event.target.reset();
+    getData();
     
     // Reset form validation
-    event.target.classList.remove('was-validated');
+    editTaskForm.classList.remove('was-validated');
 }
 
 document.getElementById("commentBtn").addEventListener("click", (e) => {
@@ -149,5 +147,5 @@ function formatDateTime(isoString) {
 // Add event listener to the form
 getData();
 const editTaskForm = document.getElementById('editTaskForm');
-editTaskForm.addEventListener('submit', handleTaskFormSubmit);
+document.getElementById("saveTaskBtn").addEventListener('click', handleTaskFormSubmit);
 loadComments();
