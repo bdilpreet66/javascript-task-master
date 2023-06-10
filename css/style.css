@@ -833,6 +833,12 @@ footer ul li {
     color: #fff;
 }
 
+.pagination-btn:hover {
+    border: 1px solid #000;
+    background-color: #fff;
+    color: #000;
+}
+
 .chevron {
     font-size: 24px;
     position: absolute;
