@@ -155,7 +155,7 @@ function loadComments(){
     } else {
         let li = document.createElement("li");
         li.classList.add("comment-box");
-        li.textContent = "No Comments Yet!";
+        li.textContent = "No comments yet";
         list.appendChild(li)
     }
 }
