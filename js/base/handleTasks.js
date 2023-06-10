@@ -20,7 +20,7 @@ function checkTaskStatus(task) {
 
         if (cur > end) {
             task.status = "overdue";
-            saveTask(task)
+            editTask(task.id,task)
         }
     }
     return task
