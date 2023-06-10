@@ -3,8 +3,10 @@ populateAssignToMembers();
 
 // Function to generate a new ID for a task
 function generateNewId() {
+    const tasks = getTasksFromLocalStorage();
     const maxId = tasks.reduce((max, task) => (task.id > max ? task.id : max), 0);
     const newId = parseInt(maxId) + 1;
+    alert(newId);
     return newId;
 }
 
