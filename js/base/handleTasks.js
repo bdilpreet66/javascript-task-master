@@ -24,8 +24,9 @@ class TaskManager {
 
     checkTaskStatus(task) {
         this.change = false;
-        if (task.status !== "complete") {
+        if (task.status !== "complete") {            
             const end = new Date(task.endDate);
+            end.setDate(end.getDate() + 1);
             const cur = new Date();
 
             if (cur <= end && task.assignedTo === "" && task.status !== "un-assigned") {

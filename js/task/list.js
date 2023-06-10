@@ -14,11 +14,11 @@ const getStatus = status => {
         case "pending":
             return `<span class="badge bg-warning text-light">Pending</span>`;
         case "overdue":
-            return `<span class="badge bg-danger text-light">Over-Due</span>`;
+            return `<span class="badge bg-danger text-light">Overdue</span>`;
         case "in-progess":
             return `<span class="badge bg-dark text-light">In-Progess</span>`;
         case "un-assigned":
-            return `<span class="badge bg-secondary text-light">Un-Assigned</span>`;
+            return `<span class="badge bg-secondary text-light">Unassigned</span>`;
         default:
             return ` <span class="badge bg-success text-light">Completed</span>`;
     }
@@ -32,7 +32,7 @@ const displayTasks = tasks => {
             const row = document.createElement('tr');
             row.innerHTML = `   
                 <td data-label="Task ID #" tabindex="0" class="focusable">${task.id}</td>
-                <td data-label="Name" class="td-hidden">${task.name}</td>
+                <td data-label="Name" tabindex="0" class="focusable">${task.name}</td>
                 <td data-label="Start Date" class="td-hidden">${task.startDate}</td>
                 <td data-label="End Date" class="td-hidden">${task.endDate}</td>
                 <td data-label="Assigned To" class="td-hidden">${task.assignedTo}</td>
