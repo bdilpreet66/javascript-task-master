@@ -847,3 +847,11 @@ footer ul li {
     color: #888;
     opacity: 1; /* Firefox requires this to change color */
 }
+
+.task-comments {
+    order: 1;
+    border-top: 1px solid #dee2e6;
+}
+.task-stats {
+    order: 2;
+}

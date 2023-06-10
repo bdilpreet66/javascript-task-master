@@ -44,6 +44,14 @@
     .reviewscore-main .reviewList li {
         padding: 5px 5px;
     }
+    .task-comments {
+        order: 2;
+        border-top: none;
+    }
+    .task-stats {
+        order: 1;
+        border-top: 1px solid #dee2e6;
+    }
 }
 
 @media(max-width:767px) {
@@ -246,7 +254,7 @@
     }
     header .brand-name {
         top: unset;
-        left: 30%;
+        left: 100px;
     }
 }
 
