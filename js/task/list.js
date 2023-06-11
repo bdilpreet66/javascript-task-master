@@ -135,7 +135,7 @@ const confirmDeleteTask = id => {
 searchInput.addEventListener('input', filterTasks);
 resultsSelect.addEventListener('change', filterTasks);
 
-if (isAdmin()) {
+if (userManager.isAdmin()) {
     ["id","name","startDate","endDate","assignedTo","status"].forEach(elm => {
         document.getElementById(`${elm}-header`).addEventListener("click", () => {
             sortOrder = (sortColumn === elm && sortOrder === "asc") ? "desc" : "asc";

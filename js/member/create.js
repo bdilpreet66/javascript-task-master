@@ -1,9 +1,11 @@
-function redirect() { 
+const userManager = new UserManagement();
+
+const redirect = () => { 
     window.location = '../member/list_members.html';
 }
 
 // Handle form submission
-function handleRegistrationFormSubmit(event) {
+const handleRegistrationFormSubmit = (event) => {
     event.preventDefault();
 
     // Validate the form
@@ -20,12 +22,12 @@ function handleRegistrationFormSubmit(event) {
     const hourlyRate = document.getElementById('hourlyRate').value;
 
     // TODO: Perform registration and further actions
-    if (isEmailExists(email)) {
+    if (userManager.isEmailExists(email)) {
         showMessage('danger', 'The email address already exists.');
     }
     else {
         try {
-            createUser(email, password, type, hourlyRate);
+            userManager.createUser(email, password, type, hourlyRate);
             showMessage('success', 'Member was created successfully.', redirect);
             event.target.reset();
         }
@@ -38,7 +40,7 @@ function handleRegistrationFormSubmit(event) {
     event.target.classList.remove('was-validated');
 }
 
-if (isAdmin()){
+if (userManager.isAdmin()){
     // Add event listener to the registration form
     const registrationForm = document.getElementById('registrationForm');
     registrationForm.addEventListener('submit', handleRegistrationFormSubmit);

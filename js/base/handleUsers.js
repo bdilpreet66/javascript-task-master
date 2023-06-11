@@ -1,127 +1,113 @@
 "use strict";
+class UserManager extends CookieManager {
 
-if (getTotalUsers() === 0 && !window.location.href.includes('setup.html')) {
-  deleteCookie('userInfo');
-  window.location = '../../templates/setup/setup.html';
-}
-
-// Function to create and save a user
-function createUser(email, password, type, hourlyRate=0) {  
-  const user = {
-    email: email,
-    password: password,
-    type: type,
-    hourlyRate: parseFloat(hourlyRate).toFixed(2)
-  };
-
-  // Save the user to local storage
-  let storedUsers = JSON.parse(localStorage.getItem('users')) || [];
-  storedUsers.push(user);
-  localStorage.setItem('users', JSON.stringify(storedUsers));
-
-  return user;
-}
-
-function updateUser(email, hourlyRate, type) {
-  let storedUsers = JSON.parse(localStorage.getItem('users')) || [];
-  const userIndex = storedUsers.findIndex(user => user.email === email);
-  if (userIndex !== -1) {
-    storedUsers[userIndex].hourlyRate = parseFloat(hourlyRate).toFixed(2);
-    storedUsers[userIndex].type = type;
-    localStorage.setItem('users', JSON.stringify(storedUsers));
-    return true;
-  }
-  return false;
-}
-
-function setPassword(email, password) {
-  let storedUsers = JSON.parse(localStorage.getItem('users')) || [];
-  const userIndex = storedUsers.findIndex(user => user.email === email);
-  if (userIndex !== -1) {
-    storedUsers[userIndex].password = password;
-    localStorage.setItem('users', JSON.stringify(storedUsers));
-    return true;
-  }
-  return false;
-}
-
-// Function to get a user by email
-function getUser(email) {
-  const storedUsers = JSON.parse(localStorage.getItem('users')) || [];
-  return storedUsers.find(user => user.email === email);
-}
-
-// Function to get all user
-function listUsers() {
-  const storedUsers = localStorage.getItem('users');
-  return storedUsers ? JSON.parse(storedUsers) : [];
-}
-
-// Function to verify a user
-function verifyUser(email, password, hashKey) {
-  const user = getUser(email);
-  if (user) {
-    const hashedPassword = hashPassword(password, hashKey);
-    return user.password === hashedPassword;
-  }
-  return false;
-}
-
-// Function to get the total number of users
-function getTotalUsers() {
-  const storedUsers = JSON.parse(localStorage.getItem('users')) || [];
-  return storedUsers.length;
-}
-
-// Function to delete a user
-function deleteUser(email) {
-  let storedUsers = JSON.parse(localStorage.getItem('users')) || [];
-  const userIndex = storedUsers.findIndex(user => user.email === email);
-  if (userIndex !== -1) {
-    storedUsers.splice(userIndex, 1);
-    localStorage.setItem('users', JSON.stringify(storedUsers));
-    return true;
-  }
-  return false;
-}
-
-// Function to check if an email address already exists
-function isEmailExists(email) {
-  const storedUsers = JSON.parse(localStorage.getItem('users')) || [];
-  return storedUsers.some(user => user.email === email);
-}
-
-function getDashboardPage(type) {
-  return (type === 'admin') ? '../dashboard/admin_dashboard.html' : '../dashboard/member_dashboard.html';
-}
-
-function isLoggedIn() { 
-  return checkCookieExists('userInfo');
-}
-
-function getLoggedInUser() {
-  if (isLoggedIn()) {
-    const loggedInUserInfo = getCookieValue('userInfo');
-    return loggedInUserInfo.email;
-  }
-  loginPage();
-}
-
-function isAdmin() { 
-  if (isLoggedIn()) {
-    const loggedInUserInfo = getCookieValue('userInfo');
-    if (loggedInUserInfo) {
-      return loggedInUserInfo.type === 'admin';
+  constructor() {
+    super();
+    if (this.getTotalUsers() === 0 && !window.location.href.includes('setup.html')) {
+      this.deleteCookie('userInfo');
+      window.location = '../../templates/setup/setup.html';
     }
   }
-  loginPage();
-}
 
-function loginPage() {
-    window.location = '../../templates/index.html';
-}
+  createUser(email, password, type, hourlyRate = 0) {
+    const user = {
+      email,
+      password,
+      type,
+      hourlyRate: parseFloat(hourlyRate).toFixed(2)
+    };
+    let storedUsers = JSON.parse(localStorage.getItem('users')) || [];
+    storedUsers.push(user);
+    localStorage.setItem('users', JSON.stringify(storedUsers));
+    return user;
+  }
 
-function logout() { 
-  deleteCookie('userInfo');
-  loginPage();
+  updateUser(email, hourlyRate, type) {
+    let storedUsers = JSON.parse(localStorage.getItem('users')) || [];
+    const userIndex = storedUsers.findIndex(user => user.email === email);
+    if (userIndex !== -1) {
+      storedUsers[userIndex].hourlyRate = parseFloat(hourlyRate).toFixed(2);
+      storedUsers[userIndex].type = type;
+      localStorage.setItem('users', JSON.stringify(storedUsers));
+      return true;
+    }
+    return false;
+  }
+
+  setPassword(email, password) {
+    let storedUsers = JSON.parse(localStorage.getItem('users')) || [];
+    const userIndex = storedUsers.findIndex(user => user.email === email);
+    if (userIndex !== -1) {
+      storedUsers[userIndex].password = password;
+      localStorage.setItem('users', JSON.stringify(storedUsers));
+      return true;
+    }
+    return false;
+  }
+
+  getUser(email) {
+    const storedUsers = JSON.parse(localStorage.getItem('users')) || [];
+    return storedUsers.find(user => user.email === email);
+  }
+
+  listUsers() {
+    const storedUsers = localStorage.getItem('users');
+    return storedUsers ? JSON.parse(storedUsers) : [];
+  }
+
+  getTotalUsers() {
+    const storedUsers = JSON.parse(localStorage.getItem('users')) || [];
+    return storedUsers.length;
+  }
+
+  deleteUser(email) {
+    let storedUsers = JSON.parse(localStorage.getItem('users')) || [];
+    const userIndex = storedUsers.findIndex(user => user.email === email);
+    if (userIndex !== -1) {
+      storedUsers.splice(userIndex, 1);
+      localStorage.setItem('users', JSON.stringify(storedUsers));
+      return true;
+    }
+    return false;
+  }
+
+  isEmailExists(email) {
+    const storedUsers = JSON.parse(localStorage.getItem('users')) || [];
+    return storedUsers.some(user => user.email === email);
+  }
+
+  getDashboardPage(type) {
+    return (type === 'admin') ? '../templates/dashboard/admin_dashboard.html' : '../templates/dashboard/member_dashboard.html';
+  }
+
+  isLoggedIn() { 
+    return this.checkCookieExists('userInfo');
+  }
+
+  getLoggedInUser() {
+    if (this.isLoggedIn()) {
+      const loggedInUserInfo = this.getCookieValue('userInfo');
+      return loggedInUserInfo.email;
+    }
+    this.loginPage();
+  }
+
+  isAdmin() { 
+    if (this.isLoggedIn()) {
+      const loggedInUserInfo = this.getCookieValue('userInfo');
+      if (loggedInUserInfo) {
+        return loggedInUserInfo.type === 'admin';
+      }
+    }
+    this.loginPage();
+  }
+
+  loginPage() {
+    window.location = '../../templates/index.html?loginPage';
+  }
+
+  logout() { 
+    this.deleteCookie('userInfo');
+    this.loginPage();
+  }
 }

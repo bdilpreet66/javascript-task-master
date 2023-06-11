@@ -1,6 +1,10 @@
-(function() {
+(function () {
+    
+    const userManager = new UserManager();
+    //const cookieManager = new CookieManager();
+    
     // Get the total no of users
-    if (getTotalUsers() > 0) {
+    if (userManager.getTotalUsers() > 0) {
         window.location = '../../templates/index.html';
     }
 
@@ -40,14 +44,14 @@
 
         // Save user
         const type = 'admin';
-        createUser(email,password,type);
+        userManager.createUser(email,password,type);
 
         const loggedInUser = {
             email: email,
             type: type
         };
 
-        createCookie('userInfo', JSON.stringify(loggedInUser), 24);
+        userManager.createCookie('userInfo', JSON.stringify(loggedInUser), 24);
 
         // Display success message or redirect to another page
         showMessage('success','Admin account was added successfully.', redirect)

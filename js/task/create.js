@@ -3,7 +3,7 @@ const tasksHandler = new TaskManager();
 const populateAssignToMembers = () => {
     const assignedToSelect = document.getElementById('taskAssignedTo');
     if (assignedToSelect !== null) {
-        listUsers().forEach(user => {
+        userManager.listUsers().forEach(user => {
             const option = document.createElement('option');
             option.value = user.email;
             option.textContent = user.email;
@@ -37,7 +37,7 @@ const handleTaskFormSubmit = event => {
         dailyCost: [],
         totalCost: 0.0,
         hoursWorked: 0,
-        owner: getLoggedInUser()
+        owner: userManager.getLoggedInUser()
     };
 
     try{
@@ -52,7 +52,7 @@ const handleTaskFormSubmit = event => {
     }
 };
 
-if (isAdmin()) {
+if (userManager.isAdmin()) {
     // Add event listener to the form
     const addTaskForm = document.getElementById('addTaskForm');
     addTaskForm.addEventListener('submit', handleTaskFormSubmit);

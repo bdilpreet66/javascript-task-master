@@ -1,5 +1,7 @@
 "use strict";
 
+const userManager = new UserManager();
+
 const createNavBarToDom = () => {
   // Check if the element with id 'modal-window' already exists
   let existingElement = document.getElementById('modal-window');
@@ -45,8 +47,8 @@ const createNavBarToDom = () => {
         <ul class="navMenu">
             <li ><a href="" id="dashboard-link">Home</a></li>
             <li ><a href="../task/list_tasks.html">Tasks</a></li>
-            <li ><a href="../member/list_members.html">Members</a></li>
-            <li ><a href="javascript:void(0);" onclick="logout(); return false; ">Logout</a></li>
+            ${ userManager.isAdmin() ? ` <li ><a href="../member/list_members.html">Members</a></li>` : ``}
+            <li ><a href="javascript:void(0);" onclick="">Logout</a></li>
         </ul>
     `;    
 
@@ -70,11 +72,11 @@ function handleNavbarToggle(event) {
 }
 
 function setDashbaordLink() {
-  if (isLoggedIn()) {
-    const loggedInUserInfo = getCookieValue('userInfo');
-    document.getElementById("dashboard-link").href = getDashboardPage(loggedInUserInfo.type)
+  if (userManager.isLoggedIn()) {
+    const loggedInUserInfo = userManager.getCookieValue('userInfo');
+    document.getElementById("dashboard-link").href = userManager.getDashboardPage(loggedInUserInfo.type)
   } else {
-    loginPage();
+    userManager.loginPage();
   }
 }
 

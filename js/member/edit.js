@@ -1,6 +1,7 @@
 // Get the user email from the query parameter
 const urlParams = new URLSearchParams(window.location.search);
 const email = urlParams.get('email');
+const userManager = new UserManager();
 
 // Switch between tabs
 function switchTab(activeLinkId, activeContentId) {
@@ -42,7 +43,7 @@ function handleRateTypeFormSubmit(event) {
     const memberType = document.getElementById('memberType').value;
 
     // Update the user data with the new values
-    const updatedUser = updateUser(email, hourlyRate, memberType);
+    const updatedUser = userManager.updateUser(email, hourlyRate, memberType);
     if (updatedUser) {
         // Display a success message or perform any additional actions        
         showMessage('success','Hourly Rate and Member Type were updated successfully.');
@@ -72,16 +73,16 @@ function handlePasswordFormSubmit(event) {
     }
 
     // Update the user password with the new value
-    const updatedUser = setPassword(email, newPassword);
+    const updatedUser = userManager.setPassword(email, newPassword);
     if (updatedUser) {        
         showMessage('success','Password updated successfully.');
     }
 }
 
 
-if (isAdmin()) {
+if (userManager.isAdmin()) {
     // Get the user data
-    const user = getUser(email);
+    const user = userManager.getUser(email);
 
     // Populate the form fields with user data
     populateFormData(user);

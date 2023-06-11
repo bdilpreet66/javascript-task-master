@@ -9,7 +9,7 @@ let taskDetails;
 const populateAssignToMembers = () => {
     const assignedToSelect = document.getElementById('taskAssignedTo');
     if (assignedToSelect !== null) {
-        listUsers().forEach(user => {
+        userManager.listUsers().forEach(user => {
             const option = document.createElement('option');
             option.value = user.email;
             option.textContent = user.email;
@@ -104,7 +104,7 @@ function handleTaskFormSubmit(event) {
         status: taskDetails.status,
         dailyCost: taskDetails.dailyCost,
         totalCost: taskDetails.totalCost,
-        owner: getLoggedInUser()
+        owner: userManager.getLoggedInUser()
     }
 
 
@@ -126,7 +126,7 @@ document.getElementById("commentBtn").addEventListener("click", (e) => {
 
     let comment = document.getElementById("commentField").value;
     let date = new Date();
-    let commentor = getLoggedInUser();
+    let commentor = userManager.getLoggedInUser();
 
     if (comment != "" && commentor) {
         tasksHandler.addComment(taskDetails.id, comment, date, commentor);
@@ -180,7 +180,7 @@ function formatDateTime(isoString) {
 }
 
 
-if (isAdmin()) {
+if (userManager.isAdmin()) {
     getData();
     const editTaskForm = document.getElementById('editTaskForm');
     document.getElementById("saveTaskBtn").addEventListener('click', handleTaskFormSubmit);
