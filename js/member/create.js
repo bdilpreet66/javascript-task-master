@@ -1,5 +1,3 @@
-const userManager = new UserManagement();
-
 const redirect = () => { 
     window.location = '../member/list_members.html';
 }

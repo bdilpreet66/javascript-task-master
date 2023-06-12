@@ -429,7 +429,7 @@ footer ul li {
 
 .reviewCard {
     padding: 15px;
-    border: 1px solid #000;
+    border: 1px solid lightgrey;
     border-radius: 8px;
     min-width: 160px;
 }
@@ -765,6 +765,13 @@ footer ul li {
     text-align: center;
 }
 
+.modal-content .close {
+    position: absolute;
+    right: 12px;
+    top: 12px;
+    cursor: pointer;
+}
+
 .page-heading-button  {
     display: flex;
     gap: 10px;
@@ -859,4 +866,13 @@ footer ul li {
 }
 .task-stats {
     order: 2;
+}
+.label {
+    font-weight: 500;
+    font-size: 16px;
+    margin-right: 10px;
+}
+.task-description {
+    max-height: 300px;
+    overflow-y: auto;
 }

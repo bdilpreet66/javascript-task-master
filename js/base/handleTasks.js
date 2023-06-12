@@ -115,4 +115,22 @@ class TaskManager {
         this.tasks = this.getTasksFromLocalStorage();
         return this.tasks.some(task => parseInt(task.id) === parseInt(id));
     }
+
+    addWorkedHours(taskID, assignedTo, hourlyRate, hours, minutes, createdBy) {
+        const time = new Date();
+        const data = {
+            taskID: taskID,
+            assignedTo: assignedTo,
+            hourlyRate: hourlyRate,
+            hours: hours,
+            minutes: minutes,
+            dateCreated: time.toISOString(),
+            createdBy: createdBy
+        };
+        
+        const workedhours = localStorage.getItem('workedhours');
+        let dataArray = workedhours ? JSON.parse(workedhours) : [];
+        dataArray.push(data);
+        localStorage.setItem('workedhours', JSON.stringify(dataArray));
+    }
 }

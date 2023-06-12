@@ -16,7 +16,7 @@ let itemsPerPage = 5;
 let sortColumn = "email";
 let sortOrder = 'asc';
 
-function confirmDeleteUser(email) {
+const confirmDeleteUser = (email) => {
     showMessage('confirm',`Are you sure? \nYou won't be able to revert this.`, function(){
         userManager.deleteUser(email);
         window.location.reload();
@@ -24,7 +24,7 @@ function confirmDeleteUser(email) {
 }
 
 // Display users
-function displayUsers(users) {
+const displayUsers = (users) => {
     const chevron = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
                         <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
                     </svg>`;
@@ -54,7 +54,7 @@ function displayUsers(users) {
     });
 }
 
-function displayPaginationButtons(numberOfItems) {
+const displayPaginationButtons = (numberOfItems) => {
     const pagination = document.getElementById('pagination');
     const numberOfPages = Math.ceil(numberOfItems / itemsPerPage);
 
@@ -81,7 +81,7 @@ function displayPaginationButtons(numberOfItems) {
 
 
 // Filter users by email address
-function filterUsers() {
+const filterUsers = () => {
     const searchTerm = searchInput.value.trim();
     itemsPerPage = parseInt(resultsSelect.value);
 
@@ -112,12 +112,10 @@ function filterUsers() {
     displayPaginationButtons(filteredUsers.length);
 }
 
-
 // Search input event listener
 searchInput.addEventListener('input', function () {
     filterUsers();
 });
-
 
 // Results select event listener
 resultsSelect.addEventListener('change', function () {

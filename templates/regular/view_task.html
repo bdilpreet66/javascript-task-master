@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Task</title>
+  <link rel="icon" type="image/x-icon" href="../../images/favicon.png" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="stylesheet" href="../../css/responsive.css">
+</head>
+
+<body>
+  <div class="wrapper">
+    <!-- Header Start -->
+    <header id="header"></header>
+    <!-- Header End -->
+    
+    <section class="contentContainer p-0">
+      <div class="container">
+          
+          <div class="row justify-content-between mb-3" style="margin-bottom: 60px; margin-top: 30px;">
+            <div class="col-md-6 page-heading">
+              <h5>
+                Task ID# <span id="taskId"></span>:
+                <span id="taskName"></span>
+              </h5>
+            </div>
+            <div class="col-md-6 page-heading-button">
+              <a href="../regular/list_tasks.html" class="btn btn-default btn-secondary">Cancel</a>
+              <button type="button" id="addHoursBtn" class="btn btn-default">Add Hours</button>
+            </div>
+          </div>
+
+          <form id="editTaskForm" class="needs-validation" novalidate>
+            <input type="hidden" id="taskAssignedTo" value="">
+            <div class="row form-content border-top p-3">
+              <div class="col-12 col-lg-8">
+                <div class="row">
+                  <div class="col-12">
+                    <h6 class="mb-3">Description</h6>
+                    <p id="taskDescription" class="reviewCard task-description" style="min-height: 300px;"></p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <span class="label">Start Date</span>
+                    <span id="taskStartDate"></span>
+                  </div>
+                  <div class="col-md-6">
+                    <span class="label">End Date</span>
+                    <span id="taskEndDate"></span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-lg-4 task-stats">
+                <div class="row">
+                  <div class="col-12">
+                      <h5>Statistics</h5>
+                  </div>   
+                  <div class="col-12">
+                    <div class="reviewCard">
+                      <h6>Status</h6>
+                      <div class="reviewscore-media" id="status">
+                        <span class="badge bg-warning text-light">Pending</span>
+                      </div>
+                    </div>
+                  </div>     
+                  <div class="col-12">
+                    <div class="reviewCard">
+                      <h6>Cost</h6>
+                      <div class="reviewscore-media">
+                          <h2>$ <span id="cost">0</span></h2>
+                          <a href="#">View Logs</a>
+                      </div>
+                    </div>
+                  </div>   
+                  <div class="col-12">
+                    <div class="reviewCard">
+                      <h6>Timeline</h6>
+                      <div class="reviewscore-media">
+                        <div class="progress" id="timeline">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div> 
+              </div>
+            </div>
+          </form>
+
+          <div class="row form-content p-3">
+            <div class="col-12 col-lg-8 task-comments">
+              <div class="col-12">
+                  <h5>Comments</h5>
+              </div>      
+
+              <div class="col-12">
+                <ul class="reviewCard" id="comments-list">
+                    <li class="comment-box">
+                      No Comments Yet!
+                    </li>
+                </ul>
+              </div>
+
+              <div class="col-12">
+                <div class="form-group">
+                  <label class="label-text" for="commentField">Wite a Comment:</label>
+                  <textarea class="form-control" id="commentField"></textarea>
+                </div>
+              </div>
+            
+              <div class="col-12">
+                <button type="button" id="commentBtn" class="btn btn-default">Add Comment</button>
+              </div>
+            </div>
+            
+          </div>
+      </div>
+  </section>
+
+  <!-- The Modal -->
+  <div id="workedHoursModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+      <span class="close">
+        <svg xmlns="http://www.w3.org/2000/svg" height="24" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
+          <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+          <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+        </svg></span>
+      <h5 class="mb-3">Add Worked Hours</h5>
+      <form id="workedHoursForm" class="form-content needs-validation" novalidate>
+        <div class="row">
+          <div class="col-12">
+            <div class="form-group">
+              <label class="label-text" for="hours">Hours</label>
+              <input class="form-control" type="number" id="hours" name="hours" min="0" max="23" required>
+              <div class="invalid-feedback text-left">
+                Please enter hours between 0 to 23.
+              </div>
+            </div>
+          </div>
+          <div class="col-12 mb-3">
+            <div class="form-group">
+              <label class="label-text" for="minutes">Minutes</label>
+              <input class="form-control" type="number" value="0" id="minutes" name="minutes" min="0" max="59" required>
+              <div class="invalid-feedback text-left">
+                Please enter minutes between 0 to 59.
+              </div>
+            </div>
+          </div>
+          <div class="mx-auto">
+            <button id="setTime" class="btn btn-default">Submit</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!--View Logs-->
+  <div id="viewLogsModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content" style="max-width: 80%;">
+      <span class="close">
+        <svg xmlns="http://www.w3.org/2000/svg" height="24" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
+          <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+          <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+        </svg></span>
+      <h5 class="mb-3">Worked Hours</h5>
+      <div id="tableContainer"></div>
+    </div>
+  </div>
+
+</div>
+<script src="../../js/base/common.js"></script>
+<script src="../../js/base/cookies.js"></script>
+<script src="../../js/base/handleUsers.js"></script>
+<script src="../../js/base/navbar.js"></script>
+<script src="../../js/base/notifications.js"></script>
+<script src="../../js/base/handleTasks.js"></script>
+<script src="../../js/regular/view.js"></script>
+
+</body>
+
+</html>

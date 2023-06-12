@@ -1,64 +1,60 @@
-(function () {
-    
-    const userManager = new UserManager();
-    //const cookieManager = new CookieManager();
-    
-    // Get the total no of users
-    if (userManager.getTotalUsers() > 0) {
-        window.location = '../../templates/index.html';
+const userManager = new UserManager();
+
+const setupForm = document.getElementById('setupForm');
+
+// Get the total no of users
+if (userManager.getTotalUsers() > 0) {
+    window.location = '../../templates/index.html';
+}
+
+const redirect = () => {
+    window.location = '../../templates/dashboard/admin_dashboard.html';
+}
+
+// Handle form submission
+const handleSetupFormSubmit = (event) => {
+    event.preventDefault();
+
+    // Validate the form
+    if (!event.target.checkValidity()) {
+        event.stopPropagation();
+        event.target.classList.add('was-validated');
+        return;
     }
 
-    function redirect() { 
-        window.location = '../../templates/dashboard/admin_dashboard.html';
+    // Get form values
+    //const companyName = document.getElementById('companyName').value;
+    //const userName = document.getElementById('userName').value;
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    const confirmPassword = document.getElementById('confirmPassword').value;
+    const agreeTerms = document.getElementById('agreeTerms').checked;
+
+    // Check if password and confirm password match
+    if (password !== confirmPassword) {
+        document.getElementById('confirmPassword').setCustomValidity("Passwords do not match");
+        event.target.classList.add('was-validated');
+        return;
     }
 
-    // Handle form submission
-    function handleSetupFormSubmit(event) {
-        event.preventDefault();
+    // Reset form validation
+    event.target.classList.remove('was-validated');
+    event.target.reset();
 
-        // Validate the form
-        if (!event.target.checkValidity()) {
-            event.stopPropagation();
-            event.target.classList.add('was-validated');
-            return;
-        }
+    // Save user
+    const type = 'admin';
+    userManager.createUser(email,password,type);
 
-        // Get form values
-        //const companyName = document.getElementById('companyName').value;
-        //const userName = document.getElementById('userName').value;
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
-        const confirmPassword = document.getElementById('confirmPassword').value;
-        const agreeTerms = document.getElementById('agreeTerms').checked;
+    const loggedInUser = {
+        email: email,
+        type: type
+    };
 
-        // Check if password and confirm password match
-        if (password !== confirmPassword) {
-            document.getElementById('confirmPassword').setCustomValidity("Passwords do not match");
-            event.target.classList.add('was-validated');
-            return;
-        }
+    userManager.createCookie('userInfo', JSON.stringify(loggedInUser), 24);
 
-        // Reset form validation
-        event.target.classList.remove('was-validated');
-        event.target.reset();
+    // Display success message or redirect to another page
+    showMessage('success','Admin account was added successfully.', redirect)
+}
 
-        // Save user
-        const type = 'admin';
-        userManager.createUser(email,password,type);
-
-        const loggedInUser = {
-            email: email,
-            type: type
-        };
-
-        userManager.createCookie('userInfo', JSON.stringify(loggedInUser), 24);
-
-        // Display success message or redirect to another page
-        showMessage('success','Admin account was added successfully.', redirect)
-    }
-    
-    // Add event listener to the setup form
-    const setupForm = document.getElementById('setupForm');
-    setupForm.addEventListener('submit', handleSetupFormSubmit);
-
-})();
+// Add event listener to the setup form
+setupForm.addEventListener('submit', handleSetupFormSubmit);

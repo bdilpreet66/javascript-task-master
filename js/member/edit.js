@@ -4,7 +4,7 @@ const email = urlParams.get('email');
 const userManager = new UserManager();
 
 // Switch between tabs
-function switchTab(activeLinkId, activeContentId) {
+const switchTab = (activeLinkId, activeContentId) => {
     const tabLinks = document.querySelectorAll('a');
     const tabContents = document.querySelectorAll('.tab-pane');
   
@@ -21,14 +21,14 @@ function switchTab(activeLinkId, activeContentId) {
 }
 
 // Function to populate the form fields with user data
-function populateFormData(user) {
+const populateFormData = (user) => {
     // Populate hourly rate and member type
     document.getElementById('hourlyRate').value = user.hourlyRate;
     document.getElementById('memberType').value = user.type;
 }
 
 // Function to handle the rate and type form submission
-function handleRateTypeFormSubmit(event) {
+const handleRateTypeFormSubmit = (event) => {
     event.preventDefault();
 
     // Validate the form
@@ -51,7 +51,7 @@ function handleRateTypeFormSubmit(event) {
 }
 
 // Function to handle the password form submission
-function handlePasswordFormSubmit(event) {
+const handlePasswordFormSubmit = (event) => {
     event.preventDefault();
 
     // Validate the form
