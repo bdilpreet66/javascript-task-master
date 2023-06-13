@@ -444,6 +444,10 @@ footer ul li {
     margin: 0;
 }
 
+.reviewCard a {
+    font-size: 12px;
+    color: #000;
+}
 
 /***** TRUST REVIEW ******/
 

@@ -100,9 +100,9 @@ function handleTaskFormSubmit(event) {
         endDate: document.getElementById('taskEndDate').value,
         assignedTo: document.getElementById('taskAssignedTo').value,
         comments: taskDetails.comments,
-        hoursWorked: taskDetails.hoursWorked,
+        totalHoursWorked: taskDetails.totalHoursWorked,
         status: taskDetails.status,
-        dailyCost: taskDetails.dailyCost,
+        stage: taskDetails.stage,
         totalCost: taskDetails.totalCost,
         owner: userManager.getLoggedInUser()
     }

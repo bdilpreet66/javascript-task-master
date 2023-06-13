@@ -132,5 +132,45 @@ class TaskManager {
         let dataArray = workedhours ? JSON.parse(workedhours) : [];
         dataArray.push(data);
         localStorage.setItem('workedhours', JSON.stringify(dataArray));
+
+        this.updateTotalCost(taskID);
+    }
+
+    updateTotalCost(taskID) { 
+        const workedhours = localStorage.getItem('workedhours');
+        const dataArray = workedhours ? JSON.parse(workedhours) : [];
+    
+        const filteredData = dataArray.filter(item => item.taskID === taskID);
+    
+        let totalCost = 0;
+        let totalHoursWorked = 0;
+        filteredData.forEach(data => {
+            const hourlyRate = data.hourlyRate;
+            const hours = data.hours;
+            const minutes = data.minutes;
+            const workedHours = parseFloat(hours) + parseFloat(minutes / 60);
+            const cost = workedHours * hourlyRate;
+            totalCost += cost;
+            totalHoursWorked += workedHours;
+        });
+
+        const taskDetails = this.getTaskById(taskID);
+        // Get form values
+        const editTaskDetails = {
+            id: taskDetails.id,
+            name: taskDetails.name,
+            description: taskDetails.description,
+            startDate: taskDetails.startDate,
+            endDate: taskDetails.endDate,
+            assignedTo: taskDetails.assignedTo,
+            comments: taskDetails.comments,
+            totalHoursWorked: totalHoursWorked,
+            status: taskDetails.status,
+            stage: optionSetStage.value,
+            totalCost: totalCost,
+            owner: taskDetails.owner
+        }
+        
+        this.editTask(taskID, editTaskDetails);
     }
 }

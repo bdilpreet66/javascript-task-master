@@ -9,9 +9,11 @@ const workedHoursModal = document.getElementById("workedHoursModal");
 const viewLogsModal = document.getElementById("viewLogsModal");
 const addHoursBtn = document.getElementById("addHoursBtn");
 const workedHoursForm = document.getElementById('workedHoursForm');
-const closeModal = document.getElementsByClassName("close")[0];
+const viewLogs = document.getElementById('viewLogs');
+const optionSetStage = document.getElementById('optionSetStage');
 
 let taskDetails;
+let closeElements = document.querySelectorAll('.close');
 
 const getStatus = (status) => {
     if (status === "pending") {
@@ -69,6 +71,7 @@ const getData = () => {
         document.getElementById('taskAssignedTo').value = taskDetails.assignedTo;
         document.getElementById('status').innerHTML = getStatus(taskDetails.status);
         document.getElementById('cost').innerHTML = taskDetails.totalCost;
+        optionSetStage.value = taskDetails.stage;
         
         document.getElementById('timeline').innerHTML = getTimeline(
                 new Date(taskDetails.startDate), 
@@ -145,10 +148,9 @@ const calculateTotalCostByID = (taskId, assignedTo) => {
     document.getElementById('cost').textContent = parseFloat(totalCost).toFixed(2);
 }
   
-const closeModalWindow = () => { 
+const closeWorkedHoursModal = () => { 
     workedHoursModal.style.display = "none";
 }
-
 
 // Handle form submission
 const handleHoursFormSubmit = (event) => {
@@ -168,7 +170,7 @@ const handleHoursFormSubmit = (event) => {
     const minutes = parseInt(document.getElementById("minutes").value);
 
     if (hours === 0 && minutes === 0) {
-        closeModalWindow();
+        closeWorkedHoursModal();
         showMessage('danger', `You have entered zero hours worked.`, () => { 
             //workedHoursModal.style.display = "block";
         });
@@ -191,7 +193,7 @@ const handleHoursFormSubmit = (event) => {
         );
         event.target.reset();
         showMessage('success', 'The hours worked have been saved successfully.');
-        closeModalWindow();
+        closeWorkedHoursModal();
         calculateTotalCostByID(taskID, loggedInEmail);
     }
     catch(e) {
@@ -200,53 +202,29 @@ const handleHoursFormSubmit = (event) => {
    
 }
 
-// Add event listener to the form
-workedHoursForm.addEventListener('submit', handleHoursFormSubmit);
-
-addHoursBtn.addEventListener('click', () => {
-    workedHoursForm.classList.remove('was-validated');
-    workedHoursModal.style.display = "block";
-});
-
-closeModal.addEventListener('click', () => {
-    closeModalWindow();
-});
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-    if (event.target == workedHoursModal) {
-        closeModalWindow();
-    }
-}
-
-getData();
-calculateTotalCostByID(taskID, loggedInEmail);
-
-function viewWorkedHoursLogs(taskId, assignedTo) {
-
+const viewWorkedHoursLogs = (taskId, assignedTo) => {
     const workedhours = localStorage.getItem('workedhours');
     const dataArray = workedhours ? JSON.parse(workedhours) : [];
   
     const filteredData = dataArray.filter(data => {
       return parseInt(data.taskID) === parseInt(taskId) && data.assignedTo === assignedTo;
     });
-
-    console.log(filteredData);
   
     const table = document.createElement('table');
-  table.classList.add('table');
+    table.classList.add('table');
+    table.classList.add('table-striped');
 
-  // Create table header
-  const tableHeader = document.createElement('thead');
-  const headerRow = document.createElement('tr');
-  const headers = ['Hourly Rate', 'Hours', 'Minutes', 'Cost', 'Date Added', 'Added By'];
-  headers.forEach(headerText => {
-    const th = document.createElement('th');
-    th.textContent = headerText;
-    headerRow.appendChild(th);
-  });
-  tableHeader.appendChild(headerRow);
-  table.appendChild(tableHeader);
+    // Create table header
+    const tableHeader = document.createElement('thead');
+    const headerRow = document.createElement('tr');
+    const headers = ['Hourly Rate', 'Hours', 'Minutes', 'Cost', 'Date Added', 'Added By'];
+    headers.forEach(headerText => {
+        const th = document.createElement('th');
+        th.textContent = headerText;
+        headerRow.appendChild(th);
+    });
+    tableHeader.appendChild(headerRow);
+    table.appendChild(tableHeader);
 
   // Create table body
     const tableBody = document.createElement('tbody');
@@ -255,8 +233,9 @@ function viewWorkedHoursLogs(taskId, assignedTo) {
     let totalCost = 0;
     filteredData.forEach(item => {
         const row = document.createElement('tr');
-        dataFields.forEach(header => {
+        dataFields.forEach((header,index) => {
             const cell = document.createElement('td');
+            cell.setAttribute('data-label',headers[index]);
             let tdValue = item[header];
             if (header === 'cost') {
                 const workedHours = parseFloat(item['hours']) + parseFloat(item['minutes'] / 60);
@@ -282,11 +261,64 @@ function viewWorkedHoursLogs(taskId, assignedTo) {
      
     // Append table to the document
     const tableContainer = document.getElementById('tableContainer');
-    tableContainer.innerHTML = `<h6>Total Hours: ${parseFloat(totalHours).toFixed(2)} - Total Cost: ${parseFloat(totalCost).toFixed(2)}</h6>`;
+    tableContainer.innerHTML = `<p>Total Hours: <strong>${parseFloat(totalHours).toFixed(2)}</strong> Total Cost: $ <strong>${parseFloat(totalCost).toFixed(2)}</strong></p>`;
     tableContainer.appendChild(table);
     viewLogsModal.style.display = 'block';
-  }
-  
-  // Call the function with the desired TaskID
-  viewWorkedHoursLogs(taskID, loggedInEmail);
-  
+}
+
+// Add event listener to the form
+workedHoursForm.addEventListener('submit', handleHoursFormSubmit);
+
+addHoursBtn.addEventListener('click', () => {
+    workedHoursForm.classList.remove('was-validated');
+    workedHoursModal.style.display = "block";
+});
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == workedHoursModal) {
+        closeWorkedHoursModal();
+    }
+}
+
+// Loop over each 'close' element
+closeElements.forEach((closeElement) => {
+    // Attach a click event listener
+    closeElement.addEventListener('click', function () {
+        // Find the closest parent with class 'modal'
+        let parentModal = closeElement.closest('.modal');
+        // If such a parent element exists
+        if (parentModal !== null) {
+            // Make the parent modal visible
+            parentModal.style.display = "none";
+        }
+    });
+});
+
+viewLogs.addEventListener('click', (e) => { 
+    e.preventDefault();
+    viewWorkedHoursLogs(taskID, loggedInEmail)
+});
+
+optionSetStage.addEventListener('change', () => {
+    const taskDetails = tasksHandler.getTaskById(taskID);
+    // Get form values
+    const editTaskDetails = {
+        id: taskDetails.id,
+        name: taskDetails.name,
+        description: taskDetails.description,
+        startDate: taskDetails.startDate,
+        endDate: taskDetails.endDate,
+        assignedTo: taskDetails.assignedTo,
+        comments: taskDetails.comments,
+        totalHoursWorked: taskDetails.totalHoursWorked,
+        status: taskDetails.status,
+        stage: optionSetStage.value,
+        totalCost: taskDetails.totalCost,
+        owner: userManager.getLoggedInUser()
+    }
+    tasksHandler.editTask(taskID,editTaskDetails);
+});
+
+getData();
+calculateTotalCostByID(taskID, loggedInEmail);

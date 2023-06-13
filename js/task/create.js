@@ -34,9 +34,9 @@ const handleTaskFormSubmit = event => {
         assignedTo: document.getElementById('taskAssignedTo').value,
         comments: [],
         status: "pending",
-        dailyCost: [],
+        stage: "not started",
         totalCost: 0.0,
-        hoursWorked: 0,
+        totalHoursWorked: 0,
         owner: userManager.getLoggedInUser()
     };
 
