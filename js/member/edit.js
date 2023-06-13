@@ -1,7 +1,6 @@
 // Get the user email from the query parameter
 const urlParams = new URLSearchParams(window.location.search);
 const email = urlParams.get('email');
-const userManager = new UserManager();
 
 // Switch between tabs
 const switchTab = (activeLinkId, activeContentId) => {

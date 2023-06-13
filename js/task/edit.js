@@ -10,13 +10,15 @@ const populateAssignToMembers = () => {
     const assignedToSelect = document.getElementById('taskAssignedTo');
     if (assignedToSelect !== null) {
         userManager.listUsers().forEach(user => {
-            const option = document.createElement('option');
-            option.value = user.email;
-            option.textContent = user.email;
-            if (taskDetails.assignedTo == user.email) {
-                option.selected = true;
+            if (user.type === 'regular') { 
+                const option = document.createElement('option');
+                option.value = user.email;
+                option.textContent = user.email;
+                if (taskDetails.assignedTo == user.email) {
+                    option.selected = true;
+                }
+                assignedToSelect.appendChild(option);
             }
-            assignedToSelect.appendChild(option);
         });
     }
 };
@@ -26,8 +28,8 @@ function getStatus(status) {
         return `<span class="badge bg-warning text-light">Pending</span>`;
     } else if (status === "overdue") {
         return `<span class="badge bg-danger text-light">Overdue</span>`;
-    } else if (status === "in-progess") {
-        return `<span class="badge bg-dark text-light">In-Progess</span>`;
+    } else if (status === "in-progress") {
+        return `<span class="badge bg-info text-light">In-Progress</span>`;
     } else if (status === "un-assigned") {
         return `<span class="badge bg-secondary text-light">Unassigned</span>`;
     } else {

@@ -20,8 +20,8 @@ const getStatus = (status) => {
         return `<span class="badge bg-warning text-light">Pending</span>`;
     } else if (status === "overdue") {
         return `<span class="badge bg-danger text-light">Overdue</span>`;
-    } else if (status === "in-progess") {
-        return `<span class="badge bg-dark text-light">In-Progess</span>`;
+    } else if (status === "in-progress") {
+        return `<span class="badge bg-info text-light">In-Progress</span>`;
     } else if (status === "un-assigned") {
         return `<span class="badge bg-secondary text-light">Unassigned</span>`;
     } else {
@@ -57,7 +57,7 @@ const getTimeline = (startDate, endDate, currentDate) => {
 const getData = () => {
     taskDetails = tasksHandler.getTaskById(taskID);
 
-    if (taskDetails.assignedTo !== userManager.getLoggedInUser()) { 
+    if ((taskDetails.assignedTo !== userManager.getLoggedInUser()) && !userManager.isAdmin()) { 
         showMessage('danger','Your are not allowed to access task not assigned to you.', redirectTaskList);
         return;
     }
@@ -312,7 +312,7 @@ optionSetStage.addEventListener('change', () => {
         assignedTo: taskDetails.assignedTo,
         comments: taskDetails.comments,
         totalHoursWorked: taskDetails.totalHoursWorked,
-        status: taskDetails.status,
+        status: optionSetStage.value === '' ? 'pending' : optionSetStage.value,
         stage: optionSetStage.value,
         totalCost: taskDetails.totalCost,
         owner: userManager.getLoggedInUser()

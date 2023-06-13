@@ -15,8 +15,8 @@ const getStatus = status => {
             return `<span class="badge bg-warning text-light">Pending</span>`;
         case "overdue":
             return `<span class="badge bg-danger text-light">Overdue</span>`;
-        case "in-progess":
-            return `<span class="badge bg-dark text-light">In-Progess</span>`;
+        case "in-progress":
+            return `<span class="badge bg-info text-light">In-Progress</span>`;
         case "un-assigned":
             return `<span class="badge bg-secondary text-light">Unassigned</span>`;
         default:

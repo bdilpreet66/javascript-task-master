@@ -205,6 +205,11 @@
     .btn-footer {
         float: unset;
     }
+    .view-all {
+        position: unset;
+        right: unset;
+        top: unset;
+    }
 }
 
 @media(max-width:575px) {

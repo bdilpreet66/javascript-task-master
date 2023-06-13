@@ -4,10 +4,12 @@ const populateAssignToMembers = () => {
     const assignedToSelect = document.getElementById('taskAssignedTo');
     if (assignedToSelect !== null) {
         userManager.listUsers().forEach(user => {
-            const option = document.createElement('option');
-            option.value = user.email;
-            option.textContent = user.email;
-            assignedToSelect.appendChild(option);
+            if (user.type === 'regular') { 
+                const option = document.createElement('option');
+                option.value = user.email;
+                option.textContent = user.email;
+                assignedToSelect.appendChild(option);
+            }
         });
     }
 };
@@ -34,9 +36,9 @@ const handleTaskFormSubmit = event => {
         assignedTo: document.getElementById('taskAssignedTo').value,
         comments: [],
         status: "pending",
-        stage: "not started",
+        dailyCost: [],
         totalCost: 0.0,
-        totalHoursWorked: 0,
+        hoursWorked: 0,
         owner: userManager.getLoggedInUser()
     };
 

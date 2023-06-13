@@ -51,8 +51,9 @@ class UserManager extends CookieManager {
   }
 
   listUsers() {
-    const storedUsers = localStorage.getItem('users');
-    return storedUsers ? JSON.parse(storedUsers) : [];
+    let storedUsers = localStorage.getItem('users');
+    storedUsers = storedUsers ? JSON.parse(storedUsers) : [];
+    return storedUsers;
   }
 
   getTotalUsers() {

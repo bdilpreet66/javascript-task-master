@@ -45,7 +45,7 @@ const createNavBarToDom = () => {
             </div>
         </div>
         <ul class="navMenu">
-            <li ><a href="" id="dashboard-link">Home</a></li>
+            <li ><a href="${ userManager.isAdmin() ? `../dashboard/admin_dashboard.html` : `../dashboard/member_dashboard.html`}">Home</a></li>
             <li ><a href="${ userManager.isAdmin() ? `../task/list_tasks.html` : `../regular/list_tasks.html`}">Tasks</a></li>
             ${ userManager.isAdmin() ? ` <li ><a href="../member/list_members.html">Members</a></li>` : ``}
             <li ><a href="javascript:void(0);" id="logoutLink">Logout</a></li>
@@ -71,14 +71,14 @@ function handleNavbarToggle(event) {
     }
 }
 
-function setDashbaordLink() {
+/*function setDashbaordLink() {
   if (userManager.isLoggedIn()) {
     const loggedInUserInfo = userManager.getCookieValue('userInfo');
     document.getElementById("dashboard-link").href = userManager.getDashboardPage(loggedInUserInfo.type)
   } else {
     userManager.loginPage();
   }
-}
+}*/
 
 createNavBarToDom();
 
@@ -92,7 +92,7 @@ toggleMenu.addEventListener('click', function () {
   }
 });
 
-setDashbaordLink();
+//setDashbaordLink();
 
 document.getElementById('logoutLink').addEventListener('click', () => {
   userManager.logout();

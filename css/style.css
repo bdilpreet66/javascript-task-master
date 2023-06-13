@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
 @font-face {
-    font-family: 'Recoleta';
+    font-family: 'Roboto', Sans-serif;;
     src: url('../fonts/Recoleta-SemiBold.ttf') format('truetype');
     font-weight: 600;
     font-style: normal;
@@ -8,7 +8,7 @@
 }
 
 @font-face {
-    font-family: 'Recoleta';
+    font-family: 'Roboto', Sans-serif;;
     src: url('../fonts/Recoleta-Bold.ttf') format('truetype');
     font-weight: bold;
     font-style: normal;
@@ -16,7 +16,7 @@
 }
 
 @font-face {
-    font-family: 'Recoleta';
+    font-family: 'Roboto', Sans-serif;;
     src: url('../fonts/Recoleta-Medium.ttf') format('truetype');
     font-weight: 500;
     font-style: normal;
@@ -24,7 +24,7 @@
 }
 
 @font-face {
-    font-family: 'Recoleta';
+    font-family: 'Roboto', Sans-serif;;
     src: url('../fonts/Recoleta-RegularDEMO.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
@@ -86,7 +86,7 @@ h6 {
 
 a {
     text-decoration: none;
-    transition: all 0.5s ease-in-out;
+    --transition: all 0.5s ease-in-out;
 }
 
 a:hover {
@@ -202,7 +202,7 @@ header {
     line-height: 18px;
     color: #3b3b3b;
     margin-left: 13px;
-    font-family: 'Recoleta';
+    font-family: 'Roboto', Sans-serif;;
     font-weight: bold;
 }
 
@@ -287,7 +287,7 @@ footer h3 {
     margin-bottom: 20px;
     font-size: 22px;
     font-weight: 600;
-    font-family: 'Recoleta';
+    font-family: 'Roboto', Sans-serif;;
 }
 
 footer ul {
@@ -435,13 +435,9 @@ footer ul li {
 }
 
 .reviewCard h3 {
-    font-family: 'Recoleta';
+    font-family: 'Roboto', Sans-serif;;
     font-weight: 600;
     font-size: 24px;
-}
-
-.reviewCard p {
-    margin: 0;
 }
 
 .reviewCard a {
@@ -463,7 +459,7 @@ footer ul li {
 }
 
 .reviewscore h4 {
-    font-family: 'Recoleta';
+    font-family: 'Roboto', Sans-serif;;
     font-weight: 600;
     font-size: 26px;
 }
@@ -471,6 +467,7 @@ footer ul li {
 
 .reviewscore-main .reviewCard {
     min-width: 145px;
+    position: relative;
 }
 
 .reviewscore-main .reviewList {
@@ -484,10 +481,31 @@ footer ul li {
 
 .reviewscore-main .reviewCard p {
     margin: 0;
-    font-size: 16px;
+    font-size: 14px;
 }
 
 
+.reviewscore-main .reviewCard span {
+    position: absolute;
+    right: 8px;
+    top: 8px;
+}
+
+.reviewscore-main .reviewCard .completed svg {
+    color: rgb(6, 164, 6);
+}
+
+.reviewscore-main .reviewCard .overdue svg {
+    color: rgb(227, 71, 71);
+}
+
+.reviewscore-main .reviewCard .in-progress svg {
+    color: #17a2b8;
+}
+
+.reviewscore-main .reviewCard .pending svg {
+    color: #ffc107;
+}   
 
 .form-check {
     display: flex;
@@ -879,4 +897,19 @@ footer ul li {
 .task-description {
     max-height: 300px;
     overflow-y: auto;
+}
+
+.reviewscore-main .reviewCard.total-cost {
+    background-color: antiquewhite;
+    min-width: 200px;
+}
+
+.total-cost svg {
+    color: rgb(216, 129, 16);
+}
+
+.view-all {
+    position: absolute;
+    right: 20px;
+    top: 10px;
 }
