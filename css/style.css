@@ -911,5 +911,10 @@ footer ul li {
 .view-all {
     position: absolute;
     right: 20px;
-    top: 10px;
+    top: 4px;
+}
+
+.badge {
+    padding: 8px 10px !important;
+    border-radius: 14px !important;    
 }

@@ -44,6 +44,10 @@ const showMessage = (type = "success", message = "", callback = null) => {
     modalMessage.innerHTML = message;
     modalIcon.className = '';
     modalIcon.classList.add(`text-${type}`);
+    modalBtnOk.innerHTML = 'Ok';    
+    modalBtnOk.classList.add('btn-default');
+    modalBtnOk.classList.remove('btn-secondary');
+    modalBtnCancel.classList.add('d-none');
     if (type === 'success') {
         modalIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" height="60" fill="currentColor" class="bi bi-check2-s" viewBox="0 0 16 16">
         <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z"></path>
@@ -71,7 +75,6 @@ const showMessage = (type = "success", message = "", callback = null) => {
       modalBtnCancel.innerHTML = 'No';
       modalBtnOk.classList.add('btn-secondary');
       modalBtnOk.innerHTML = 'Yes';
-
     }
     modal.style.display = "block";
     modal.classList.remove('d-none');
