@@ -83,6 +83,11 @@ if (userManager.isAdmin()) {
     // Get the user data
     const user = userManager.getUser(email);
 
+    if (user.type == "admin"){
+        document.getElementById("passwordTabLink").click();
+        document.getElementById("rateTypeTabLink").parentNode.style.display = "none"
+    }
+
     // Populate the form fields with user data
     populateFormData(user);
 

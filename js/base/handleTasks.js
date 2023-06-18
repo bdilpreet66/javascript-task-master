@@ -16,15 +16,14 @@ class TaskManager {
                 this.change = false;
             }
             return this.tasks;
-        } catch(e) {
-            console.log(e);
+        } catch {
             throw new Error("Error getting tasks from localStorage");
         }
     }
 
     checkTaskStatus(task) {
         this.change = false;
-        if (task.status !== "complete") {            
+        if (task.status !== "completed") {            
             const end = new Date(task.endDate);
             end.setDate(end.getDate() + 1);
             const cur = new Date();
@@ -155,7 +154,7 @@ class TaskManager {
         });
 
         const taskDetails = this.getTaskById(taskID);
-        // Get form values
+        
         const editTaskDetails = {
             id: taskDetails.id,
             name: taskDetails.name,
@@ -172,5 +171,5 @@ class TaskManager {
         }
         
         this.editTask(taskID, editTaskDetails);
-    }
+    } 
 }

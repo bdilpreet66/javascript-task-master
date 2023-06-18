@@ -78,7 +78,7 @@ class UserManager extends CookieManager {
   }
 
   getDashboardPage(type) {
-    return (type === 'admin') ? '../templates/dashboard/admin_dashboard.html' : '../templates/dashboard/member_dashboard.html';
+    return (type === 'admin') ? '../templates/admin/dashboard/dashboard.html' : '../templates/regular/dashboard/dashboard.html';
   }
 
   isLoggedIn() { 
@@ -104,7 +104,7 @@ class UserManager extends CookieManager {
   }
 
   loginPage() {
-    window.location = '../../templates/index.html?loginPage';
+    window.location = '../../../templates/index.html?loginPage';
   }
 
   logout() { 

@@ -6,10 +6,7 @@ const taskTableBody = document.getElementById('taskTableBody');
 const searchInput = document.getElementById('searchInput');
 const resultsSelect = document.getElementById('resultsSelect');
 
-let page = 0;
-let itemsPerPage = 10;
-let sortColumn = "startDate";
-let sortOrder = 'asc';
+let tasks = [];
 
 const getStatus = status => {
     switch(status) {
@@ -29,26 +26,26 @@ const getStatus = status => {
 const getAllTasks = () => { 
     
     const storedTasks = localStorage.getItem('tasks');
-    this.tasks = storedTasks ? JSON.parse(storedTasks) : [];
+    tasks = storedTasks ? JSON.parse(storedTasks) : [];
 
     // Filter tasks based on assignedTo and status
     if (loggedInEmail) {
-        this.tasks = this.tasks.filter(task => task.status === "overdue" || task.status === "in-progress");
+        tasks = tasks.filter(task => task.status === "overdue" || task.status === "in-progress");
     }
 
     // Sort tasks based on endDate in ascending order
-    this.tasks.sort((task1, task2) => new Date(task1.endDate) - new Date(task2.endDate));
+    tasks.sort((task1, task2) => new Date(task1.endDate) - new Date(task2.endDate));
 
     // Retrieve the top 5 tasks based on endDate
-    // const topTasks = this.tasks.slice(0, 5);
+    // const topTasks = tasks.slice(0, 5);
 
     taskTableBody.innerHTML = '';
 
-    if (this.tasks.length > 0){
+    if (tasks.length > 0){
         const chevron = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
                         <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
                     </svg>`;
-        this.tasks.forEach(task => {
+        tasks.forEach(task => {
             const row = document.createElement('tr');
             row.innerHTML = `   
                 <td data-label="Task ID #" tabindex="0" class="focusable">${task.id} <span class="chevron">${chevron}</span></td>
@@ -79,14 +76,14 @@ const getAllTasks = () => {
 const getTasksTotal = () => { 
     
     const storedTasks = localStorage.getItem('tasks');
-    this.tasks = storedTasks ? JSON.parse(storedTasks) : [];
+    tasks = storedTasks ? JSON.parse(storedTasks) : [];
 
     let totalCount = 0;
     let pendingCount = 0;
     let inprogressCount = 0;
     let overdueCount = 0;
     let completedCount = 0;
-    this.tasks.forEach(task => {
+    tasks.forEach(task => {
         totalCount++;
         if (task.status === 'completed') { 
             completedCount++;

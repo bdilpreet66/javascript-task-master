@@ -16,7 +16,7 @@ const createNavBarToDom = () => {
     newElement.innerHTML = `    
         <div class="topHeader">
             <a class="brand-name" href="/">
-                <img class="d-md-flex" src="../../images/logo.png" alt="Antask">
+                <img class="d-md-flex" src="../../../images/logo.png" alt="Antask">
             </a>
             <div style="margin: auto;"></div>
             <div class="navRight">
@@ -28,16 +28,14 @@ const createNavBarToDom = () => {
                     <div class="mobile-nav">
                         <ul>
                             <li>
-                                <a href="">Home</a>
+                                <a href="${ userManager.isAdmin() ? `../../admin/dashboard/dashboard.html` : `../../regular/dashboard/dashboard.html`}">Home</a>
                             </li>
                             <li>
-                                <a href="">Tasks</a>
+                                <a href="${ userManager.isAdmin() ? `../../admin/task/list_tasks.html` : `../../regular/task/list_tasks.html`}">Tasks</a>
                             </li>
+                            ${ userManager.isAdmin() ? ` <li ><a href="../../admin/member/list_members.html">Members</a></li>` : ``}
                             <li>
-                                <a href="">Members</a>
-                            </li>
-                            <li>
-                                <a href="">Logout</a>
+                                <a href="javascript:void(0);" onclick="logout()">Logout</a>
                             </li>
                         </ul>
                     </div>
@@ -45,10 +43,10 @@ const createNavBarToDom = () => {
             </div>
         </div>
         <ul class="navMenu">
-            <li ><a href="${ userManager.isAdmin() ? `../dashboard/admin_dashboard.html` : `../dashboard/member_dashboard.html`}">Home</a></li>
-            <li ><a href="${ userManager.isAdmin() ? `../task/list_tasks.html` : `../regular/list_tasks.html`}">Tasks</a></li>
-            ${ userManager.isAdmin() ? ` <li ><a href="../member/list_members.html">Members</a></li>` : ``}
-            <li ><a href="javascript:void(0);" id="logoutLink">Logout</a></li>
+            <li ><a href="${ userManager.isAdmin() ? `../../admin/dashboard/dashboard.html` : `../../regular/dashboard/dashboard.html`}">Home</a></li>
+            <li ><a href="${ userManager.isAdmin() ? `../../admin/task/list_tasks.html` : `../../regular/task/list_tasks.html`}">Tasks</a></li>
+            ${ userManager.isAdmin() ? ` <li ><a href="../../admin/member/list_members.html">Members</a></li>` : ``}
+            <li ><a href="javascript:void(0);" onclick="logout()">Logout</a></li>
         </ul>
     `;    
 
@@ -71,15 +69,6 @@ function handleNavbarToggle(event) {
     }
 }
 
-/*function setDashbaordLink() {
-  if (userManager.isLoggedIn()) {
-    const loggedInUserInfo = userManager.getCookieValue('userInfo');
-    document.getElementById("dashboard-link").href = userManager.getDashboardPage(loggedInUserInfo.type)
-  } else {
-    userManager.loginPage();
-  }
-}*/
-
 createNavBarToDom();
 
 const toggleMenu = document.querySelector('.toggleMenu');
@@ -94,6 +83,6 @@ toggleMenu.addEventListener('click', function () {
 
 //setDashbaordLink();
 
-document.getElementById('logoutLink').addEventListener('click', () => {
+const logout = () => {
   userManager.logout();
-});
+};

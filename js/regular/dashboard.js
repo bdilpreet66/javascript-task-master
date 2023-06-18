@@ -6,10 +6,7 @@ const taskTableBody = document.getElementById('taskTableBody');
 const searchInput = document.getElementById('searchInput');
 const resultsSelect = document.getElementById('resultsSelect');
 
-let page = 0;
-let itemsPerPage = 10;
-let sortColumn = "startDate";
-let sortOrder = 'asc';
+let tasks;
 
 const getStatus = status => {
     switch(status) {
@@ -22,25 +19,25 @@ const getStatus = status => {
         case "un-assigned":
             return `<span class="badge bg-secondary text-light">Unassigned</span>`;
         default:
-            return ` <span class="badge bg-success text-light">Completed</span>`;
+            return `<span class="badge bg-success text-light">Completed</span>`;
     }
 }
 
 const getMemberTasks = () => { 
     
     const storedTasks = localStorage.getItem('tasks');
-    this.tasks = storedTasks ? JSON.parse(storedTasks) : [];
+    tasks = storedTasks ? JSON.parse(storedTasks) : [];
 
     // Filter tasks based on assignedTo and status
     if (loggedInEmail) {
-        this.tasks = this.tasks.filter(task => task.assignedTo === loggedInEmail && (task.status === "overdue" || task.status === "in-progress"));
+        tasks = tasks.filter(task => task.assignedTo === loggedInEmail && (task.status === "overdue" || task.status === "in-progress"));
     }
 
     // Sort tasks based on endDate in ascending order
-    this.tasks.sort((task1, task2) => new Date(task1.endDate) - new Date(task2.endDate));
+    tasks.sort((task1, task2) => new Date(task1.endDate) - new Date(task2.endDate));
 
     // Retrieve the top 5 tasks based on endDate
-    const topTasks = this.tasks.slice(0, 5);
+    const topTasks = tasks.slice(0, 5);
 
     taskTableBody.innerHTML = '';
 
@@ -58,7 +55,7 @@ const getMemberTasks = () => {
                 <td data-label="Assigned To" class="td-hidden">${task.assignedTo}</td>
                 <td data-label="Status" class="td-hidden">${getStatus(task.status)}</td>
                 <td data-label="Actions" class="td-hidden">
-                <a class="btn btn-outline-dark btn-sm mb-1" href="../regular/view_task.html?id=${task.id}">
+                <a class="btn btn-outline-dark btn-sm mb-1" href="../../regular/task/view_task.html?id=${task.id}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
                         <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
                         <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
@@ -79,11 +76,11 @@ const getMemberTasks = () => {
 const getMemberTasksTotal = () => { 
     
     const storedTasks = localStorage.getItem('tasks');
-    this.tasks = storedTasks ? JSON.parse(storedTasks) : [];
+    tasks = storedTasks ? JSON.parse(storedTasks) : [];
 
     // Filter tasks based on assignedTo and status
     if (loggedInEmail) {
-        this.tasks = this.tasks.filter(task => task.assignedTo === loggedInEmail);
+        tasks = tasks.filter(task => task.assignedTo === loggedInEmail);
     }
 
     let totalCount = 0;
@@ -91,7 +88,7 @@ const getMemberTasksTotal = () => {
     let inprogressCount = 0;
     let overdueCount = 0;
     let completedCount = 0;
-    this.tasks.forEach(task => {
+    tasks.forEach(task => {
         totalCount++;
         if (task.status === 'completed') { 
             completedCount++;

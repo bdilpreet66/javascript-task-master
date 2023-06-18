@@ -25,7 +25,7 @@ const getStatus = (status) => {
     } else if (status === "un-assigned") {
         return `<span class="badge bg-secondary text-light">Unassigned</span>`;
     } else {
-        return ` <span class="badge bg-success text-light">Completed</span>`;
+        return `<span class="badge bg-success text-light">Completed</span>`;
     }
 }
 
@@ -317,7 +317,8 @@ optionSetStage.addEventListener('change', () => {
         totalCost: taskDetails.totalCost,
         owner: userManager.getLoggedInUser()
     }
-    tasksHandler.editTask(taskID,editTaskDetails);
+    tasksHandler.editTask(taskID, editTaskDetails);
+    window.location.reload();
 });
 
 getData();

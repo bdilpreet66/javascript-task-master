@@ -3,8 +3,13 @@ const tasksHandler = new TaskManager();
 // Get the task id from the query parameter
 const urlParams = new URLSearchParams(window.location.search);
 const taskID = parseInt(urlParams.get('id'));
+const viewLogsModal = document.getElementById("viewLogsModal");
+const viewLogs = document.getElementById('viewLogs');
+const optionSetStage = document.getElementById('optionSetStage');
+let closeElements = document.querySelectorAll('.close');
 
 let taskDetails;
+
 
 const populateAssignToMembers = () => {
     const assignedToSelect = document.getElementById('taskAssignedTo');
@@ -109,12 +114,18 @@ function handleTaskFormSubmit(event) {
         owner: userManager.getLoggedInUser()
     }
 
+    if ((new Date(editTaskDetails.startDate)) >= (new Date(editTaskDetails.endDate))) {
+        event.stopPropagation();
+        showMessage('danger', 'Start date must be less than end date.');
+        editTaskForm.classList.add('was-validated');
+        return;
+    }
 
     try{
         tasksHandler.editTask(taskDetails.id, editTaskDetails);
         getData();
 
-        showMessage('success', 'Task was saved successfully.');
+        showMessage('success', 'Task was saved successfully.', () => {window.location.reload();});
 
         editTaskForm.classList.remove('was-validated');
     } catch {
@@ -163,6 +174,110 @@ function loadComments(){
         list.appendChild(li)
     }
 }
+
+const viewWorkedHoursLogs = (taskId) => {
+    const workedhours = localStorage.getItem('workedhours');
+    const dataArray = workedhours ? JSON.parse(workedhours) : [];
+  
+    const filteredData = dataArray.filter(data => {
+      return parseInt(data.taskID) === parseInt(taskId);
+    });
+  
+    const table = document.createElement('table');
+    table.classList.add('table');
+    table.classList.add('table-striped');
+
+    // Create table header
+    const tableHeader = document.createElement('thead');
+    const headerRow = document.createElement('tr');
+    const headers = ['Hourly Rate', 'Hours', 'Minutes', 'Cost', 'Date Added', 'Added By'];
+    headers.forEach(headerText => {
+        const th = document.createElement('th');
+        th.textContent = headerText;
+        headerRow.appendChild(th);
+    });
+    tableHeader.appendChild(headerRow);
+    table.appendChild(tableHeader);
+
+  // Create table body
+    const tableBody = document.createElement('tbody');
+    const dataFields = ['hourlyRate', 'hours', 'minutes', 'cost', 'dateCreated', 'createdBy'];
+    let totalHours = 0;
+    let totalCost = 0;
+    filteredData.forEach(item => {
+        const row = document.createElement('tr');
+        dataFields.forEach((header,index) => {
+            const cell = document.createElement('td');
+            cell.setAttribute('data-label',headers[index]);
+            let tdValue = item[header];
+            if (header === 'cost') {
+                const workedHours = parseFloat(item['hours']) + parseFloat(item['minutes'] / 60);
+                const cost = workedHours * item['hourlyRate'];
+                tdValue = parseFloat(cost).toFixed(2);
+                totalCost += parseFloat(tdValue);
+            }
+            if (header === 'dateCreated') { 
+                tdValue = formatDateTime(tdValue);
+            }
+            if (header === 'hours') { 
+                totalHours += parseInt(tdValue);
+            }
+            if (header === 'minutes') { 
+                totalHours += parseFloat(tdValue / 60);
+            }
+            cell.textContent = tdValue;
+            row.appendChild(cell);
+        });
+        tableBody.appendChild(row);
+    });
+    table.appendChild(tableBody);
+     
+    // Append table to the document
+    const tableContainer = document.getElementById('tableContainer');
+    tableContainer.innerHTML = `<p>Total Hours: <strong>${parseFloat(totalHours).toFixed(2)}</strong> Total Cost: $ <strong>${parseFloat(totalCost).toFixed(2)}</strong></p>`;
+    tableContainer.appendChild(table);
+    viewLogsModal.style.display = 'block';
+}
+
+// Loop over each 'close' element
+closeElements.forEach((closeElement) => {
+    // Attach a click event listener
+    closeElement.addEventListener('click', function () {
+        // Find the closest parent with class 'modal'
+        let parentModal = closeElement.closest('.modal');
+        // If such a parent element exists
+        if (parentModal !== null) {
+            // Make the parent modal visible
+            parentModal.style.display = "none";
+        }
+    });
+});
+
+viewLogs.addEventListener('click', (e) => { 
+    e.preventDefault();
+    viewWorkedHoursLogs(taskID)
+});
+
+optionSetStage.addEventListener('change', () => {
+    const taskDetails = tasksHandler.getTaskById(taskID);
+    // Get form values
+    const editTaskDetails = {
+        id: taskDetails.id,
+        name: taskDetails.name,
+        description: taskDetails.description,
+        startDate: taskDetails.startDate,
+        endDate: taskDetails.endDate,
+        assignedTo: taskDetails.assignedTo,
+        comments: taskDetails.comments,
+        totalHoursWorked: taskDetails.totalHoursWorked,
+        status: optionSetStage.value === '' ? 'pending' : optionSetStage.value,
+        stage: optionSetStage.value,
+        totalCost: taskDetails.totalCost,
+        owner: userManager.getLoggedInUser()
+    }
+    tasksHandler.editTask(taskID,editTaskDetails);
+    window.location.reload();
+});
 
 if (userManager.isAdmin()) {
     getData();

@@ -42,12 +42,18 @@ const handleTaskFormSubmit = event => {
         owner: userManager.getLoggedInUser()
     };
 
+    if ((new Date(editTaskDetails.startDate)) >= (new Date(editTaskDetails.endDate))) {
+        event.stopPropagation();
+        showMessage('danger', 'Start date must be less than end date.');
+        editTaskForm.classList.add('was-validated');
+        return;
+    }
+
     try{
         tasksHandler.saveTask(newTask);
 
         showMessage('success', 'Task was created successfully.', () => {
             window.location = `../task/edit_task.html?id=${taskID}`;
-            event.target.reset();
         });
     } catch {
         showMessage('danger', 'Error Creating Tasks.');
