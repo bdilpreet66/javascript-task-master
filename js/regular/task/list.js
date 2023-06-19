@@ -1,7 +1,5 @@
 const tasksHandler = new TaskManager();
 
-const loggedInEmail = userManager.getLoggedInUser();
-
 const taskTableBody = document.getElementById('taskTableBody');
 const searchInput = document.getElementById('searchInput');
 const resultsSelect = document.getElementById('resultsSelect');
@@ -11,20 +9,6 @@ let itemsPerPage = 10;
 let sortColumn = "startDate";
 let sortOrder = 'asc';
 
-const getStatus = status => {
-    switch(status) {
-        case "pending":
-            return `<span class="badge bg-warning text-light">Pending</span>`;
-        case "overdue":
-            return `<span class="badge bg-danger text-light">Overdue</span>`;
-        case "in-progress":
-            return `<span class="badge bg-info text-light">In-Progress</span>`;
-        case "un-assigned":
-            return `<span class="badge bg-secondary text-light">Unassigned</span>`;
-        default:
-            return ` <span class="badge bg-success text-light">Completed</span>`;
-    }
-}
 
 const displayTasks = tasks => {
     taskTableBody.innerHTML = '';
@@ -41,7 +25,7 @@ const displayTasks = tasks => {
                 <td data-label="Start Date" class="td-hidden">${task.startDate}</td>
                 <td data-label="End Date" class="td-hidden">${task.endDate}</td>
                 <td data-label="Assigned To" class="td-hidden">${task.assignedTo}</td>
-                <td data-label="Status" class="td-hidden">${getStatus(task.status)}</td>
+                <td data-label="Status" class="td-hidden">${getTaskStatus(task.status)}</td>
                 <td data-label="Actions" class="td-hidden">
                 <a class="btn btn-outline-dark btn-sm mb-1" href="view_task.html?id=${task.id}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
@@ -85,30 +69,11 @@ const displayPaginationButtons = numberOfItems => {
     }
 }
 
-const getMemberTasks = () => { 
-    const storedTasks = localStorage.getItem('tasks');
-    this.tasks = storedTasks ? JSON.parse(storedTasks) : [];
-
-    // Filter tasks based on assignedTo
-    if (loggedInEmail) {
-        this.tasks = this.tasks.filter(task => task.assignedTo === loggedInEmail);
-    }
-
-    this.tasks = this.tasks.map(task => tasksHandler.checkTaskStatus(task));
-
-    if (this.change) {
-        this.saveTasksToLocalStorage();
-        this.change = false;
-    }
-
-    return this.tasks;
-}
-
 const filterTasks = () => {
     const searchTerm = searchInput.value.trim();
     itemsPerPage = parseInt(resultsSelect.value);
 
-    let filteredTasks = getMemberTasks();
+    let filteredTasks = tasksHandler.getTasksFromLocalStorage().filter(task => task.assignedTo === userManager.getLoggedInUser());
 
     // Apply sorting if a sort column is selected
     if (sortColumn !== null) {
@@ -151,7 +116,7 @@ const confirmDeleteTask = id => {
 searchInput.addEventListener('input', filterTasks);
 resultsSelect.addEventListener('change', filterTasks);
 
-if (loggedInEmail) {
+if (userManager.isRegular()) {
     ["id","name","startDate","endDate","assignedTo","status"].forEach(elm => {
         document.getElementById(`${elm}-header`).addEventListener("click", () => {
             sortOrder = (sortColumn === elm && sortOrder === "asc") ? "desc" : "asc";
@@ -161,4 +126,6 @@ if (loggedInEmail) {
     })
 
     filterTasks();
+} else {
+    logout();
 }

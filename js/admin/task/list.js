@@ -9,21 +9,6 @@ let itemsPerPage = 10;
 let sortColumn = "email";
 let sortOrder = 'asc';
 
-const getStatus = status => {
-    switch(status) {
-        case "pending":
-            return `<span class="badge bg-warning text-light">Pending</span>`;
-        case "overdue":
-            return `<span class="badge bg-danger text-light">Overdue</span>`;
-        case "in-progress":
-            return `<span class="badge bg-info text-light">In-Progress</span>`;
-        case "un-assigned":
-            return `<span class="badge bg-secondary text-light">Unassigned</span>`;
-        default:
-            return ` <span class="badge bg-success text-light">Completed</span>`;
-    }
-}
-
 const displayTasks = tasks => {
     taskTableBody.innerHTML = '';
 
@@ -39,7 +24,7 @@ const displayTasks = tasks => {
                 <td data-label="Start Date" class="td-hidden">${task.startDate}</td>
                 <td data-label="End Date" class="td-hidden">${task.endDate}</td>
                 <td data-label="Assigned To" class="td-hidden">${task.assignedTo}</td>
-                <td data-label="Status" class="td-hidden">${getStatus(task.status)}</td>
+                <td data-label="Status" class="td-hidden">${getTaskStatus(task.status)}</td>
                 <td data-label="Actions" class="td-hidden">
                 <a class="btn btn-outline-dark btn-sm mb-1" href="edit_task.html?id=${task.id}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
@@ -145,4 +130,6 @@ if (userManager.isAdmin()) {
     })
 
     filterTasks();
+} else {
+    logout();
 }

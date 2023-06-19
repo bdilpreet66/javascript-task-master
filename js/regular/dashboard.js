@@ -1,27 +1,10 @@
 const tasksHandler = new TaskManager();
 
-const loggedInEmail = userManager.getLoggedInUser();
-
 const taskTableBody = document.getElementById('taskTableBody');
 const searchInput = document.getElementById('searchInput');
 const resultsSelect = document.getElementById('resultsSelect');
 
 let tasks;
-
-const getStatus = status => {
-    switch(status) {
-        case "pending":
-            return `<span class="badge bg-warning text-light">Pending</span>`;
-        case "overdue":
-            return `<span class="badge bg-danger text-light">Overdue</span>`;
-        case "in-progress":
-            return `<span class="badge bg-info text-light">In-Progress</span>`;
-        case "un-assigned":
-            return `<span class="badge bg-secondary text-light">Unassigned</span>`;
-        default:
-            return `<span class="badge bg-success text-light">Completed</span>`;
-    }
-}
 
 const getMemberTasks = () => { 
     
@@ -29,8 +12,8 @@ const getMemberTasks = () => {
     tasks = storedTasks ? JSON.parse(storedTasks) : [];
 
     // Filter tasks based on assignedTo and status
-    if (loggedInEmail) {
-        tasks = tasks.filter(task => task.assignedTo === loggedInEmail && (task.status === "overdue" || task.status === "in-progress"));
+    if (userManager.getLoggedInUser()) {
+        tasks = tasks.filter(task => task.assignedTo === userManager.getLoggedInUser() && (task.status === "overdue" || task.status === "in-progress"));
     }
 
     // Sort tasks based on endDate in ascending order
@@ -53,7 +36,7 @@ const getMemberTasks = () => {
                 <td data-label="Start Date" class="td-hidden">${task.startDate}</td>
                 <td data-label="End Date" class="td-hidden">${task.endDate}</td>
                 <td data-label="Assigned To" class="td-hidden">${task.assignedTo}</td>
-                <td data-label="Status" class="td-hidden">${getStatus(task.status)}</td>
+                <td data-label="Status" class="td-hidden">${getTaskStatus(task.status)}</td>
                 <td data-label="Actions" class="td-hidden">
                 <a class="btn btn-outline-dark btn-sm mb-1" href="../../regular/task/view_task.html?id=${task.id}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
@@ -132,8 +115,10 @@ const calculateTotalIncome = () => {
     document.getElementById('totalIncome').textContent = `$ ${parseFloat(totalIncome).toFixed(2)}`;
 }
 
-if (loggedInEmail) {
+if (userManager.isRegular()) {
     getMemberTasks();
     getMemberTasksTotal();
     calculateTotalIncome();
+} else {
+    logout();
 }

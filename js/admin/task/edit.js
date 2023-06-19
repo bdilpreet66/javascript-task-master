@@ -28,20 +28,6 @@ const populateAssignToMembers = () => {
     }
 };
 
-function getStatus(status) {
-    if (status === "pending") {
-        return `<span class="badge bg-warning text-light">Pending</span>`;
-    } else if (status === "overdue") {
-        return `<span class="badge bg-danger text-light">Overdue</span>`;
-    } else if (status === "in-progress") {
-        return `<span class="badge bg-info text-light">In-Progress</span>`;
-    } else if (status === "un-assigned") {
-        return `<span class="badge bg-secondary text-light">Unassigned</span>`;
-    } else {
-        return ` <span class="badge bg-success text-light">Completed</span>`;
-    }
-}
-
 function getTimeline(startDate, endDate, currentDate) {
     // Convert dates to milliseconds
     const startMs = startDate.getTime();
@@ -72,7 +58,7 @@ function getData() {
         document.getElementById('taskDescription').value = taskDetails.description;
         document.getElementById('taskStartDate').value = taskDetails.startDate;
         document.getElementById('taskEndDate').value = taskDetails.endDate;
-        document.getElementById("status").innerHTML = getStatus(taskDetails.status);
+        document.getElementById("status").innerHTML = getTaskStatus(taskDetails.status);
         document.getElementById("cost").innerHTML = taskDetails.totalCost;
         optionSetStage.value = taskDetails.status;
         document.getElementById("timeline").innerHTML = getTimeline(
@@ -120,7 +106,7 @@ function handleTaskFormSubmit(event) {
         assignedTo: document.getElementById('taskAssignedTo').value,
         comments: taskDetails.comments,
         totalHoursWorked: taskDetails.totalHoursWorked,
-        status: (taskDetails.status == "overdue" ? "pending" : taskDetails.status),
+        status: ((taskDetails.status == "overdue" || taskDetails.status == "un-assigned") ? "pending" : taskDetails.status),
         totalCost: taskDetails.totalCost,
         owner: userManager.getLoggedInUser()
     }
@@ -294,4 +280,6 @@ if (userManager.isAdmin()) {
     const editTaskForm = document.getElementById('editTaskForm');
     document.getElementById("saveTaskBtn").addEventListener('click', handleTaskFormSubmit);
     populateAssignToMembers();
+} else {
+    logout();
 }

@@ -1,11 +1,24 @@
-"use strict";
-
+/**
+ * @class
+ * @classdesc Represents a TaskManager. Manages tasks and their statuses.
+ */
 class TaskManager {
+
+    /**
+     * @constructor
+     * @description Initialize tasks array and change flag.
+     */
     constructor() { 
         this.tasks = [];
         this.change = false;
     }
 
+    /**
+     * @method
+     * @description Retrieves tasks from localStorage.
+     * @returns {Array.<Object>} The tasks from localStorage.
+     * @throws Will throw an error if localStorage retrieval fails.
+     */
     getTasksFromLocalStorage() {
         try {
             const storedTasks = localStorage.getItem('tasks');
@@ -21,6 +34,12 @@ class TaskManager {
         }
     }
 
+    /**
+     * @method
+     * @description Checks a task's status based on various conditions.
+     * @param {Object} task The task to check.
+     * @returns {Object} The updated task object.
+     */
     checkTaskStatus(task) {
         this.change = false;
         if (task.status !== "completed") {            
@@ -39,6 +58,11 @@ class TaskManager {
         return task;
     }
 
+    /**
+     * @method
+     * @description Saves the tasks array to localStorage.
+     * @throws Will throw an error if localStorage update fails.
+     */
     saveTasksToLocalStorage() {
         try {
             localStorage.setItem('tasks', JSON.stringify(this.tasks));
@@ -47,6 +71,11 @@ class TaskManager {
         }
     }
 
+    /**
+     * @method
+     * @description Computes the next available ID for a new task.
+     * @returns {number} The next available ID.
+     */
     getNextId() {
         this.tasks = this.getTasksFromLocalStorage();
         if (this.tasks.length === 0) {
@@ -58,12 +87,23 @@ class TaskManager {
         }
     }
 
+    /**
+     * @method
+     * @description Saves a new task.
+     * @param {Object} task The task to save.
+     */
     saveTask(task) {
         this.tasks = this.getTasksFromLocalStorage();
         this.tasks.push(task);
         this.saveTasksToLocalStorage();
     }
 
+    /**
+     * @method
+     * @description Edits an existing task.
+     * @param {string} id The ID of the task to edit.
+     * @param {Object} updatedTask The new task data.
+     */
     editTask(id, updatedTask) {
         this.tasks = this.getTasksFromLocalStorage();
         const index = this.tasks.findIndex(task => parseInt(task.id) === parseInt(id));
@@ -75,6 +115,14 @@ class TaskManager {
         }
     }
 
+    /**
+     * @method
+     * @description Adds a comment to a task.
+     * @param {string} id The ID of the task to add the comment to.
+     * @param {string} comment The comment to add.
+     * @param {Date} time The time the comment was added.
+     * @param {string} commentor The user who added the comment.
+     */
     addComment(id, comment, time, commentor) {
         this.tasks = this.getTasksFromLocalStorage();
         const index = this.tasks.findIndex(task => parseInt(task.id) === parseInt(id));
@@ -87,12 +135,24 @@ class TaskManager {
         }
     }
 
+    /**
+     * @method
+     * @description Lists all comments for a task.
+     * @param {string} id The ID of the task.
+     * @returns {Array.<Object>} The comments for the task.
+     */
     listComments(id) {
         this.tasks = this.getTasksFromLocalStorage();
         const index = this.tasks.findIndex(task => parseInt(task.id) === parseInt(id));
         return index !== -1 ? this.tasks[index].comments : [];
     }
 
+    /**
+     * @method
+     * @description Deletes a task.
+     * @param {string} id The ID of the task to delete.
+     * @returns {boolean} True if the task was deleted, false otherwise.
+     */
     deleteTask(id) {
         this.tasks = this.getTasksFromLocalStorage();
         const taskIndex = this.tasks.findIndex(task => parseInt(task.id) === parseInt(id));
@@ -104,17 +164,39 @@ class TaskManager {
         return false;
     }
 
+    /**
+     * @method
+     * @description Fetches a task by its ID.
+     * @param {string} id The ID of the task to fetch.
+     * @returns {Object|null} The task, or null if not found.
+     */
     getTaskById(id) {
         this.tasks = this.getTasksFromLocalStorage();
         const task = this.tasks.find(task => parseInt(task.id) === parseInt(id));
         return task ? this.checkTaskStatus(task) : null;
     }
 
+    /**
+     * @method
+     * @description Checks if a task ID already exists.
+     * @param {string} id The ID to check.
+     * @returns {boolean} True if the ID exists, false otherwise.
+     */
     isIdExists(id) {
         this.tasks = this.getTasksFromLocalStorage();
         return this.tasks.some(task => parseInt(task.id) === parseInt(id));
     }
 
+    /**
+     * @method
+     * @description Adds worked hours to a task.
+     * @param {string} taskID The ID of the task.
+     * @param {string} assignedTo The user to whom the task was assigned.
+     * @param {number} hourlyRate The hourly rate for the task.
+     * @param {number} hours The hours worked.
+     * @param {number} minutes The minutes worked.
+     * @param {string} createdBy The user who created the task.
+     */
     addWorkedHours(taskID, assignedTo, hourlyRate, hours, minutes, createdBy) {
         const time = new Date();
         const data = {
@@ -135,6 +217,11 @@ class TaskManager {
         this.updateTotalCost(taskID);
     }
 
+    /**
+     * @method
+     * @description Updates the total cost of a task.
+     * @param {string} taskID The ID of the task.
+     */
     updateTotalCost(taskID) { 
         const workedhours = localStorage.getItem('workedhours');
         const dataArray = workedhours ? JSON.parse(workedhours) : [];

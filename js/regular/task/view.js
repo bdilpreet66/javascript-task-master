@@ -15,24 +15,6 @@ const optionSetStage = document.getElementById('optionSetStage');
 let taskDetails;
 let closeElements = document.querySelectorAll('.close');
 
-const getStatus = (status) => {
-    if (status === "pending") {
-        return `<span class="badge bg-warning text-light">Pending</span>`;
-    } else if (status === "overdue") {
-        return `<span class="badge bg-danger text-light">Overdue</span>`;
-    } else if (status === "in-progress") {
-        return `<span class="badge bg-info text-light">In-Progress</span>`;
-    } else if (status === "un-assigned") {
-        return `<span class="badge bg-secondary text-light">Unassigned</span>`;
-    } else {
-        return `<span class="badge bg-success text-light">Completed</span>`;
-    }
-}
-
-const redirectTaskList = () => { 
-    window.location = '../regular/list_tasks.html';
-}
-
 const getTimeline = (startDate, endDate, currentDate) => { 
     // Convert dates to milliseconds
     const startMs = startDate.getTime();
@@ -58,7 +40,9 @@ const getData = () => {
     taskDetails = tasksHandler.getTaskById(taskID);
 
     if ((taskDetails.assignedTo !== userManager.getLoggedInUser()) && !userManager.isAdmin()) { 
-        showMessage('danger','Your are not allowed to access task not assigned to you.', redirectTaskList);
+        showMessage('danger','Your are not allowed to access task not assigned to you.', () => { 
+            window.location = '../regular/list_tasks.html';
+        });
         return;
     }
 
@@ -69,7 +53,7 @@ const getData = () => {
         document.getElementById('taskStartDate').textContent = taskDetails.startDate;
         document.getElementById('taskEndDate').textContent = taskDetails.endDate;
         document.getElementById('taskAssignedTo').value = taskDetails.assignedTo;
-        document.getElementById('status').innerHTML = getStatus(taskDetails.status);
+        document.getElementById('status').innerHTML = getTaskStatus(taskDetails.status);
         document.getElementById('cost').innerHTML = taskDetails.totalCost;
         optionSetStage.value = taskDetails.stage;
         
@@ -171,9 +155,7 @@ const handleHoursFormSubmit = (event) => {
 
     if (hours === 0 && minutes === 0) {
         closeWorkedHoursModal();
-        showMessage('danger', `You have entered zero hours worked.`, () => { 
-            //workedHoursModal.style.display = "block";
-        });
+        showMessage('danger', `You have entered zero hours worked.`);
         return;
     }
 

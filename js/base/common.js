@@ -24,3 +24,22 @@ const formatDateTime = (isoString) => {
     // Format the date and time string
     return `${day} ${month}, ${year} ${hours}:${minutes}`;
 }
+
+/**
+ * @description Convert an status string to a status badge (HTML element)
+ * @param {string} - The status of the task
+ * @returns {string} - HTML badge for the given status
+ */
+function getTaskStatus(status) {
+    if (status === "pending") {
+        return `<span class="badge bg-warning text-light">Pending</span>`;
+    } else if (status === "overdue") {
+        return `<span class="badge bg-danger text-light">Overdue</span>`;
+    } else if (status === "in-progress") {
+        return `<span class="badge bg-info text-light">In-Progress</span>`;
+    } else if (status === "un-assigned") {
+        return `<span class="badge bg-secondary text-light">Unassigned</span>`;
+    } else {
+        return ` <span class="badge bg-success text-light">Completed</span>`;
+    }
+}
