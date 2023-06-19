@@ -74,6 +74,7 @@ function getData() {
         document.getElementById('taskEndDate').value = taskDetails.endDate;
         document.getElementById("status").innerHTML = getStatus(taskDetails.status);
         document.getElementById("cost").innerHTML = taskDetails.totalCost;
+        optionSetStage.value = taskDetails.status;
         document.getElementById("timeline").innerHTML = getTimeline(
                 new Date(taskDetails.startDate), 
                 new Date(taskDetails.endDate), 
@@ -81,6 +82,17 @@ function getData() {
             );
 
         loadComments();
+        
+        if (taskDetails.status == 'overdue') { 
+            for (var i = 0; i < optionSetStage.options.length; i++) {
+                const option = optionSetStage.options[i];
+                if (option.value === 'pending' || option.value === 'in-progress') { 
+                    option.style.display = 'none';
+                }
+                
+            }
+        }
+
     }
     else { 
         alert(`Task ID ${taskID} not found.`);
@@ -108,13 +120,12 @@ function handleTaskFormSubmit(event) {
         assignedTo: document.getElementById('taskAssignedTo').value,
         comments: taskDetails.comments,
         totalHoursWorked: taskDetails.totalHoursWorked,
-        status: taskDetails.status,
-        stage: taskDetails.stage,
+        status: (taskDetails.status == "overdue" ? "pending" : taskDetails.status),
         totalCost: taskDetails.totalCost,
         owner: userManager.getLoggedInUser()
     }
 
-    if ((new Date(editTaskDetails.startDate)) >= (new Date(editTaskDetails.endDate))) {
+    if ((new Date(editTaskDetails.startDate)) > (new Date(editTaskDetails.endDate))) {
         event.stopPropagation();
         showMessage('danger', 'Start date must be less than end date.');
         editTaskForm.classList.add('was-validated');
@@ -271,7 +282,6 @@ optionSetStage.addEventListener('change', () => {
         comments: taskDetails.comments,
         totalHoursWorked: taskDetails.totalHoursWorked,
         status: optionSetStage.value === '' ? 'pending' : optionSetStage.value,
-        stage: optionSetStage.value,
         totalCost: taskDetails.totalCost,
         owner: userManager.getLoggedInUser()
     }

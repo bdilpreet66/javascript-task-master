@@ -313,7 +313,6 @@ optionSetStage.addEventListener('change', () => {
         comments: taskDetails.comments,
         totalHoursWorked: taskDetails.totalHoursWorked,
         status: optionSetStage.value === '' ? 'pending' : optionSetStage.value,
-        stage: optionSetStage.value,
         totalCost: taskDetails.totalCost,
         owner: userManager.getLoggedInUser()
     }

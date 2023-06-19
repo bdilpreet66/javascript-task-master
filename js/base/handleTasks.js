@@ -25,7 +25,7 @@ class TaskManager {
         this.change = false;
         if (task.status !== "completed") {            
             const end = new Date(task.endDate);
-            end.setDate(end.getDate() + 1);
+            end.setDate(end.getDate() + 2);
             const cur = new Date();
 
             if (cur <= end && task.assignedTo === "" && task.status !== "un-assigned") {
@@ -165,7 +165,6 @@ class TaskManager {
             comments: taskDetails.comments,
             totalHoursWorked: totalHoursWorked,
             status: taskDetails.status,
-            stage: optionSetStage.value,
             totalCost: totalCost,
             owner: taskDetails.owner
         }
