@@ -36,13 +36,12 @@ const handleTaskFormSubmit = event => {
         assignedTo: document.getElementById('taskAssignedTo').value,
         comments: [],
         status: "pending",
-        dailyCost: [],
         totalCost: 0.0,
         hoursWorked: 0,
         owner: userManager.getLoggedInUser()
     };
 
-    if ((new Date(newTask.startDate)) >= (new Date(newTask.endDate))) {
+    if ((new Date(newTask.startDate)) > (new Date(newTask.endDate))) {
         event.stopPropagation();
         showMessage('danger', 'Start date must be less than end date.');
         editTaskForm.classList.add('was-validated');

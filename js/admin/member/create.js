@@ -1,7 +1,3 @@
-const redirect = () => { 
-    window.location = '../member/list_members.html';
-}
-
 // Handle form submission
 const handleRegistrationFormSubmit = (event) => {
     event.preventDefault();
@@ -26,7 +22,9 @@ const handleRegistrationFormSubmit = (event) => {
     else {
         try {
             userManager.createUser(email, password, type, hourlyRate);
-            showMessage('success', 'Member was created successfully.', redirect);
+            showMessage('success', 'Member was created successfully.', () => { 
+                window.location = 'list_members.html';
+            });
             event.target.reset();
         }
         catch (e) {
@@ -42,4 +40,6 @@ if (userManager.isAdmin()){
     // Add event listener to the registration form
     const registrationForm = document.getElementById('registrationForm');
     registrationForm.addEventListener('submit', handleRegistrationFormSubmit);
+} else {
+    logout();
 }

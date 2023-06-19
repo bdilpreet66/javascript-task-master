@@ -1,18 +1,36 @@
-"use strict";
+/**
+ * @description Logs the user out by calling the logout method on userManager
+ * @returns {void}
+ */
+const logout = () => {
+  userManager.logout();
+};
 
-const userManager = new UserManager();
+/**
+ * @description Toggles visibility of the mobile menu
+ * @returns {void}
+ */
+const handleMobileMenuToggle = () => {
+  const mobileMenu = document.querySelector('.mobile-menu');
+  
+  if (mobileMenu.style.display === 'none') {
+    mobileMenu.style.display = 'block';
+  } else {
+    mobileMenu.style.display = 'none';
+  }
+};
 
+/**
+ * @description Checks if an element with the id 'modal-window' exists, if not creates a new div with content and appends it to an element with the id 'header'
+ * @returns {void}
+ */
 const createNavBarToDom = () => {
-  // Check if the element with id 'modal-window' already exists
-  let existingElement = document.getElementById('modal-window');
-
-  // If the element doesn't exist, add it
+  const existingElement = document.getElementById('modal-window');
+  
   if (!existingElement) {
-    // Create a new div element
-    let newElement = document.createElement('div');
+    const newElement = document.createElement('div');
     newElement.classList.add('container');
 
-    // Set the HTML content
     newElement.innerHTML = `    
         <div class="topHeader">
             <a class="brand-name" href="/">
@@ -48,41 +66,16 @@ const createNavBarToDom = () => {
             ${ userManager.isAdmin() ? ` <li ><a href="../../admin/member/list_members.html">Members</a></li>` : ``}
             <li ><a href="javascript:void(0);" onclick="logout()">Logout</a></li>
         </ul>
-    `;    
+    `; 
 
-    // Find the body element in the DOM
-    let header = document.getElementById('header');
+    document.getElementById('header').appendChild(newElement);
 
-    // Append the new element to the body
-    header.appendChild(newElement);
+    // Add event listener to '.toggleMenu' after the new element has been appended to the DOM
+    const toggleMenu = document.querySelector('.toggleMenu');
+    toggleMenu.addEventListener('click', handleMobileMenuToggle);
   } else {
     console.log("Element with id 'navbar' already exists in the DOM.");
   }
-}
-
-function handleNavbarToggle(event) {
-    const navbar = document.getElementById('navbarNav');
-    if (navbar.classList.contains('show')) {
-      navbar.classList.remove('show');
-    } else {
-      navbar.classList.add('show');
-    }
-}
+};
 
 createNavBarToDom();
-
-const toggleMenu = document.querySelector('.toggleMenu');
-toggleMenu.addEventListener('click', function () {
-  var mobileMenu = document.querySelector('.mobile-menu');
-  if (mobileMenu.style.display === 'none') {
-    mobileMenu.style.display = 'block';
-  } else {
-    mobileMenu.style.display = 'none';
-  }
-});
-
-//setDashbaordLink();
-
-const logout = () => {
-  userManager.logout();
-};

@@ -1,13 +1,11 @@
+/**
+ * @description Append a new div element to the document's body to create a modal window, if it doesn't already exist.
+ */
 const addModalElementToDom = () =>  {
-  // Check if the element with id 'modal-window' already exists
   let existingElement = document.getElementById('modal-window');
 
-  // If the element doesn't exist, add it
   if (!existingElement) {
-    // Create a new div element
     let newElement = document.createElement('div');
-
-    // Set the HTML content
     newElement.innerHTML = `
       <div id="modal-window" class="modal d-none">
         <div class="modal-content">
@@ -20,18 +18,18 @@ const addModalElementToDom = () =>  {
         </div>
       </div>
     `;
-
-    // Find the body element in the DOM
     let bodyElement = document.body;
-
-    // Append the new element to the body
     bodyElement.appendChild(newElement);
   }
 }
-
-// Call the function to add the element to the DOM
 addModalElementToDom();
 
+/**
+ * @description Display a modal window with a specific type and message. The appearance of the modal changes according to the type. An optional callback function can be provided to be executed when the modal is closed.
+ * @param {string} [type='success'] - The type of the modal, influences the modal's appearance. Options include "success", "danger", "info", and "confirm".
+ * @param {string} [message=''] - The message to display in the modal.
+ * @param {function} [callback=null] - An optional callback function to execute when the modal is closed.
+ */
 const showMessage = (type = "success", message = "", callback = null) => {
     const modal = document.getElementById("modal-window");
     const modalIcon = document.getElementById("modal-icon");
@@ -48,6 +46,7 @@ const showMessage = (type = "success", message = "", callback = null) => {
     if (modalBtnCancel) { 
       modalBtnCancel.classList.add('d-none');
     }
+
     if (type === 'success') {
         modalIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" height="60" fill="currentColor" class="bi bi-check2-s" viewBox="0 0 16 16">
         <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z"></path>
@@ -76,26 +75,23 @@ const showMessage = (type = "success", message = "", callback = null) => {
       modalBtnOk.classList.add('btn-secondary');
       modalBtnOk.innerHTML = 'Yes';
     }
+
     modal.style.display = "block";
     modal.classList.remove('d-none');
-
+    
     modalBtnOk.addEventListener('click', function () {
       modal.style.display = "none";
       if (callback instanceof Function) {
         callback();
       }
-      else { 
-        modal.style.display = "none";
-      }
     });
-
+    
     if (type === 'confirm') {
       modalBtnCancel.addEventListener('click', function () {
         modal.style.display = "none";        
       });
     }
-
-    // When the user clicks anywhere outside of the modal, close it
+    
     window.onclick = function(event) {
         if (event.target == modal) {
             modal.style.display = "none";

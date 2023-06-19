@@ -1,3 +1,13 @@
+/**
+ * Create a new instance of UserManager
+ */
+const userManager = new UserManager();
+
+/**
+ * @description Convert an ISO formatted date and time string to a more readable format
+ * @param {string} isoString - The ISO 8601 date and time string to format
+ * @returns {string} - The formatted date and time string in the format 'day month, year hours:minutes'
+ */
 const formatDateTime = (isoString) => {
     let date = new Date(isoString);
     

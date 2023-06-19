@@ -39,10 +39,9 @@ const handleRateTypeFormSubmit = (event) => {
 
     // Get the updated hourly rate and member type
     const hourlyRate = document.getElementById('hourlyRate').value;
-    const memberType = document.getElementById('memberType').value;
 
     // Update the user data with the new values
-    const updatedUser = userManager.updateUser(email, hourlyRate, memberType);
+    const updatedUser = userManager.updateUser(email, hourlyRate);
     if (updatedUser) {
         // Display a success message or perform any additional actions        
         showMessage('success','Hourly Rate and Member Type were updated successfully.');
@@ -97,4 +96,6 @@ if (userManager.isAdmin()) {
 
     const passwordForm = document.getElementById('passwordForm');
     passwordForm.addEventListener('submit', handlePasswordFormSubmit);
+} else {
+    logout();
 }

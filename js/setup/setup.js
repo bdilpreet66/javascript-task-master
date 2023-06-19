@@ -7,10 +7,6 @@ if (userManager.getTotalUsers() > 0) {
     window.location = '../../templates/index.html';
 }
 
-const redirect = () => {
-    window.location = '../../templates/admin/dashboard/dashboard.html';
-}
-
 // Handle form submission
 const handleSetupFormSubmit = (event) => {
     event.preventDefault();
@@ -50,10 +46,12 @@ const handleSetupFormSubmit = (event) => {
         type: type
     };
 
-    userManager.createCookie('userInfo', JSON.stringify(loggedInUser), 24);
+    createCookie('userInfo', JSON.stringify(loggedInUser), 24);
 
     // Display success message or redirect to another page
-    showMessage('success','Admin account was added successfully.', redirect)
+    showMessage('success','Admin account was added successfully.', () => {
+        window.location = '../../templates/admin/dashboard/dashboard.html';
+    })
 }
 
 // Add event listener to the setup form

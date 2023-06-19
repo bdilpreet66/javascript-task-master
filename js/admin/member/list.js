@@ -1,5 +1,3 @@
-'use strict';
-
 // Fetch user data from local storage
 const users = userManager.listUsers();
 
@@ -141,4 +139,6 @@ resultsSelect.addEventListener('change', function () {
 if (userManager.isAdmin()){
     // Display initial users
     filterUsers();
+} else {
+    logout();
 }
