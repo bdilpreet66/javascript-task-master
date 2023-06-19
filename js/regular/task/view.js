@@ -55,7 +55,17 @@ const getData = () => {
         document.getElementById('taskAssignedTo').value = taskDetails.assignedTo;
         document.getElementById('status').innerHTML = getTaskStatus(taskDetails.status);
         document.getElementById('cost').innerHTML = taskDetails.totalCost;
-        optionSetStage.value = taskDetails.stage;
+        optionSetStage.value = taskDetails.status;
+
+        if (taskDetails.status == 'overdue') { 
+            for (var i = 0; i < optionSetStage.options.length; i++) {
+                const option = optionSetStage.options[i];
+                if (option.value === 'pending' || option.value === 'in-progress') { 
+                    option.style.display = 'none';
+                }
+                
+            }
+        }
         
         document.getElementById('timeline').innerHTML = getTimeline(
                 new Date(taskDetails.startDate), 
