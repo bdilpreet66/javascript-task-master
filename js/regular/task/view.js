@@ -321,5 +321,9 @@ optionSetStage.addEventListener('change', () => {
     window.location.reload();
 });
 
-getData();
-calculateTotalCostByID(taskID, loggedInEmail);
+if (userManager.isRegular()) {
+    getData();
+    calculateTotalCostByID(taskID, loggedInEmail);
+} else {
+    logout();
+}

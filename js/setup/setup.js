@@ -8,7 +8,7 @@ if (userManager.getTotalUsers() > 0) {
 }
 
 const redirect = () => {
-    window.location = '../../templates/dashboard/admin_dashboard.html';
+    window.location = '../../templates/admin/dashboard/dashboard.html';
 }
 
 // Handle form submission

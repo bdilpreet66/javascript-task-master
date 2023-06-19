@@ -42,7 +42,7 @@ const handleTaskFormSubmit = event => {
         owner: userManager.getLoggedInUser()
     };
 
-    if ((new Date(editTaskDetails.startDate)) >= (new Date(editTaskDetails.endDate))) {
+    if ((new Date(newTask.startDate)) >= (new Date(newTask.endDate))) {
         event.stopPropagation();
         showMessage('danger', 'Start date must be less than end date.');
         editTaskForm.classList.add('was-validated');

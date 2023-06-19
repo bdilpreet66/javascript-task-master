@@ -103,6 +103,16 @@ class UserManager extends CookieManager {
     this.loginPage();
   }
 
+  isRegular() { 
+    if (this.isLoggedIn()) {
+      const loggedInUserInfo = this.getCookieValue('userInfo');
+      if (loggedInUserInfo) {
+        return loggedInUserInfo.type === 'regular';
+      }
+    }
+    this.loginPage();
+  }
+
   loginPage() {
     window.location = '../../../templates/index.html?loginPage';
   }
