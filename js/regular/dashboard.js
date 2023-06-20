@@ -6,15 +6,8 @@ const resultsSelect = document.getElementById('resultsSelect');
 
 let tasks;
 
-const getMemberTasks = () => { 
-    
-    const storedTasks = localStorage.getItem('tasks');
-    tasks = storedTasks ? JSON.parse(storedTasks) : [];
-
-    // Filter tasks based on assignedTo and status
-    if (userManager.getLoggedInUser()) {
-        tasks = tasks.filter(task => task.assignedTo === userManager.getLoggedInUser() && (task.status === "overdue" || task.status === "in-progress"));
-    }
+const getMemberTasks = () => {
+    tasks = tasksHandler.getTasksFromLocalStorage().filter(task => task.assignedTo === userManager.getLoggedInUser() && (task.status === "overdue" || task.status === "in-progress"));
 
     // Sort tasks based on endDate in ascending order
     tasks.sort((task1, task2) => new Date(task1.endDate) - new Date(task2.endDate));
