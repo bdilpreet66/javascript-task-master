@@ -7,7 +7,7 @@ const resultsSelect = document.getElementById('resultsSelect');
 let tasks;
 
 const getMemberTasks = () => {
-    tasks = tasksHandler.getTasksFromLocalStorage().filter(task => task.assignedTo === userManager.getLoggedInUser() && (task.status === "overdue" || task.status === "in-progress"));
+    tasks = tasksHandler.getTasksFromLocalStorage().filter(task => task.assignedTo === userManager.getLoggedInUser() && (task.status === "overdue" || task.status === "in-progress") && !task.isDeleted);
 
     // Sort tasks based on endDate in ascending order
     tasks.sort((task1, task2) => new Date(task1.endDate) - new Date(task2.endDate));
@@ -56,7 +56,7 @@ const getMemberTasksTotal = () => {
 
     // Filter tasks based on assignedTo and status
     if (userManager.getLoggedInUser()) {
-        tasks = tasks.filter(task => task.assignedTo === userManager.getLoggedInUser());
+        tasks = tasks.filter(task => task.assignedTo === userManager.getLoggedInUser() && !task.isDeleted);
     }
 
     let totalCount = 0;
@@ -94,8 +94,6 @@ const calculateTotalIncome = () => {
       return data.assignedTo === userManager.getLoggedInUser();
     });
   
-
-
     let totalIncome = 0;
     filteredData.forEach(data => {
       const hourlyRate = data.hourlyRate;

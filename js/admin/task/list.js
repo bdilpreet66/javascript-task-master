@@ -77,7 +77,7 @@ const filterTasks = () => {
     const searchTerm = searchInput.value.trim();
     itemsPerPage = parseInt(resultsSelect.value);
 
-    let filteredTasks = tasksHandler.getTasksFromLocalStorage();
+    let filteredTasks = tasksHandler.getTasksFromLocalStorage().filter(t => !t.isDeleted);
 
     // Apply sorting if a sort column is selected
     if (sortColumn !== null) {

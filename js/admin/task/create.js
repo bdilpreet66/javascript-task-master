@@ -38,7 +38,8 @@ const handleTaskFormSubmit = event => {
         status: "pending",
         totalCost: 0.0,
         hoursWorked: 0,
-        owner: userManager.getLoggedInUser()
+        owner: userManager.getLoggedInUser(),
+        isDeleted: false
     };
 
     if ((new Date(newTask.startDate)) > (new Date(newTask.endDate))) {

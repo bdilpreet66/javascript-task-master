@@ -70,7 +70,8 @@ class TaskManager {
      * @returns {number} The next available ID.
      */
     getNextId() {
-        this.tasks = this.getTasksFromLocalStorage();
+        const storedTasks = localStorage.getItem('tasks');
+        this.tasks = storedTasks ? JSON.parse(storedTasks) : [];
         if (this.tasks.length === 0) {
             return 1;
         } else {
@@ -150,7 +151,7 @@ class TaskManager {
         this.tasks = this.getTasksFromLocalStorage();
         const taskIndex = this.tasks.findIndex(task => parseInt(task.id) === parseInt(id));
         if (taskIndex !== -1) {
-            this.tasks.splice(taskIndex, 1);
+            this.tasks[taskIndex].isDeleted = true;
             this.saveTasksToLocalStorage();
             return true;
         }

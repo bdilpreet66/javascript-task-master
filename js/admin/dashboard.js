@@ -7,8 +7,8 @@ const resultsSelect = document.getElementById('resultsSelect');
 let tasks = [];
 
 const getAllTasks = () => {
-    tasks = tasksHandler.getTasksFromLocalStorage().filter(task => task.status === "overdue" || task.status === "in-progress");
-
+    tasks = tasksHandler.getTasksFromLocalStorage().filter(task => (task.status === "overdue" || task.status === "in-progress") && !task.isDeleted);
+    console.log(tasks);
     // Sort tasks based on endDate in ascending order
     tasks.sort((task1, task2) => new Date(task1.endDate) - new Date(task2.endDate));
 
@@ -53,6 +53,7 @@ const getTasksTotal = () => {
     
     const storedTasks = localStorage.getItem('tasks');
     tasks = storedTasks ? JSON.parse(storedTasks) : [];
+    tasks = tasks.filter(task => !task.isDeleted);
 
     let totalCount = 0;
     let pendingCount = 0;
