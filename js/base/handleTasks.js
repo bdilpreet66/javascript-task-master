@@ -6,11 +6,10 @@ class TaskManager {
 
     /**
      * @constructor
-     * @description Initialize tasks array and change flag.
+     * @description Initialize tasks array.
      */
     constructor() { 
         this.tasks = [];
-        this.change = false;
     }
 
     /**
@@ -24,10 +23,7 @@ class TaskManager {
             const storedTasks = localStorage.getItem('tasks');
             this.tasks = storedTasks ? JSON.parse(storedTasks) : [];
             this.tasks = this.tasks.map(task => this.checkTaskStatus(task));
-            if (this.change) {
-                this.saveTasksToLocalStorage();
-                this.change = false;
-            }
+            this.saveTasksToLocalStorage();
             return this.tasks;
         } catch {
             throw new Error("Error getting tasks from localStorage");
@@ -41,7 +37,6 @@ class TaskManager {
      * @returns {Object} The updated task object.
      */
     checkTaskStatus(task) {
-        this.change = false;
         if (task.status !== "completed") {            
             const end = new Date(task.endDate);
             end.setDate(end.getDate() + 2);
@@ -49,10 +44,8 @@ class TaskManager {
 
             if (cur <= end && task.assignedTo === "" && task.status !== "un-assigned") {
                 task.status = "un-assigned";
-                this.change = true;
             } else if (cur > end && task.status !== "overdue") {
                 task.status = "overdue";
-                this.change = true;
             }
         }
         return task;
