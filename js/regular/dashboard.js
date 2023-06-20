@@ -55,8 +55,8 @@ const getMemberTasksTotal = () => {
     tasks = storedTasks ? JSON.parse(storedTasks) : [];
 
     // Filter tasks based on assignedTo and status
-    if (loggedInEmail) {
-        tasks = tasks.filter(task => task.assignedTo === loggedInEmail);
+    if (userManager.getLoggedInUser()) {
+        tasks = tasks.filter(task => task.assignedTo === userManager.getLoggedInUser());
     }
 
     let totalCount = 0;
@@ -91,7 +91,7 @@ const calculateTotalIncome = () => {
     const dataArray = workedhours ? JSON.parse(workedhours) : [];
   
     const filteredData = dataArray.filter(data => {
-      return data.assignedTo === loggedInEmail;
+      return data.assignedTo === userManager.getLoggedInUser();
     });
   
 
