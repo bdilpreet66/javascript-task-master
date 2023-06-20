@@ -41,7 +41,7 @@ const getData = () => {
 
     if ((taskDetails.assignedTo !== userManager.getLoggedInUser()) && !userManager.isAdmin()) { 
         showMessage('danger','Your are not allowed to access task not assigned to you.', () => { 
-            window.location = '../regular/list_tasks.html';
+            window.location = 'list_tasks.html';
         });
         return;
     }
